@@ -1,6 +1,6 @@
 # Kryptonite
 
-- ⭐ Enjoying Kryptonite? We'd love to hear your feedback on Spigot. Leave us a review [here](https://www.spigotmc.org/resources/essence.114553/). {FIX}
+- ⭐ Enjoying Kryptonite? We'd love to hear your feedback on Spigot. Leave us a review [here](https://www.spigotmc.org/resources/kryptonite.116844/).
 
 ## Creating a local copy.
 
