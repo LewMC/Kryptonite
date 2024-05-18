@@ -11,3 +11,11 @@ commands:
     description: Main command
     usage: /<command>
     aliases: ['krypt','kr']
+  kos:
+    description: Kryptonite Optimisation System
+    usage: /<command>
+    aliases: ['optimise','optimize']
+  edb:
+    description: Exploit Database
+    usage: /<command>
+    aliases: ['exploit']

@@ -1,6 +1,8 @@
 package net.lewmc.kryptonite;
 
+import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
+import net.lewmc.kryptonite.commands.OptimiseCommand;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,6 +12,14 @@ import java.util.Objects;
 public final class Kryptonite extends JavaPlugin {
 
     private final LogUtil log = new LogUtil(this);
+    public enum Software {
+        UNKNOWN,
+        CRAFTBUKKIT,
+        PAPER,
+        SPIGOT,
+        PURPUR, PUFFERFISH
+    }
+    public Software server = Software.UNKNOWN;
 
     @Override
     public void onEnable() {
@@ -32,6 +42,7 @@ public final class Kryptonite extends JavaPlugin {
         this.saveDefaultConfig();
 
         loadCommands();
+        checkSoftware();
 
         this.log.info("Startup completed.");
     }
@@ -45,6 +56,26 @@ public final class Kryptonite extends JavaPlugin {
      * Loads and registers the plugin's command handlers.
      */
     private void loadCommands() {
-        Objects.requireNonNull(this.getCommand("Kryptonite")).setExecutor(new KryptoniteCommand(this));
+        Objects.requireNonNull(this.getCommand("kryptonite")).setExecutor(new KryptoniteCommand(this));
+        Objects.requireNonNull(this.getCommand("kos")).setExecutor(new OptimiseCommand(this));
+        Objects.requireNonNull(this.getCommand("edb")).setExecutor(new ExploitDBCommand(this));
+    }
+
+    private void checkSoftware() {
+        if (this.getServer().getName().equals("CraftBukkit")) {
+            this.server = Software.CRAFTBUKKIT;
+        } else if (this.getServer().getName().equals("Spigot")) {
+            this.server = Software.SPIGOT;
+        } else if (this.getServer().getName().equals("Paper")) {
+            this.server = Software.PAPER;
+        } else if (this.getServer().getName().equals("Purpur")) {
+            this.server = Software.PURPUR;
+        } else if (this.getServer().getName().equals("Pufferfish")) {
+            this.server = Software.PUFFERFISH;
+        } else {
+            this.server = Software.UNKNOWN;
+            this.log.severe("You are not running a CraftBukkit, Spigot, or Paper server.");
+            this.log.severe("This plugin may not work as expected.");
+        }
     }
 }

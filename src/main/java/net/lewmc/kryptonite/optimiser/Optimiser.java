@@ -2,20 +2,12 @@ package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.MessageUtil;
+import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
 
 public class Optimiser {
     private final Kryptonite plugin;
     private final MessageUtil message;
-
-    private enum Software {
-        UNKNOWN,
-        CRAFTBUKKIT,
-        PAPER,
-        SPIGOT,
-        PURPUR, PUFFERFISH
-    }
-    Software server = Software.UNKNOWN;
 
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
@@ -23,7 +15,6 @@ public class Optimiser {
     }
 
     public void runDefault(boolean pregeneratedWorld) {
-        this.firstChecks();
 
         this.message.Info("Running Vanilla optimisations");
 
@@ -35,8 +26,9 @@ public class Optimiser {
 
         properties.save();
 
+        SoftwareUtil softwareUtil = new SoftwareUtil(plugin);
 
-        if (server != Software.UNKNOWN) {
+        if (softwareUtil.isCraftBukkit()) {
             this.message.Info("Running CraftBukkit optimisations");
             Bukkit bukkit = new Bukkit(this.plugin);
 
@@ -48,7 +40,7 @@ public class Optimiser {
             this.message.Warning("Server not CraftBukkit, skipping...");
         }
 
-        if (server != Software.UNKNOWN && server != Software.CRAFTBUKKIT) {
+        if (softwareUtil.isSpigot()) {
             this.message.Info("Running Spigot optimisations");
             Spigot spigot = new Spigot(this.plugin);
 
@@ -67,7 +59,7 @@ public class Optimiser {
             this.message.Warning("Server not Spigot, skipping...");
         }
 
-        if (server != Software.UNKNOWN && server != Software.CRAFTBUKKIT && server != Software.SPIGOT) {
+        if (softwareUtil.isPaper()) {
             this.message.Info("Running Paper optimisations");
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(10);
@@ -91,7 +83,7 @@ public class Optimiser {
             pw.armorStandsTick(false);
             pw.armorStandsDoCollisionEntityLookups(false);
 
-            if (server != Software.PUFFERFISH) {
+            if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
                 pw.villagerBehaviourTickRates(60, 120);
                 pw.villagerSensorTickRates(80, 80, 40, 40, 40);
             } else {
@@ -151,34 +143,16 @@ public class Optimiser {
             this.message.Warning("Server not Paper, skipping...");
         }
 
-        if (server == Software.PURPUR) {
+        if (softwareUtil.isPurpur()) {
             this.message.Info("Purpur optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
         }
 
-        if (server == Software.PUFFERFISH) {
+        if (softwareUtil.isPufferfish()) {
             this.message.Info("Pufferfish optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
         }
 
         this.message.Success("Done.");
         this.message.Info("It is now safe to delete Kryptonite from your server.");
         this.message.Error("You must restart your server for changes to be applied.");
-    }
-
-    public void firstChecks() {
-        if (this.plugin.getServer().getName().equals("CraftBukkit")) {
-            this.server = Software.CRAFTBUKKIT;
-        } else if (this.plugin.getServer().getName().equals("Spigot")) {
-            this.server = Software.SPIGOT;
-        } else if (this.plugin.getServer().getName().equals("Paper")) {
-            this.server = Software.PAPER;
-        } else if (this.plugin.getServer().getName().equals("Purpur")) {
-            this.server = Software.PURPUR;
-        } else if (this.plugin.getServer().getName().equals("Pufferfish")) {
-            this.server = Software.PUFFERFISH;
-        } else {
-            this.server = Software.UNKNOWN;
-            this.message.Error("You are not running a CraftBukkit, Spigot, or Paper server.");
-            this.message.Error("This plugin may not work as expected.");
-        }
     }
 }
