@@ -4,7 +4,3 @@
 # Should Kryptonite query the server to check for updates?
 # This does not transfer any data.
 update-check: true
-
-# PERFORM BACKUP
-# Create backup of configuration files before running.
-backup-config: true
