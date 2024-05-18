@@ -110,20 +110,4 @@ public class BackupUtil {
             return true;
         }
     }
-
-    public boolean Purpur() {
-        if (this.plugin.getConfig().getBoolean("backup-config")) {
-            return false;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean Pufferfish() {
-        if (this.plugin.getConfig().getBoolean("backup-config")) {
-            return false;
-        } else {
-            return false;
-        }
-    }
 }

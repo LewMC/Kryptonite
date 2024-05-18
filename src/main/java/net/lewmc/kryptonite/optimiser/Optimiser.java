@@ -165,25 +165,11 @@ public class Optimiser {
         }
 
         if (server == Software.PURPUR) {
-            this.message.Info("Running Purpur optimisations");
-            if (this.backup.Purpur()) {
-
-            } else {
-                this.message.Error("Unable to backup Purpur configuration, aborting...");
-            }
-        } else {
-            this.message.Warning("Server not Purpur, skipping...");
+            this.message.Info("Purpur optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
         }
 
         if (server == Software.PUFFERFISH) {
-            this.message.Info("Running Pufferfish optimisations");
-            if (this.backup.Pufferfish()) {
-
-            } else {
-                this.message.Error("Unable to backup Pufferfish configuration, aborting...");
-            }
-        } else {
-            this.message.Warning("Server not Pufferfish, skipping...");
+            this.message.Info("Pufferfish optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
         }
 
         this.message.Success("Done.");
@@ -198,6 +184,10 @@ public class Optimiser {
             this.server = Software.SPIGOT;
         } else if (this.plugin.getServer().getName().equals("Paper")) {
             this.server = Software.PAPER;
+        } else if (this.plugin.getServer().getName().equals("Purpur")) {
+            this.server = Software.PURPUR;
+        } else if (this.plugin.getServer().getName().equals("Pufferfish")) {
+            this.server = Software.PUFFERFISH;
         } else {
             this.server = Software.UNKNOWN;
             this.message.Error("You are not running a CraftBukkit, Spigot, or Paper server.");
