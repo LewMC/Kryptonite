@@ -31,7 +31,13 @@ public class Optimiser {
         this.message.Info("Running Vanilla optimisations");
 
         if (this.backup.ServerProperties()) {
+            ServerProperties properties = new ServerProperties();
 
+            properties.networkCompressionThreshold("256");
+            properties.simulationDistance("4");
+            properties.viewDistance("7");
+
+            properties.save();
         } else {
             this.message.Error("Unable to backup Vanilla configuration, aborting...");
         }

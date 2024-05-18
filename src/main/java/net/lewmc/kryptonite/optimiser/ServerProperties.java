@@ -1,30 +1,27 @@
 package net.lewmc.kryptonite.optimiser;
 
-import net.lewmc.kryptonite.Kryptonite;
-import org.bukkit.configuration.InvalidConfigurationException;
-
-import java.io.File;
-import java.io.IOException;
+import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 public class ServerProperties {
-    private final Kryptonite plugin;
+    private final PropertiesUtil util;
 
-    public ServerProperties(final Kryptonite plugin) {
-        this.plugin = plugin;
-        try {
-            plugin.getConfig().load(new File("server.properties"));
-        } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+    public ServerProperties() {
+        this.util = new PropertiesUtil("server.properties");
     }
 
-    public boolean networkCompressionThreshold(int value) {
-        this.plugin.getConfig().set("network-compression-threshold", value);
-        return true;
+    public void networkCompressionThreshold(String value) {
+        this.util.setProperty("network-compression-threshold", value);
     }
 
-    public boolean simulationDistance(int value) {
-        this.plugin.getConfig().set("network-compression-threshold", value);
-        return true;
+    public void simulationDistance(String value) {
+        this.util.setProperty("simulation-distance", value);
+    }
+
+    public void viewDistance(String value) {
+        this.util.setProperty("view-distance", value);
+    }
+
+    public void save() {
+        // Doesn't require saving.
     }
 }
