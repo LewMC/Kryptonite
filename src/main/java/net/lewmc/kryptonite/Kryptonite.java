@@ -19,7 +19,7 @@ public final class Kryptonite extends JavaPlugin {
         this.log.info("█ █ █▀▄  █  █▀▀  █  █▄█ █ ▀█ █  █  ██▄");
         this.log.info("");
         this.log.info("Running Kryptonite version "+this.getDescription().getVersion()+ ".");
-        this.log.info("Please report any issues with Essence to our GitHub repository: https://github.com/lewmilburn/kryptonite/issues");
+        this.log.info("Please report any issues with Kryptonite to our GitHub repository: https://github.com/lewmilburn/kryptonite/issues");
         this.log.info("");
         this.log.info("Beginning startup...");
         this.log.info("");
