@@ -1,5 +1,13 @@
 name: Kryptonite
 version: '${project.version}'
-main: net.mcuni.kryptonite.Kryptonite
+main: net.lewmc.kryptonite.Kryptonite
+author: LewMC
+description: The Kryptonite of lag.
+website: https://lewmc.net
 api-version: '1.20'
-load: STARTUP
+load: POSTWORLD
+commands:
+  kryptonite:
+    description: Main command
+    usage: /<command>
+    aliases: ['krypt','kr']

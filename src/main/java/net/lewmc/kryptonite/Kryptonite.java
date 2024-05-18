@@ -1,10 +1,12 @@
-package net.mcuni.kryptonite;
+package net.lewmc.kryptonite;
 
-import net.mcuni.kryptonite.utils.LogUtil;
-import net.mcuni.kryptonite.utils.UpdateUtil;
+import net.lewmc.kryptonite.commands.KryptoniteCommand;
+import net.lewmc.kryptonite.utils.LogUtil;
+import net.lewmc.kryptonite.utils.UpdateUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bstats.bukkit.Metrics;
+
+import java.util.Objects;
 
 public final class Kryptonite extends JavaPlugin {
 
@@ -34,11 +36,20 @@ public final class Kryptonite extends JavaPlugin {
         UpdateUtil update = new UpdateUtil(this);
         update.VersionCheck();
 
+        loadCommands();
+
         this.log.info("Startup completed.");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    /**
+     * Loads and registers the plugin's command handlers.
+     */
+    private void loadCommands() {
+        Objects.requireNonNull(this.getCommand("Kryptonite")).setExecutor(new KryptoniteCommand(this));
     }
 }

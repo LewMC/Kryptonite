@@ -1,6 +1,6 @@
-package net.mcuni.kryptonite.utils;
+package net.lewmc.kryptonite.utils;
 
-import net.mcuni.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.Kryptonite;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,7 +23,7 @@ public class UpdateUtil {
                 if (this.plugin.getDescription().getVersion().contains("SNAPSHOT")) {
                     log.warn("SNAPSHOT > You are running a snapshot build of Kryptonite.");
                     log.warn("SNAPSHOT > This build may include bugs and is not recommended on production servers.");
-                    log.warn("SNAPSHOT > If you find any issues please report them to github.com/lewmilburn/kryptonite.");
+                    log.warn("SNAPSHOT > If you find any issues please report them to github.com/lewmilburn/Kryptonite.");
                     this.log.info("");
                     url = new URL("https://service.lewmc.net/latest-version/?resource=kryptonite-snapshot&format=simpleversion");
                 } else {
@@ -41,7 +41,7 @@ public class UpdateUtil {
                     } else {
                         log.warn("UPDATE > There's a new version of Kryptonite available.");
                         log.warn("UPDATE > Your version: "+this.plugin.getDescription().getVersion()+" - latest version: "+response);
-                        log.warn("UPDATE > You can download the latest version from lewmc.net/kryptonite");
+                        log.warn("UPDATE > You can download the latest version from lewmc.net/Kryptonite");
                         this.log.info("");
                     }
                 } else {
