@@ -41,7 +41,7 @@ public class UpdateUtil {
                     } else {
                         log.warn("UPDATE > There's a new version of Kryptonite available.");
                         log.warn("UPDATE > Your version: "+this.plugin.getDescription().getVersion()+" - latest version: "+response);
-                        log.warn("UPDATE > You can download the latest version from lewmc.net/Kryptonite");
+                        log.warn("UPDATE > You can download the latest version from lewmc.net/kryptonite");
                         this.log.info("");
                     }
                 } else {
