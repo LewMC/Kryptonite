@@ -23,7 +23,7 @@ public final class Kryptonite extends JavaPlugin {
         this.log.info("Beginning startup...");
         this.log.info("");
 
-        int pluginId = 20768; // <-- Replace with the id of your plugin!
+        int pluginId = 21962; // <-- Replace with the id of your plugin!
         new Metrics(this, pluginId);
 
         UpdateUtil update = new UpdateUtil(this);
