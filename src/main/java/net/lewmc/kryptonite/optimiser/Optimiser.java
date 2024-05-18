@@ -1,12 +1,15 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.BackupUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import org.bukkit.command.CommandSender;
 
 public class Optimiser {
     private final Kryptonite plugin;
     private final MessageUtil message;
+    private final BackupUtil backup;
+
     private enum Software {
         UNKNOWN,
         CRAFTBUKKIT,
@@ -19,138 +22,166 @@ public class Optimiser {
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
+        this.backup = new BackupUtil(plugin);
     }
 
     public void runDefault(boolean pregeneratedWorld) {
         this.firstChecks();
 
-        this.message.Info("Running Minecraft optimisations");
+        this.message.Info("Running Vanilla optimisations");
+
+        if (this.backup.ServerProperties()) {
+
+        } else {
+            this.message.Error("Unable to backup Vanilla configuration, aborting...");
+        }
 
 
         if (server != Software.UNKNOWN) {
             this.message.Info("Running CraftBukkit optimisations");
-            Bukkit bukkit = new Bukkit(this.plugin);
+            if (this.backup.Bukkit()) {
+                Bukkit bukkit = new Bukkit(this.plugin);
 
-            bukkit.spawnLimits(20, 5, 2, 2, 3, 3, 1);
-            bukkit.ticksPer(10, 400, 400, 400, 400, 400, 400);
+                bukkit.spawnLimits(20, 5, 2, 2, 3, 3, 1);
+                bukkit.ticksPer(10, 400, 400, 400, 400, 400, 400);
 
-            bukkit.save();
+                bukkit.save();
+            } else {
+                this.message.Error("Unable to backup Bukkit configuration, aborting...");
+            }
         } else {
             this.message.Warning("Server not CraftBukkit, skipping...");
         }
 
         if (server != Software.UNKNOWN && server != Software.CRAFTBUKKIT) {
             this.message.Info("Running Spigot optimisations");
-            Spigot spigot = new Spigot(this.plugin);
+            if (this.backup.Spigot()) {
+                Spigot spigot = new Spigot(this.plugin);
 
-            spigot.viewDistance("default");
-            spigot.mobSpawnRange(3);
-            spigot.entityActivationRange(16, 24, 48, 8, 8, 16, 48);
-            spigot.entityTrackingRange(48, 48, 48, 32, 64);
-            spigot.tickInacativeVillagers(false);
-            spigot.nerfSpawnerMobs(true);
-            spigot.mergeRadius(3.5, 4.0);
-            spigot.hopperTransfer(8);
-            spigot.hopperCheck(8);
+                spigot.viewDistance("default");
+                spigot.mobSpawnRange(3);
+                spigot.entityActivationRange(16, 24, 48, 8, 8, 16, 48);
+                spigot.entityTrackingRange(48, 48, 48, 32, 64);
+                spigot.tickInacativeVillagers(false);
+                spigot.nerfSpawnerMobs(true);
+                spigot.mergeRadius(3.5, 4.0);
+                spigot.hopperTransfer(8);
+                spigot.hopperCheck(8);
 
-            spigot.save();
+                spigot.save();
+            } else {
+                this.message.Error("Unable to backup Spigot configuration, aborting...");
+            }
         } else {
             this.message.Warning("Server not Spigot, skipping...");
         }
 
         if (server != Software.UNKNOWN && server != Software.CRAFTBUKKIT && server != Software.SPIGOT) {
             this.message.Info("Running Paper optimisations");
+            if (this.backup.PaperWorld()) {
+                PaperWorld pw = new PaperWorld(this.plugin);
+                pw.delayChunkUnloads(10);
+                pw.maxAutosaveChunksPerTick(8);
+                pw.preventMovingIntoUnloadedChunks(true);
+                pw.entityPerChunkSaveLimit(8, 16, 3, 8, 8, 3, 16, 8, 8, 3, 8, 8, 8, 8, 16, 16, 4);
 
-            PaperWorld pw = new PaperWorld(this.plugin);
-            pw.delayChunkUnloads(10);
-            pw.maxAutosaveChunksPerTick(8);
-            pw.preventMovingIntoUnloadedChunks(true);
-            pw.entityPerChunkSaveLimit(8, 16, 3, 8, 8, 3, 16, 8, 8, 3, 8, 8, 8, 8, 16, 16, 4);
+                pw.ambientDespawnRanges(72, 30);
+                pw.axolotlsDespawnRanges(72, 30);
+                pw.creatureDespawnRanges(72, 30);
+                pw.miscDespawnRanges(72, 30);
+                pw.monsterDespawnRanges(72, 30);
+                pw.undergroundWaterCreatureDespawnRanges(72, 30);
+                pw.waterAmbientDespawnRanges(72, 30);
+                pw.waterCreatureDespawnRanges(72, 30);
 
-            pw.ambientDespawnRanges(72, 30);
-            pw.axolotlsDespawnRanges(72, 30);
-            pw.creatureDespawnRanges(72, 30);
-            pw.miscDespawnRanges(72, 30);
-            pw.monsterDespawnRanges(72, 30);
-            pw.undergroundWaterCreatureDespawnRanges(72, 30);
-            pw.waterAmbientDespawnRanges(72, 30);
-            pw.waterCreatureDespawnRanges(72, 30);
+                pw.perPlayerMobSpawns(true);
+                pw.maxEntityCollisions(2);
+                pw.updatePathfindingOnBlockUpdate(false);
+                pw.fixClimbingBypassingCrammingRule(true);
+                pw.armorStandsTick(false);
+                pw.armorStandsDoCollisionEntityLookups(false);
 
-            pw.perPlayerMobSpawns(true);
-            pw.maxEntityCollisions(2);
-            pw.updatePathfindingOnBlockUpdate(false);
-            pw.fixClimbingBypassingCrammingRule(true);
-            pw.armorStandsTick(false);
-            pw.armorStandsDoCollisionEntityLookups(false);
+                if (server != Software.PUFFERFISH) {
+                    pw.villagerBehaviourTickRates(60, 120);
+                    pw.villagerSensorTickRates(80, 80, 40, 40, 40);
+                } else {
+                    this.message.Info("Running Pufferfish, skipping some steps due to incompatibility...");
+                }
 
-            if (server != Software.PUFFERFISH) {
-                pw.villagerBehaviourTickRates(60, 120);
-                pw.villagerSensorTickRates(80, 80, 40, 40, 40);
+                pw.altItemDespawnRate(
+                        true,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        300,
+                        600
+                );
+
+                pw.redstoneImplementation("ALTERNATE_CURRENT");
+                pw.hopperDisableMoveEvent(false);
+                pw.hopperIgnoreOccludingBlocks(true);
+                pw.tickRatesMobSpawner(2);
+                pw.optimizeExplosions(true);
+
+                if (pregeneratedWorld) {
+                    pw.treasureMapsEnabled(true);
+                } else {
+                    this.message.Warning("Treasure maps disabled, please pregenerate your world to re-enable them.");
+                }
+
+                pw.treasureMapsFindAlreadyDiscovered(true);
+                pw.grassSpreadTickRates(4);
+                pw.containerUpdateTickRates(1);
+                pw.nonPlayerArrowDespawnRate(20);
+                pw.creativeArrowDespawnRate(20);
+
+                pw.save();
             } else {
-                this.message.Info("Running Pufferfish, skipping some steps due to incompatibility...");
+                this.message.Error("Unable to backup Paper configuration, aborting...");
             }
-
-            pw.altItemDespawnRate(
-                    true,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    600
-            );
-
-            pw.redstoneImplementation("ALTERNATE_CURRENT");
-            pw.hopperDisableMoveEvent(false);
-            pw.hopperIgnoreOccludingBlocks(true);
-            pw.tickRatesMobSpawner(2);
-            pw.optimizeExplosions(true);
-
-            if (pregeneratedWorld) {
-                pw.treasureMapsEnabled(true);
-            } else {
-                this.message.Warning("Treasure maps disabled, please pregenerate your world to re-enable them.");
-            }
-
-            pw.treasureMapsFindAlreadyDiscovered(true);
-            pw.grassSpreadTickRates(4);
-            pw.containerUpdateTickRates(1);
-            pw.nonPlayerArrowDespawnRate(20);
-            pw.creativeArrowDespawnRate(20);
-
-            pw.save();
         } else {
             this.message.Warning("Server not Paper, skipping...");
         }
 
         if (server == Software.PURPUR) {
             this.message.Info("Running Purpur optimisations");
+            if (this.backup.Purpur()) {
+
+            } else {
+                this.message.Error("Unable to backup Purpur configuration, aborting...");
+            }
         } else {
             this.message.Warning("Server not Purpur, skipping...");
         }
 
         if (server == Software.PUFFERFISH) {
             this.message.Info("Running Pufferfish optimisations");
+            if (this.backup.Pufferfish()) {
+
+            } else {
+                this.message.Error("Unable to backup Pufferfish configuration, aborting...");
+            }
         } else {
             this.message.Warning("Server not Pufferfish, skipping...");
         }
