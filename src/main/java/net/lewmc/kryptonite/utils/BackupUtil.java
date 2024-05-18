@@ -30,6 +30,8 @@ public class BackupUtil {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            log.warn("Backup is disabled. Skipping backups.");
         }
     }
 
