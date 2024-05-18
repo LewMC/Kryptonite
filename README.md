@@ -36,7 +36,7 @@ This will compile the project and package it into a JAR file in the `./target` d
 
 ## Contributing
 
-We welcome contributions from the community. Please fork the repository, make your changes, and submit a pull request.
+We welcome contributions from the community. Please fork the repository, make your changes, and submit a pull request. Please see [https://github.com/LewMC/Kryptonite/issues](https://github.com/LewMC/Kryptonite/issues/1) before contributing.
 
 ## Licensing
 
