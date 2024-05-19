@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: LewMC Security & Vulnerability Reporting
+  - name: Security Issues & Vulnerability Reporting
     url: https://wiki.lewmc.net/index.php/Reporting_Vulnerabilities
     about: Please report security vulnerabilities here.
