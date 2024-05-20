@@ -18,7 +18,7 @@ You will need Maven to build the project to `./target`, you can install it at ht
 
 ### Set Java 21 as your `JAVA_HOME` variable.
 
-You can validate this by running the command below and ensuring it returns Java 17.
+You can validate this by running the command below and ensuring it returns Java 21.
 
 ```sh
 java -version
