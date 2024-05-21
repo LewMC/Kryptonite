@@ -4,3 +4,10 @@
 # Should Kryptonite query the server to check for updates?
 # This does not transfer any data.
 update-check: true
+
+# VIEW DISTANCE
+# This value calculates view and simulation distances for Kryptonite.
+# For the most performance, you should leave these values as 7 and 4.
+# However, we understand that some servers may require higher values.
+view-distance: 8
+simulation-distance: 4
