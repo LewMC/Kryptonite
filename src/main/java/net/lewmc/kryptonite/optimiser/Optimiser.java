@@ -8,6 +8,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Optimiser {
     private final Kryptonite plugin;
@@ -31,8 +32,8 @@ public class Optimiser {
         ServerProperties properties = new ServerProperties();
 
         properties.networkCompressionThreshold("256");
-        properties.simulationDistance((String) this.plugin.getConfig().get("simulation-distance"));
-        properties.viewDistance((String) this.plugin.getConfig().get("view-distance"));
+        properties.simulationDistance(Objects.requireNonNull(this.plugin.getConfig().get("simulation-distance")).toString());
+        properties.viewDistance(Objects.requireNonNull(this.plugin.getConfig().get("view-distance")).toString());
         properties.syncChunkWrites("false");
 
         properties.save();
