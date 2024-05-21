@@ -4,6 +4,10 @@ import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Optimiser {
     private final Kryptonite plugin;
@@ -18,11 +22,18 @@ public class Optimiser {
 
         this.message.Info("Running Vanilla optimisations");
 
+        try {
+            this.plugin.getConfig().load(new File("plugins/kryptonite/config.yml"));
+        } catch (IOException | InvalidConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+
         ServerProperties properties = new ServerProperties();
 
         properties.networkCompressionThreshold("256");
-        properties.simulationDistance("4");
-        properties.viewDistance("7");
+        properties.simulationDistance((String) this.plugin.getConfig().get("simulation-distance"));
+        properties.viewDistance((String) this.plugin.getConfig().get("view-distance"));
+        properties.syncChunkWrites("false");
 
         properties.save();
 

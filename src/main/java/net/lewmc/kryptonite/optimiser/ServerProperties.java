@@ -21,6 +21,10 @@ public class ServerProperties {
         this.util.setProperty("view-distance", value);
     }
 
+    public void syncChunkWrites(String value) {
+        this.util.setProperty("sync-chunk-writes", value);
+    }
+
     public void save() {
         // Doesn't require saving.
     }
