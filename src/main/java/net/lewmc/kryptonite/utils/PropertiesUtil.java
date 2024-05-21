@@ -29,4 +29,20 @@ public class PropertiesUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public String getProperty(String property) {
+        try {
+            FileInputStream in = new FileInputStream(this.file);
+            Properties props = new Properties();
+
+            props.load(in);
+            String output = props.getProperty(property);
+
+            in.close();
+
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
