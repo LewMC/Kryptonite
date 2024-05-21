@@ -38,6 +38,7 @@ public final class Kryptonite extends JavaPlugin {
 
         UpdateUtil update = new UpdateUtil(this);
         update.VersionCheck();
+        update.UpdateConfig();
 
         this.saveDefaultConfig();
 

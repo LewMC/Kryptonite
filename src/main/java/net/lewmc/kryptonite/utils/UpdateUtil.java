@@ -1,7 +1,9 @@
 package net.lewmc.kryptonite.utils;
 
+import com.tchristofferson.configupdater.ConfigUpdater;
 import net.lewmc.kryptonite.Kryptonite;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -58,6 +60,16 @@ public class UpdateUtil {
         } else {
             log.warn("Unable to perform update check: Update checking is disabled.");
             this.log.info("");
+        }
+    }
+
+    public void UpdateConfig() {
+        File configFile = new File(this.plugin.getDataFolder(), "config.yml");
+
+        try {
+            ConfigUpdater.update(plugin, "config.yml", configFile);
+        } catch (IOException e) {
+            this.log.warn("Unable to update configuration: "+e);
         }
     }
 }
