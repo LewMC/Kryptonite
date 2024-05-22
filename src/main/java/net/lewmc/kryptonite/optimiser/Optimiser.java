@@ -7,7 +7,6 @@ import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ public class Optimiser {
         this.message.Info("Running Vanilla optimisations");
 
         try {
-            this.plugin.getConfig().load(new File("plugins/kryptonite/config.yml"));
+            this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
         } catch (IOException | InvalidConfigurationException e) {
             this.message.Error("Unable to open configuration, see console for more information.");
             this.message.Error("Kryptonite Optimisation System Aborted.");
