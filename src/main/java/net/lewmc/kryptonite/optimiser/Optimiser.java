@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,11 @@ public class Optimiser {
         try {
             this.plugin.getConfig().load(new File("plugins/kryptonite/config.yml"));
         } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+            this.message.Error("Unable to open configuration, see console for more information.");
+            this.message.Error("Kryptonite Optimisation System Aborted.");
+            LogUtil log = new LogUtil(this.plugin);
+            log.severe(e.getMessage());
+            return;
         }
 
         ServerProperties properties = new ServerProperties();
@@ -153,6 +158,8 @@ public class Optimiser {
             pw.save();
         } else {
             this.message.Warning("Server not Paper, skipping...");
+            this.message.Error("We HIGHLY recommend using Paper for your server software.");
+            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
         }
 
         if (softwareUtil.isPurpur()) {
