@@ -15,6 +15,7 @@ public class Optimiser {
     private final MessageUtil message;
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
+    private final String kryptoniteConfig = "plugins/Kryptonite/config.yml";
 
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
@@ -54,11 +55,9 @@ public class Optimiser {
         this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
         try {
-            this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+            this.plugin.getConfig().load(this.kryptoniteConfig);
         } catch (IOException | InvalidConfigurationException e) {
-            this.message.Error("Unable to open configuration, see console for more information.");
-            this.message.Error("Kryptonite Optimisation System Aborted.");
-            this.log.severe(e.getMessage());
+            this.cantOpenConfig(e);
             return;
         }
 
@@ -92,11 +91,9 @@ public class Optimiser {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
 
             try {
-                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+                this.plugin.getConfig().load(this.kryptoniteConfig);
             } catch (IOException | InvalidConfigurationException e) {
-                this.message.Error("Unable to open configuration, see console for more information.");
-                this.message.Error("Kryptonite Optimisation System Aborted.");
-                this.log.severe(e.getMessage());
+                this.cantOpenConfig(e);
                 return;
             }
 
@@ -122,11 +119,9 @@ public class Optimiser {
         if (this.softwareUtil.isPaper()) {
             this.log.info("[KOS] 4/4 - Running Paper optimisations");
             try {
-                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+                this.plugin.getConfig().load(this.kryptoniteConfig);
             } catch (IOException | InvalidConfigurationException e) {
-                this.message.Error("Unable to open configuration, see console for more information.");
-                this.message.Error("Kryptonite Optimisation System Aborted.");
-                this.log.severe(e.getMessage());
+                this.cantOpenConfig(e);
                 return;
             }
 
@@ -231,5 +226,11 @@ public class Optimiser {
         } else {
             this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
         }
+    }
+
+    private void cantOpenConfig(Exception e) {
+        this.message.Error("Unable to open configuration, see console for more information.");
+        this.message.Error("Kryptonite Optimisation System Aborted.");
+        this.log.severe(e.getMessage());
     }
 }
