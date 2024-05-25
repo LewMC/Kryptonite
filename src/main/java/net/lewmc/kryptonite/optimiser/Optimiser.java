@@ -255,6 +255,23 @@ public class Optimiser {
     private void runPufferfish() {
         if (this.softwareUtil.isPufferfish()) {
             this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
+            try {
+                this.plugin.getConfig().load(KRYPTONITE_CONFIG);
+            } catch (IOException | InvalidConfigurationException e) {
+                this.cantOpenConfig(e);
+                return;
+            }
+            Pufferfish pufferfish = new Pufferfish(this.plugin);
+            pufferfish.maxLoadsPerProjectile(8);
+            pufferfish.dabEnabled(this.plugin.getConfig().getBoolean("entities.dab.enabled"));
+            pufferfish.dabMaxTickFreq(this.plugin.getConfig().getInt("entities.dab.max-tick-freq"));
+            pufferfish.dabActivationDistMod(this.plugin.getConfig().getInt("entities.dab.activation-dist-modifier"));
+            pufferfish.enableAsyncMobSpawning(true);
+            pufferfish.enableSuffocationOptimization(true);
+            pufferfish.inactiveGoalSelectorThrottle(this.plugin.getConfig().getBoolean("entities.igs-throttle"));
+            pufferfish.disableMethodProfiler(true);
+
+            pufferfish.save();
         } else {
             this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
         }
