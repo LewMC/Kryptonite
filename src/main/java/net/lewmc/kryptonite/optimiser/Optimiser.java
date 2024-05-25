@@ -246,6 +246,7 @@ public class Optimiser {
             purpur.teleportIfOutsideBorder(true);
             purpur.laggingThreshold(this.plugin.getConfig().getDouble("lagging-tps-threshold"));
 
+            purpur.save();
         } else {
             this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
         }
