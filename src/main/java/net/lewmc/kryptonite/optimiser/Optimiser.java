@@ -13,26 +13,52 @@ import java.util.Objects;
 public class Optimiser {
     private final Kryptonite plugin;
     private final MessageUtil message;
+    private final SoftwareUtil softwareUtil;
+    private final LogUtil log;
 
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
+        this.log = new LogUtil(this.plugin);
+        this.softwareUtil = new SoftwareUtil(this.plugin);
     }
 
     public void runDefault(boolean pregeneratedWorld) {
 
         this.message.Success("Running the Kryptonite Optimisation System...");
 
-        LogUtil log = new LogUtil(this.plugin);
+        this.runVanilla();
+        this.runCraftBukkit();
+        this.runSpigot();
+        this.runPaper(pregeneratedWorld);
+        this.runPurpur();
+        this.runPufferfish();
 
-        log.info("[KOS] 1/6 - Running Vanilla optimisations");
+        this.message.Success("Done!");
+        this.message.Info("See your server console for more logs.");
+        this.message.Error("You must restart your server for changes to be applied.");
+
+        if (!this.softwareUtil.isPaper()) {
+            this.message.Error("");
+            this.message.Error("You are using an unoptimised server jar!");
+            this.message.Error("This is a problem that Kryptonite can't fix.");
+            this.message.Error("");
+            this.message.Error("We HIGHLY recommend using Paper for your server software.");
+            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+            this.message.Error("You can download paper from papermc.io");
+            this.message.Error("");
+        }
+    }
+
+    private void runVanilla() {
+        this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
         try {
             this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
         } catch (IOException | InvalidConfigurationException e) {
             this.message.Error("Unable to open configuration, see console for more information.");
             this.message.Error("Kryptonite Optimisation System Aborted.");
-            log.severe(e.getMessage());
+            this.log.severe(e.getMessage());
             return;
         }
 
@@ -44,11 +70,11 @@ public class Optimiser {
         properties.syncChunkWrites("false");
 
         properties.save();
+    }
 
-        SoftwareUtil softwareUtil = new SoftwareUtil(plugin);
-
-        if (softwareUtil.isCraftBukkit()) {
-            log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
+    private void runCraftBukkit() {
+        if (this.softwareUtil.isCraftBukkit()) {
+            this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
             Bukkit bukkit = new Bukkit(this.plugin);
 
             bukkit.spawnLimits(20, 5, 2, 2, 3, 3, 1);
@@ -56,12 +82,14 @@ public class Optimiser {
 
             bukkit.save();
         } else {
-            log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
-            log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
+            this.log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
+            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
         }
+    }
 
-        if (softwareUtil.isSpigot()) {
-            log.info("[KOS] 3/6 - Running Spigot optimisations");
+    private void runSpigot() {
+        if (this.softwareUtil.isSpigot()) {
+            this.log.info("[KOS] 3/6 - Running Spigot optimisations");
             Spigot spigot = new Spigot(this.plugin);
 
             spigot.viewDistance("default");
@@ -78,9 +106,11 @@ public class Optimiser {
         } else {
             log.info("[KOS] 3/6 - Server not Spigot, skipping...");
         }
+    }
 
-        if (softwareUtil.isPaper()) {
-            log.info("[KOS] 4/4 - Running Paper optimisations");
+    private void runPaper(boolean pregeneratedWorld) {
+        if (this.softwareUtil.isPaper()) {
+            this.log.info("[KOS] 4/4 - Running Paper optimisations");
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(10);
             pw.maxAutosaveChunksPerTick(8);
@@ -107,7 +137,7 @@ public class Optimiser {
                 pw.villagerBehaviourTickRates(60, 120);
                 pw.villagerSensorTickRates(80, 80, 40, 40, 40);
             } else {
-                this.message.Info("[KOS][4/6] You're running Pufferfish, skipping some steps due to incompatibility...");
+                this.log.info("[KOS][4/6] You're running Pufferfish, skipping some steps due to incompatibility...");
             }
 
             pw.altItemDespawnRate(
@@ -147,8 +177,11 @@ public class Optimiser {
             pw.optimizeExplosions(true);
 
             if (pregeneratedWorld) {
+                this.log.info("[KOS][4/6] World is pregenerated, enabling treasure maps...");
                 pw.treasureMapsEnabled(true);
             } else {
+                pw.treasureMapsEnabled(false);
+                this.log.info("[KOS][4/6] World not pregenerated, disabling treasure maps...");
                 this.message.Warning("Treasure maps have been disabled, please pre-generate your world to re-enable them.");
             }
 
@@ -162,32 +195,21 @@ public class Optimiser {
         } else {
             log.info("[KOS] 4/6 - Server not Paper, skipping...");
         }
+    }
 
-        if (softwareUtil.isPurpur()) {
-            log.info("[KOS] 5/6 - Running Purpur optimisations");
+    private void runPurpur() {
+        if (this.softwareUtil.isPurpur()) {
+            this.log.info("[KOS] 5/6 - Running Purpur optimisations");
         } else {
-            log.info("[KOS] 5/6 - Server not Purpur, skipping...");
+            this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
         }
+    }
 
-        if (softwareUtil.isPufferfish()) {
-            log.info("[KOS] 6/6 - Running Pufferfish optimisations");
+    private void runPufferfish() {
+        if (this.softwareUtil.isPufferfish()) {
+            this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
         } else {
-            log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
-        }
-
-        this.message.Success("Done!");
-        this.message.Info("See your server console for more logs.");
-        this.message.Error("You must restart your server for changes to be applied.");
-
-        if (!softwareUtil.isPaper()) {
-            this.message.Error("");
-            this.message.Error("You are using an unoptimised server jar!");
-            this.message.Error("This is a problem that Kryptonite can't fix.");
-            this.message.Error("");
-            this.message.Error("We HIGHLY recommend using Paper for your server software.");
-            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
-            this.message.Error("You can download paper from papermc.io");
-            this.message.Error("");
+            this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
         }
     }
 }
