@@ -107,7 +107,7 @@ public class Optimiser {
             spigot.entityActivationRange(16, 24, 48, 8, 8, 16, 48);
             spigot.entityTrackingRange(48, 48, 48, 32, 64);
             spigot.tickInacativeVillagers(false);
-            spigot.nerfSpawnerMobs(this.plugin.getConfig().getBoolean("spawner-mobs.nerfed"));
+            spigot.nerfSpawnerMobs(this.plugin.getConfig().getBoolean("entities.spawner-mobs.nerfed"));
             spigot.mergeRadius(3.5, 4.0);
             spigot.hopperTransfer(8);
             spigot.hopperCheck(8);
@@ -151,7 +151,7 @@ public class Optimiser {
             pw.fixClimbingBypassingCrammingRule(true);
             pw.armorStandsTick(false);
             pw.armorStandsDoCollisionEntityLookups(false);
-            pw.spawnerNerfedMobsShouldJump(this.plugin.getConfig().getBoolean("spawner.nerded-can-jump"));
+            pw.spawnerNerfedMobsShouldJump(this.plugin.getConfig().getBoolean("entities.spawner-mobs.nerfed-can-jump"));
 
             if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
                 pw.villagerBehaviourTickRates(60, 120);
