@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
@@ -15,15 +16,13 @@ public class Spigot {
         try {
             plugin.getConfig().load(this.file);
         } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst loading Spigot configuration:");
+            log.severe(e.getMessage());
         }
     }
 
-    public void viewDistance(int value) {
-        this.plugin.getConfig().set("world-settings.default.view-distance", value);
-    }
-
-    public void viewDistance(String value) {
+    public void viewDistance(Object value) {
         this.plugin.getConfig().set("world-settings.default.view-distance", value);
     }
 
@@ -74,7 +73,9 @@ public class Spigot {
         try {
             this.plugin.getConfig().save(this.file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst saving Spigot configuration:");
+            log.severe(e.getMessage());
         }
     }
 }

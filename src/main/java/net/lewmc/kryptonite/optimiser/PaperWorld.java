@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
@@ -15,7 +16,9 @@ public class PaperWorld {
         try {
             plugin.getConfig().load(this.file);
         } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst loading Paper World configuration:");
+            log.severe(e.getMessage());
         }
     }
 
@@ -31,41 +34,41 @@ public class PaperWorld {
         this.plugin.getConfig().set("chunks.prevent-moving-into-unloaded-chunks", value);
     }
 
-    public void entityPerChunkSaveLimit(int area_effect_cloud,
+    public void entityPerChunkSaveLimit(int areaEffectCloud,
                                         int arrow,
-                                        int dragon_fireball,
+                                        int dragonFireball,
                                         int egg,
-                                        int ender_pearl,
-                                        int experience_bottle,
-                                        int experience_orb,
-                                        int eye_of_ender,
+                                        int enderPearl,
+                                        int experienceBottle,
+                                        int experienceOrb,
+                                        int eyeOfEnder,
                                         int fireball,
-                                        int llama_spit,
+                                        int llamaSpit,
                                         int potion,
-                                        int shulker_bullet,
-                                        int small_fireball,
+                                        int shulkerBullet,
+                                        int smallFireball,
                                         int snowball,
-                                        int spectral_arrow,
+                                        int spectralArrow,
                                         int trident,
-                                        int wither_skull
+                                        int witherSkull
     ) {
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.area_effect_cloud", area_effect_cloud);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.area_effect_cloud", areaEffectCloud);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.arrow", arrow);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.dragon_fireball", dragon_fireball);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.dragon_fireball", dragonFireball);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.egg", egg);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.ender_pearl", ender_pearl);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.experience_bottle", experience_bottle);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.experience_orb", experience_orb);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.eye_of_ender", eye_of_ender);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.ender_pearl", enderPearl);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.experience_bottle", experienceBottle);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.experience_orb", experienceOrb);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.eye_of_ender", eyeOfEnder);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.fireball", fireball);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.llama_spit", llama_spit);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.llama_spit", llamaSpit);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.potion", potion);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.shulker_bullet", shulker_bullet);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.small_fireball", small_fireball);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.shulker_bullet", shulkerBullet);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.small_fireball", smallFireball);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.snowball", snowball);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.spectral_arrow", spectral_arrow);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.spectral_arrow", spectralArrow);
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.trident", trident);
-        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.wither_skull", wither_skull);
+        this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.wither_skull", witherSkull);
     }
 
     public void ambientDespawnRanges(int hard, int soft) {
@@ -149,24 +152,24 @@ public class PaperWorld {
                                    int cobblestone,
                                    int netherrack,
                                    int sand,
-                                   int red_sand,
+                                   int redSand,
                                    int gravel,
                                    int dirt,
-                                   int short_grass,
+                                   int shortGrass,
                                    int pumpkin,
-                                   int melon_slice,
+                                   int melonSlice,
                                    int kelp,
                                    int bamboo,
-                                   int sugar_cane,
-                                   int twisting_vines,
-                                   int weeping_vines,
-                                   int oak_leaves,
-                                   int spruce_leaves,
-                                   int birch_leaves,
-                                   int jungle_leaves,
-                                   int acacia_leaves,
-                                   int dark_oak_leaves,
-                                   int mangrove_leaves,
+                                   int sugarCane,
+                                   int twistingVines,
+                                   int weepingVines,
+                                   int oakLeaves,
+                                   int spruceLeaves,
+                                   int birchLeaves,
+                                   int jungleLeaves,
+                                   int acaciaLeaves,
+                                   int darkOakLeaves,
+                                   int mangroveLeaves,
                                    int cactus,
                                    int diorite,
                                    int granite,
@@ -177,24 +180,24 @@ public class PaperWorld {
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.cobblestone", cobblestone);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.netherrack", netherrack);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.sand", sand);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.red_sand", red_sand);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.red_sand", redSand);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.gravel", gravel);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.dirt", dirt);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.short_grass", short_grass);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.short_grass", shortGrass);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.pumpkin", pumpkin);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.melon_slice", melon_slice);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.melon_slice", melonSlice);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.kelp", kelp);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.bamboo", bamboo);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.sugar_cane", sugar_cane);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.twisting_vines", twisting_vines);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.weeping_vines", weeping_vines);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.oak_leaves", oak_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.spruce_leaves", spruce_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.birch_leaves", birch_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.jungle_leaves", jungle_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.acacia_leaves", acacia_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.dark_oak_leaves", dark_oak_leaves);
-        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.mangrove_leaves", mangrove_leaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.sugar_cane", sugarCane);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.twisting_vines", twistingVines);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.weeping_vines", weepingVines);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.oak_leaves", oakLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.spruce_leaves", spruceLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.birch_leaves", birchLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.jungle_leaves", jungleLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.acacia_leaves", acaciaLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.dark_oak_leaves", darkOakLeaves);
+        this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.mangrove_leaves", mangroveLeaves);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.cactus", cactus);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.diorite", diorite);
         this.plugin.getConfig().set("entities.spawning.alt-item-despawn-rate.items.granite", granite);
@@ -255,7 +258,9 @@ public class PaperWorld {
         try {
             this.plugin.getConfig().save(this.file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst saving Paper World configuration:");
+            log.severe(e.getMessage());
         }
     }
 }

@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
@@ -15,7 +16,9 @@ public class Pufferfish {
         try {
             plugin.getConfig().load(this.file);
         } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst loading Pufferfish configuration:");
+            log.severe(e.getMessage());
         }
     }
 
@@ -55,7 +58,9 @@ public class Pufferfish {
         try {
             this.plugin.getConfig().save(this.file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst saving Pufferfish configuration:");
+            log.severe(e.getMessage());
         }
     }
 }

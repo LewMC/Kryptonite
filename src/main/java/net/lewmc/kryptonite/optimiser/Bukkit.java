@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
@@ -15,7 +16,9 @@ public class Bukkit {
         try {
             plugin.getConfig().load(this.file);
         } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst loading CraftBukkit configuration:");
+            log.severe(e.getMessage());
         }
     }
 
@@ -43,7 +46,9 @@ public class Bukkit {
         try {
             this.plugin.getConfig().save(this.file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtil log = new LogUtil(plugin);
+            log.severe("Error whilst saving Bukkit configuration:");
+            log.severe(e.getMessage());
         }
     }
 }
