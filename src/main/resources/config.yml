@@ -15,9 +15,12 @@ distance:
 using-tcpshield: false
 entities:
   can-use-portals: false
-  villagers:
+  villager:
     lobotomized: false
     search-radius: 16
+  zombie:
+    aggressive-towards-villager-when-lagging: false
   spawner-mobs:
     nerfed: true
     nerded-can-jump: false
+lagging-tps-threshold: 19.0

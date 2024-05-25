@@ -15,7 +15,7 @@ public class Optimiser {
     private final MessageUtil message;
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
-    private final String kryptoniteConfig = "plugins/Kryptonite/config.yml";
+    private static final String KRYPTONITE_CONFIG = "plugins/Kryptonite/config.yml";
 
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
@@ -32,7 +32,7 @@ public class Optimiser {
         this.runCraftBukkit();
         this.runSpigot();
         this.runPaper(pregeneratedWorld);
-        this.runPurpur();
+        this.runPurpur(pregeneratedWorld);
         this.runPufferfish();
 
         this.message.Success("Done!");
@@ -55,7 +55,7 @@ public class Optimiser {
         this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
         try {
-            this.plugin.getConfig().load(this.kryptoniteConfig);
+            this.plugin.getConfig().load(KRYPTONITE_CONFIG);
         } catch (IOException | InvalidConfigurationException e) {
             this.cantOpenConfig(e);
             return;
@@ -91,7 +91,7 @@ public class Optimiser {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
 
             try {
-                this.plugin.getConfig().load(this.kryptoniteConfig);
+                this.plugin.getConfig().load(KRYPTONITE_CONFIG);
             } catch (IOException | InvalidConfigurationException e) {
                 this.cantOpenConfig(e);
                 return;
@@ -119,7 +119,7 @@ public class Optimiser {
         if (this.softwareUtil.isPaper()) {
             this.log.info("[KOS] 4/4 - Running Paper optimisations");
             try {
-                this.plugin.getConfig().load(this.kryptoniteConfig);
+                this.plugin.getConfig().load(KRYPTONITE_CONFIG);
             } catch (IOException | InvalidConfigurationException e) {
                 this.cantOpenConfig(e);
                 return;
@@ -212,9 +212,40 @@ public class Optimiser {
         }
     }
 
-    private void runPurpur() {
+    private void runPurpur(boolean pregeneratedWorld) {
         if (this.softwareUtil.isPurpur()) {
             this.log.info("[KOS] 5/6 - Running Purpur optimisations");
+            try {
+                this.plugin.getConfig().load(KRYPTONITE_CONFIG);
+            } catch (IOException | InvalidConfigurationException e) {
+                this.cantOpenConfig(e);
+                return;
+            }
+
+            Purpur purpur = new Purpur(this.plugin);
+            if (this.plugin.getConfig().getBoolean("using-tcpshield")) {
+                this.log.info("[KOS] 5/6 - You're using TCPShield, disabling use-alternative-keepalive.");
+                purpur.useAlternativeKeepalive(false);
+            } else {
+                purpur.useAlternativeKeepalive(true);
+            }
+
+            purpur.zombieAggressiveTowardsVillagerWhenLagging(this.plugin.getConfig().getBoolean("entities.zombie.aggressive-towards-villager-when-lagging"));
+            purpur.entitiesCanUsePortals(this.plugin.getConfig().getBoolean("entities.can-use-portals"));
+            purpur.villagerIsLobotomized(this.plugin.getConfig().getBoolean("entities.villager.lobotomized"));
+            purpur.villagerSearchRadiusAcquirePoi(this.plugin.getConfig().getInt("entities.villager.search-radius"));
+            purpur.villagerSearchRadiusNearestBedSensor(this.plugin.getConfig().getInt("entities.villager.search-radius"));
+            if (pregeneratedWorld) {
+                this.log.info("[KOS][4/6] World is pregenerated, enabling dolphin treasure searching...");
+                purpur.dolphinDisableTreasureSearching(false);
+            } else {
+                purpur.dolphinDisableTreasureSearching(true);
+                this.log.info("[KOS][4/6] World not pregenerated, disabling dolphin treasure searching...");
+                this.message.Warning("Dolphin treasure searching has been disabled, please pre-generate your world to re-enable this.");
+            }
+            purpur.teleportIfOutsideBorder(true);
+            purpur.laggingThreshold(this.plugin.getConfig().getDouble("lagging-tps-threshold"));
+
         } else {
             this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
         }
