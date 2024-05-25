@@ -247,6 +247,10 @@ public class PaperWorld {
         this.plugin.getConfig().set("entities.spawning.creative-arrow-despawn-rate", value);
     }
 
+    public void spawnerNerfedMobsShouldJump(boolean value) {
+        this.plugin.getConfig().set("spawner-nerfed-mobs-should-jump", value);
+    }
+
     public void save() {
         try {
             this.plugin.getConfig().save(this.file);

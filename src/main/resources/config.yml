@@ -17,3 +17,6 @@ entities-can-use-portals: false
 villagers:
   lobotomized: false
   search-radius: 16
+spawner-mobs:
+  nerfed: true
+  nerded-can-jump: false

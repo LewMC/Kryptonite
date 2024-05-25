@@ -90,6 +90,16 @@ public class Optimiser {
     private void runSpigot() {
         if (this.softwareUtil.isSpigot()) {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
+
+            try {
+                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+            } catch (IOException | InvalidConfigurationException e) {
+                this.message.Error("Unable to open configuration, see console for more information.");
+                this.message.Error("Kryptonite Optimisation System Aborted.");
+                this.log.severe(e.getMessage());
+                return;
+            }
+
             Spigot spigot = new Spigot(this.plugin);
 
             spigot.viewDistance("default");
@@ -97,7 +107,7 @@ public class Optimiser {
             spigot.entityActivationRange(16, 24, 48, 8, 8, 16, 48);
             spigot.entityTrackingRange(48, 48, 48, 32, 64);
             spigot.tickInacativeVillagers(false);
-            spigot.nerfSpawnerMobs(true);
+            spigot.nerfSpawnerMobs(this.plugin.getConfig().getBoolean("spawner-mobs.nerfed"));
             spigot.mergeRadius(3.5, 4.0);
             spigot.hopperTransfer(8);
             spigot.hopperCheck(8);
@@ -111,6 +121,15 @@ public class Optimiser {
     private void runPaper(boolean pregeneratedWorld) {
         if (this.softwareUtil.isPaper()) {
             this.log.info("[KOS] 4/4 - Running Paper optimisations");
+            try {
+                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+            } catch (IOException | InvalidConfigurationException e) {
+                this.message.Error("Unable to open configuration, see console for more information.");
+                this.message.Error("Kryptonite Optimisation System Aborted.");
+                this.log.severe(e.getMessage());
+                return;
+            }
+
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(10);
             pw.maxAutosaveChunksPerTick(8);
@@ -132,6 +151,7 @@ public class Optimiser {
             pw.fixClimbingBypassingCrammingRule(true);
             pw.armorStandsTick(false);
             pw.armorStandsDoCollisionEntityLookups(false);
+            pw.spawnerNerfedMobsShouldJump(this.plugin.getConfig().getBoolean("spawner.nerded-can-jump"));
 
             if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
                 pw.villagerBehaviourTickRates(60, 120);
