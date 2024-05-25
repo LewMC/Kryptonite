@@ -21,14 +21,17 @@ public class Optimiser {
 
     public void runDefault(boolean pregeneratedWorld) {
 
-        this.message.Info("Running Vanilla optimisations");
+        this.message.Success("Running the Kryptonite Optimisation System...");
+
+        LogUtil log = new LogUtil(this.plugin);
+
+        log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
         try {
             this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
         } catch (IOException | InvalidConfigurationException e) {
             this.message.Error("Unable to open configuration, see console for more information.");
             this.message.Error("Kryptonite Optimisation System Aborted.");
-            LogUtil log = new LogUtil(this.plugin);
             log.severe(e.getMessage());
             return;
         }
@@ -36,8 +39,8 @@ public class Optimiser {
         ServerProperties properties = new ServerProperties();
 
         properties.networkCompressionThreshold("256");
-        properties.simulationDistance(Objects.requireNonNull(this.plugin.getConfig().get("simulation-distance")).toString());
-        properties.viewDistance(Objects.requireNonNull(this.plugin.getConfig().get("view-distance")).toString());
+        properties.simulationDistance(Objects.requireNonNull(this.plugin.getConfig().get("distance.simulation")).toString());
+        properties.viewDistance(Objects.requireNonNull(this.plugin.getConfig().get("distance.view")).toString());
         properties.syncChunkWrites("false");
 
         properties.save();
@@ -45,7 +48,7 @@ public class Optimiser {
         SoftwareUtil softwareUtil = new SoftwareUtil(plugin);
 
         if (softwareUtil.isCraftBukkit()) {
-            this.message.Info("Running CraftBukkit optimisations");
+            log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
             Bukkit bukkit = new Bukkit(this.plugin);
 
             bukkit.spawnLimits(20, 5, 2, 2, 3, 3, 1);
@@ -53,11 +56,12 @@ public class Optimiser {
 
             bukkit.save();
         } else {
-            this.message.Warning("Server not CraftBukkit, skipping...");
+            log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
+            log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
         }
 
         if (softwareUtil.isSpigot()) {
-            this.message.Info("Running Spigot optimisations");
+            log.info("[KOS] 3/6 - Running Spigot optimisations");
             Spigot spigot = new Spigot(this.plugin);
 
             spigot.viewDistance("default");
@@ -72,11 +76,11 @@ public class Optimiser {
 
             spigot.save();
         } else {
-            this.message.Warning("Server not Spigot, skipping...");
+            log.info("[KOS] 3/6 - Server not Spigot, skipping...");
         }
 
         if (softwareUtil.isPaper()) {
-            this.message.Info("Running Paper optimisations");
+            log.info("[KOS] 4/4 - Running Paper optimisations");
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(10);
             pw.maxAutosaveChunksPerTick(8);
@@ -103,7 +107,7 @@ public class Optimiser {
                 pw.villagerBehaviourTickRates(60, 120);
                 pw.villagerSensorTickRates(80, 80, 40, 40, 40);
             } else {
-                this.message.Info("Running Pufferfish, skipping some steps due to incompatibility...");
+                this.message.Info("[KOS][4/6] You're running Pufferfish, skipping some steps due to incompatibility...");
             }
 
             pw.altItemDespawnRate(
@@ -145,7 +149,7 @@ public class Optimiser {
             if (pregeneratedWorld) {
                 pw.treasureMapsEnabled(true);
             } else {
-                this.message.Warning("Treasure maps disabled, please pregenerate your world to re-enable them.");
+                this.message.Warning("Treasure maps have been disabled, please pre-generate your world to re-enable them.");
             }
 
             pw.treasureMapsFindAlreadyDiscovered(true);
@@ -156,21 +160,34 @@ public class Optimiser {
 
             pw.save();
         } else {
-            this.message.Warning("Server not Paper, skipping...");
-            this.message.Error("We HIGHLY recommend using Paper for your server software.");
-            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+            log.info("[KOS] 4/6 - Server not Paper, skipping...");
         }
 
         if (softwareUtil.isPurpur()) {
-            this.message.Info("Purpur optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
+            log.info("[KOS] 5/6 - Running Purpur optimisations");
+        } else {
+            log.info("[KOS] 5/6 - Server not Purpur, skipping...");
         }
 
         if (softwareUtil.isPufferfish()) {
-            this.message.Info("Pufferfish optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
+            log.info("[KOS] 6/6 - Running Pufferfish optimisations");
+        } else {
+            log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
         }
 
-        this.message.Success("Done.");
-        this.message.Info("It is now safe to delete Kryptonite from your server.");
+        this.message.Success("Done!");
+        this.message.Info("See your server console for more logs.");
         this.message.Error("You must restart your server for changes to be applied.");
+
+        if (!softwareUtil.isPaper()) {
+            this.message.Error("");
+            this.message.Error("You are using an unoptimised server jar!");
+            this.message.Error("This is a problem that Kryptonite can't fix.");
+            this.message.Error("");
+            this.message.Error("We HIGHLY recommend using Paper for your server software.");
+            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+            this.message.Error("You can download paper from papermc.io");
+            this.message.Error("");
+        }
     }
 }
