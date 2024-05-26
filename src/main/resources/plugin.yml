@@ -19,3 +19,4 @@ commands:
     description: Exploit Database
     usage: /<command>
     aliases: ['exploit']
+folia-supported: true
