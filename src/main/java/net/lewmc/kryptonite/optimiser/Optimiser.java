@@ -65,7 +65,7 @@ public class Optimiser {
         properties.networkCompressionThreshold(this.plugin.getConfig().getInt("server.network-compression-threshold")+"");
         properties.simulationDistance(this.plugin.getConfig().getInt("server.distance.simulation")+"");
         properties.viewDistance(this.plugin.getConfig().getInt("server.distance.view")+"");
-        properties.syncChunkWrites(this.plugin.getConfig().getInt("server.sync-chunk-writes")+"");
+        properties.syncChunkWrites(this.plugin.getConfig().getBoolean("server.sync-chunk-writes"));
 
         properties.save();
     }
@@ -73,6 +73,14 @@ public class Optimiser {
     private void runCraftBukkit() {
         if (this.softwareUtil.isCraftBukkit()) {
             this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
+
+            try {
+                this.plugin.getConfig().load(KRYPTONITE_CONFIG);
+            } catch (IOException | InvalidConfigurationException e) {
+                this.cantOpenConfig(e);
+                return;
+            }
+
             Bukkit bukkit = new Bukkit(this.plugin);
 
             bukkit.spawnLimits(
