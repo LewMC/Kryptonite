@@ -58,7 +58,7 @@ public class Optimiser {
         }
 
         try {
-            this.patches.load("config.yml");
+            this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
         } catch (IOException | InvalidConfigurationException e) {
             this.cantOpenConfig(e);
         }
