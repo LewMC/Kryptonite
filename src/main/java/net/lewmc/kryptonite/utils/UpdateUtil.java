@@ -72,4 +72,14 @@ public class UpdateUtil {
             this.log.warn("Unable to update configuration: "+e);
         }
     }
+
+    public void UpdatePatches() {
+        File configFile = new File(this.plugin.getDataFolder(), "kos.yml");
+
+        try {
+            ConfigUpdater.update(plugin, "kos.yml", configFile);
+        } catch (IOException e) {
+            this.log.warn("Unable to update patches: "+e);
+        }
+    }
 }

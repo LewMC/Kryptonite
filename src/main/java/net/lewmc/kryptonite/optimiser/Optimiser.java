@@ -1,176 +1,364 @@
 package net.lewmc.kryptonite.optimiser;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class Optimiser {
     private final Kryptonite plugin;
     private final MessageUtil message;
+    private final SoftwareUtil softwareUtil;
+    private final LogUtil log;
+    private final YamlConfiguration patches;
+    private final YamlConfiguration kosconfig;
 
     public Optimiser(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
+        this.log = new LogUtil(this.plugin);
+        this.softwareUtil = new SoftwareUtil(this.plugin);
+        
+        ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
+        this.patches = config.load("plugins/Kryptonite/kos.yml");
+        
+        this.kosconfig = config.load("plugins/Kryptonite/config.yml");
     }
 
     public void runDefault(boolean pregeneratedWorld) {
 
-        this.message.Info("Running Vanilla optimisations");
+        this.message.Success("Running the Kryptonite Optimisation System...");
+
+        this.runVanilla();
+        this.runCraftBukkit();
+        this.runSpigot();
+        this.runPaper(pregeneratedWorld);
+        this.runPurpur(pregeneratedWorld);
+        this.runPufferfish();
+
+        this.message.Success("Done!");
+        this.message.Info("See your server console for more logs.");
+        this.message.Warning("You must restart your server for changes to be applied.");
+
+        if (!this.softwareUtil.isPaper()) {
+            this.message.Error("");
+            this.message.Error("You are using an unoptimised server jar!");
+            this.message.Error("This is a problem that Kryptonite can't fix.");
+            this.message.Error("");
+            this.message.Error("We HIGHLY recommend using Paper for your server software.");
+            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+            this.message.Error("You can download paper from papermc.io");
+            this.message.Error("");
+        }
 
         try {
             this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
         } catch (IOException | InvalidConfigurationException e) {
-            this.message.Error("Unable to open configuration, see console for more information.");
-            this.message.Error("Kryptonite Optimisation System Aborted.");
-            LogUtil log = new LogUtil(this.plugin);
-            log.severe(e.getMessage());
-            return;
+            this.cantOpenConfig(e);
         }
+    }
+
+    private void runVanilla() {
+        this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
         ServerProperties properties = new ServerProperties();
 
-        properties.networkCompressionThreshold("256");
-        properties.simulationDistance(Objects.requireNonNull(this.plugin.getConfig().get("simulation-distance")).toString());
-        properties.viewDistance(Objects.requireNonNull(this.plugin.getConfig().get("view-distance")).toString());
-        properties.syncChunkWrites("false");
+        properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold")+"");
+        properties.simulationDistance(this.patches.getInt("server.distance.simulation")+"");
+        properties.viewDistance(this.patches.getInt("server.distance.view")+"");
+        properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
 
         properties.save();
+    }
 
-        SoftwareUtil softwareUtil = new SoftwareUtil(plugin);
+    private void runCraftBukkit() {
+        if (this.softwareUtil.isCraftBukkit()) {
+            this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
 
-        if (softwareUtil.isCraftBukkit()) {
-            this.message.Info("Running CraftBukkit optimisations");
             Bukkit bukkit = new Bukkit(this.plugin);
 
-            bukkit.spawnLimits(20, 5, 2, 2, 3, 3, 1);
-            bukkit.ticksPer(10, 400, 400, 400, 400, 400, 400);
+            bukkit.spawnLimits(
+                    this.patches.getInt("craftbukkit.spawn-limits.monsters"),
+                    this.patches.getInt("craftbukkit.spawn-limits.animals"),
+                    this.patches.getInt("craftbukkit.spawn-limits.water.animals"),
+                    this.patches.getInt("craftbukkit.spawn-limits.water.ambient"),
+                    this.patches.getInt("craftbukkit.spawn-limits.water.underground-creature"),
+                    this.patches.getInt("craftbukkit.spawn-limits.axolotls"),
+                    this.patches.getInt("craftbukkit.spawn-limits.ambient")
+            );
+
+            bukkit.ticksPer(
+                    this.patches.getInt("craftbukkit.ticks-per.monsters"),
+                    this.patches.getInt("craftbukkit.ticks-per.animals"),
+                    this.patches.getInt("craftbukkit.ticks-per.water.animals"),
+                    this.patches.getInt("craftbukkit.ticks-per.water.ambient"),
+                    this.patches.getInt("craftbukkit.ticks-per.water.underground-creature"),
+                    this.patches.getInt("craftbukkit.ticks-per.axolotls"),
+                    this.patches.getInt("craftbukkit.ticks-per.ambient")
+            );
+
+            bukkit.chunkGcPeriodInTicks(this.patches.getInt("craftbukkit.chunk-gc-period-in-ticks"));
 
             bukkit.save();
         } else {
-            this.message.Warning("Server not CraftBukkit, skipping...");
+            this.log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
+            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
         }
+    }
 
-        if (softwareUtil.isSpigot()) {
-            this.message.Info("Running Spigot optimisations");
+    private void runSpigot() {
+        if (this.softwareUtil.isSpigot()) {
+            this.log.info("[KOS] 3/6 - Running Spigot optimisations");
+
             Spigot spigot = new Spigot(this.plugin);
 
-            spigot.viewDistance("default");
-            spigot.mobSpawnRange(3);
-            spigot.entityActivationRange(16, 24, 48, 8, 8, 16, 48);
-            spigot.entityTrackingRange(48, 48, 48, 32, 64);
-            spigot.tickInacativeVillagers(false);
-            spigot.nerfSpawnerMobs(true);
-            spigot.mergeRadius(3.5, 4.0);
-            spigot.hopperTransfer(8);
-            spigot.hopperCheck(8);
+            spigot.viewDistance(this.patches.get("spigot.view-distance"));
+            spigot.mobSpawnRange(this.patches.getInt("spigot.mob-spawn-range"));
+            spigot.entityActivationRange(
+                    this.patches.getInt("spigot.entities.activation-range.animals"),
+                    this.patches.getInt("spigot.entities.activation-range.monsters"),
+                    this.patches.getInt("spigot.entities.activation-range.raiders"),
+                    this.patches.getInt("spigot.entities.activation-range.misc"),
+                    this.patches.getInt("spigot.entities.activation-range.water"),
+                    this.patches.getInt("spigot.entities.activation-range.villagers"),
+                    this.patches.getInt("spigot.entities.activation-range.flying")
+            );
+            spigot.entityTrackingRange(
+                    this.patches.getInt("spigot.entities.tracking-range.players"),
+                    this.patches.getInt("spigot.entities.tracking-range.animals"),
+                    this.patches.getInt("spigot.entities.tracking-range.monsters"),
+                    this.patches.getInt("spigot.entities.tracking-range.misc"),
+                    this.patches.getInt("spigot.entities.tracking-range.other")
+            );
+            spigot.tickInacativeVillagers(this.patches.getBoolean("spigot.entities.tick-inactive-villagers"));
+            spigot.nerfSpawnerMobs(this.patches.getBoolean("spigot.entities.spawner-mobs-nerfed"));
+            spigot.mergeRadius(
+                    this.patches.getDouble("spigot.entities.merge-radius.item"),
+                    this.patches.getDouble("spigot.entities.merge-radius.exp")
+            );
+            spigot.hopperTransfer(this.patches.getInt("spigot.hopper.transfer"));
+            spigot.hopperCheck(this.patches.getInt("spigot.hopper.check"));
 
             spigot.save();
         } else {
-            this.message.Warning("Server not Spigot, skipping...");
+            log.info("[KOS] 3/6 - Server not Spigot, skipping...");
         }
+    }
 
-        if (softwareUtil.isPaper()) {
-            this.message.Info("Running Paper optimisations");
+    private void runPaper(boolean pregeneratedWorld) {
+        if (this.softwareUtil.isPaper()) {
+            this.log.info("[KOS] 4/4 - Running Paper optimisations");
+
             PaperWorld pw = new PaperWorld(this.plugin);
-            pw.delayChunkUnloads(10);
-            pw.maxAutosaveChunksPerTick(8);
-            pw.preventMovingIntoUnloadedChunks(true);
-            pw.entityPerChunkSaveLimit(8, 16, 3, 8, 8, 3, 16, 8, 8, 3, 8, 8, 8, 8, 16, 16, 4);
+            pw.delayChunkUnloads(this.patches.getInt("paper.chunks.delay-unloads"));
+            pw.maxAutosaveChunksPerTick(this.patches.getInt("paper.chunks.max-autosave-per-tick"));
+            pw.preventMovingIntoUnloadedChunks(this.patches.getBoolean("paper.chunks.prevent-moving-into-unloaded"));
+            pw.entityPerChunkSaveLimit(
+                    this.patches.getInt("paper.chunks.entity-save-limit.area-effect-cloud"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.arrow"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.dragon-fireball"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.egg"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.ender-pearl"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.experience-bottle"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.experience-orb"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.eye-of-ender"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.fireball"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.llama-spit"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.potion"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.shulker-bullet"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.small-fireball"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.snowball"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.spectral-arrow"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.trident"),
+                    this.patches.getInt("paper.chunks.entity-save-limit.wither-skull")
+            );
 
-            pw.ambientDespawnRanges(72, 30);
-            pw.axolotlsDespawnRanges(72, 30);
-            pw.creatureDespawnRanges(72, 30);
-            pw.miscDespawnRanges(72, 30);
-            pw.monsterDespawnRanges(72, 30);
-            pw.undergroundWaterCreatureDespawnRanges(72, 30);
-            pw.waterAmbientDespawnRanges(72, 30);
-            pw.waterCreatureDespawnRanges(72, 30);
+            pw.ambientDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.ambient.hard"),
+                    this.patches.getInt("paper.despawn-ranges.ambient.soft")
+            );
+            pw.axolotlsDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.axolotl.hard"),
+                    this.patches.getInt("paper.despawn-ranges.axolotl.soft")
+            );
+            pw.creatureDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.creature.hard"),
+                    this.patches.getInt("paper.despawn-ranges.creature.soft")
+            );
+            pw.miscDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.misc.hard"),
+                    this.patches.getInt("paper.despawn-ranges.misc.soft")
+            );
+            pw.monsterDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.monster.hard"),
+                    this.patches.getInt("paper.despawn-ranges.monster.soft")
+            );
+            pw.undergroundWaterCreatureDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.water.underground-creature.hard"),
+                    this.patches.getInt("paper.despawn-ranges.water.underground-creature.soft")
+            );
+            pw.waterAmbientDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.water.ambient.hard"),
+                    this.patches.getInt("paper.despawn-ranges.water.ambient.soft")
+            );
+            pw.waterCreatureDespawnRanges(
+                    this.patches.getInt("paper.despawn-ranges.water.creature.hard"),
+                    this.patches.getInt("paper.despawn-ranges.water.creature.soft")
+            );
 
-            pw.perPlayerMobSpawns(true);
-            pw.maxEntityCollisions(2);
-            pw.updatePathfindingOnBlockUpdate(false);
-            pw.fixClimbingBypassingCrammingRule(true);
-            pw.armorStandsTick(false);
-            pw.armorStandsDoCollisionEntityLookups(false);
+            pw.perPlayerMobSpawns(this.patches.getBoolean("paper.per-player-mob-spawns"));
+            pw.maxEntityCollisions(this.patches.getInt("paper.max-entity-collisions"));
+            pw.updatePathfindingOnBlockUpdate(this.patches.getBoolean("paper.update-pathfinding-on-block-update"));
+            pw.fixClimbingBypassingCrammingRule(this.patches.getBoolean("paper.fix-climbing-bypass-cramming-rule"));
+            pw.armorStandsTick(this.patches.getBoolean("paper.armor-stands.tick"));
+            pw.armorStandsDoCollisionEntityLookups(this.patches.getBoolean("paper.armor-stands.do-collision-entity-lookups"));
+            pw.spawnerNerfedMobsShouldJump(this.patches.getBoolean("entities.nerfed-spawner-mobs-can-jump"));
 
             if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
-                pw.villagerBehaviourTickRates(60, 120);
-                pw.villagerSensorTickRates(80, 80, 40, 40, 40);
+                pw.villagerBehaviourTickRates(
+                        this.patches.getInt("paper.tick-rates.villager.behaviour.nearby-poi"),
+                        this.patches.getInt("paper.tick-rates.villager.behaviour.acquire-poi")
+                );
+                pw.villagerSensorTickRates(
+                        this.patches.getInt("paper.tick-rates.villager.sensor.secondary-poi"),
+                        this.patches.getInt("paper.tick-rates.villager.sensor.nearest-bed"),
+                        this.patches.getInt("paper.tick-rates.villager.sensor.villager-babies"),
+                        this.patches.getInt("paper.tick-rates.villager.sensor.player"),
+                        this.patches.getInt("paper.tick-rates.villager.sensor.nearest-living-entity")
+                        );
             } else {
-                this.message.Info("Running Pufferfish, skipping some steps due to incompatibility...");
+                this.log.info("[KOS][4/6] You're running Pufferfish, skipping some steps due to incompatibility...");
             }
 
             pw.altItemDespawnRate(
-                    true,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    300,
-                    600
+                    this.patches.getBoolean("paper.optimised-despawn.enabled"),
+                    this.patches.getInt("paper.optimised-despawn.cobblestone"),
+                    this.patches.getInt("paper.optimised-despawn.netherrack"),
+                    this.patches.getInt("paper.optimised-despawn.sand"),
+                    this.patches.getInt("paper.optimised-despawn.red-sand"),
+                    this.patches.getInt("paper.optimised-despawn.gravel"),
+                    this.patches.getInt("paper.optimised-despawn.dirt"),
+                    this.patches.getInt("paper.optimised-despawn.short-grass"),
+                    this.patches.getInt("paper.optimised-despawn.pumpkin"),
+                    this.patches.getInt("paper.optimised-despawn.melon-slice"),
+                    this.patches.getInt("paper.optimised-despawn.kelp"),
+                    this.patches.getInt("paper.optimised-despawn.bamboo"),
+                    this.patches.getInt("paper.optimised-despawn.sugar-cane"),
+                    this.patches.getInt("paper.optimised-despawn.twisting-vines"),
+                    this.patches.getInt("paper.optimised-despawn.weeping-vines"),
+                    this.patches.getInt("paper.optimised-despawn.oak-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.spruce-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.birch-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.jungle-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.acacia-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.dark-oak-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.mangrove-leaves"),
+                    this.patches.getInt("paper.optimised-despawn.cactus"),
+                    this.patches.getInt("paper.optimised-despawn.diorite"),
+                    this.patches.getInt("paper.optimised-despawn.granite"),
+                    this.patches.getInt("paper.optimised-despawn.andesite"),
+                    this.patches.getInt("paper.optimised-despawn.scaffolding")
             );
 
-            pw.redstoneImplementation("ALTERNATE_CURRENT");
-            pw.hopperDisableMoveEvent(false);
-            pw.hopperIgnoreOccludingBlocks(true);
-            pw.tickRatesMobSpawner(2);
-            pw.optimizeExplosions(true);
+            pw.redstoneImplementation(this.patches.getString("paper.redstone-implementation"));
+            pw.hopperDisableMoveEvent(this.patches.getBoolean("paper.hoppers.disable-move-event"));
+            pw.hopperIgnoreOccludingBlocks(this.patches.getBoolean("paper.hoppers.ignore-occluding-blocks"));
+            pw.tickRatesMobSpawner(this.patches.getInt("paper.tick-rates.mob-spawner"));
+            pw.optimizeExplosions(this.patches.getBoolean("paper.optimise-explosions"));
 
             if (pregeneratedWorld) {
+                this.log.info("[KOS][4/6] World is pregenerated, enabling treasure maps...");
                 pw.treasureMapsEnabled(true);
             } else {
-                this.message.Warning("Treasure maps disabled, please pregenerate your world to re-enable them.");
+                if (this.kosconfig.getBoolean("kos.override-pregenerated-world-protections")) {
+                    pw.treasureMapsEnabled(true);
+                    this.log.warn("[KOS][4/6] override-pregenerated-world-protections is TRUE, enabling treasure maps. This may cause lag.");
+                } else {
+                    pw.treasureMapsEnabled(false);
+                    this.log.info("[KOS][4/6] World not pregenerated, disabling treasure maps...");
+                    this.message.Warning("Treasure maps have been disabled, please pre-generate your world to re-enable them.");
+                }
             }
 
-            pw.treasureMapsFindAlreadyDiscovered(true);
-            pw.grassSpreadTickRates(4);
-            pw.containerUpdateTickRates(1);
-            pw.nonPlayerArrowDespawnRate(20);
-            pw.creativeArrowDespawnRate(20);
+            pw.treasureMapsFindAlreadyDiscovered(this.patches.getBoolean("paper.find-already-discovered-treasure-maps"));
+            pw.grassSpreadTickRates(this.patches.getInt("paper.tick-rates.grass-spread"));
+            pw.containerUpdateTickRates(this.patches.getInt("paper.tick-rates.container-update"));
+            pw.nonPlayerArrowDespawnRate(this.patches.getInt("paper.optimised-despawn.arrow.non-player"));
+            pw.creativeArrowDespawnRate(this.patches.getInt("paper.optimised-despawn.arrow.creative"));
 
             pw.save();
         } else {
-            this.message.Warning("Server not Paper, skipping...");
-            this.message.Error("We HIGHLY recommend using Paper for your server software.");
-            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+            log.info("[KOS] 4/6 - Server not Paper, skipping...");
         }
+    }
 
-        if (softwareUtil.isPurpur()) {
-            this.message.Info("Purpur optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
+    private void runPurpur(boolean pregeneratedWorld) {
+        if (this.softwareUtil.isPurpur()) {
+            this.log.info("[KOS] 5/6 - Running Purpur optimisations");
+
+            Purpur purpur = new Purpur(this.plugin);
+            if (this.kosconfig.getBoolean("kos.using-tcpshield")) {
+                this.log.info("[KOS] 5/6 - You're using TCPShield, disabling use-alternative-keepalive.");
+                purpur.useAlternativeKeepalive(false);
+            } else {
+                purpur.useAlternativeKeepalive(this.patches.getBoolean("purpur.use-alternative-keepalive"));
+            }
+
+            purpur.zombieAggressiveTowardsVillagerWhenLagging(this.patches.getBoolean("purpur.entities.zombie.aggressive-towards-villager-when-lagging"));
+            purpur.entitiesCanUsePortals(this.patches.getBoolean("purpur.entities.all.can-use-portals"));
+            purpur.villagerIsLobotomized(this.patches.getBoolean("purpur.entities.villager.lobotomized"));
+            purpur.villagerSearchRadiusAcquirePoi(this.patches.getInt("purpur.entities.villager.search-radius.acquire-poi"));
+            purpur.villagerSearchRadiusNearestBedSensor(this.patches.getInt("purpur.entities.villager.search-radius.nearest-bed-sensor"));
+            if (pregeneratedWorld) {
+                this.log.info("[KOS][4/6] World is pregenerated, enabling dolphin treasure searching...");
+                purpur.dolphinDisableTreasureSearching(false);
+            } else {
+                if (this.kosconfig.getBoolean("kos.override-pregenerated-world-protections")) {
+                    purpur.dolphinDisableTreasureSearching(false);
+                    this.log.warn("[KOS][4/6] override-pregenerated-world-protections is TRUE, enabling dolphin treasure searching. This may cause lag.");
+                } else {
+                    purpur.dolphinDisableTreasureSearching(true);
+                    this.log.info("[KOS][4/6] World not pregenerated, disabling dolphin treasure searching...");
+                    this.message.Warning("Dolphin treasure searching has been disabled, please pre-generate your world to re-enable this.");
+                }}
+            purpur.teleportIfOutsideBorder(this.patches.getBoolean("purpur.teleport-if-outside-worldborder"));
+            purpur.laggingThreshold(this.patches.getDouble("purpur.lagging-tps-threshold"));
+
+            purpur.save();
+        } else {
+            this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
         }
+    }
 
-        if (softwareUtil.isPufferfish()) {
-            this.message.Info("Pufferfish optimisations are not currently supported. Paper, Spigot, and CraftBukkit optimisations have been applied.");
+    private void runPufferfish() {
+        if (this.softwareUtil.isPufferfish()) {
+            this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
+            Pufferfish pufferfish = new Pufferfish(this.plugin);
+
+            pufferfish.maxLoadsPerProjectile(this.patches.getInt("pufferfish.max-loads-per-projectile"));
+            pufferfish.dabEnabled(this.patches.getBoolean("pufferfish.entities.dynamic-activation-of-brain.enabled"));
+            pufferfish.dabMaxTickFreq(this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.max-tick-freq"));
+            pufferfish.dabActivationDistMod(this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.activation-distance-modifier"));
+            pufferfish.enableAsyncMobSpawning(this.patches.getBoolean("pufferfish.entities.async-mob-spawning"));
+            pufferfish.enableSuffocationOptimization(this.patches.getBoolean("pufferfish.entities.suffocation-optimisation"));
+            pufferfish.inactiveGoalSelectorThrottle(this.patches.getBoolean("pufferfish.entities.inactive-goal-selector-throttle"));
+            pufferfish.disableMethodProfiler(this.patches.getBoolean("pufferfish.disable-method-profiler"));
+
+            pufferfish.save();
+        } else {
+            this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
         }
+    }
 
-        this.message.Success("Done.");
-        this.message.Info("It is now safe to delete Kryptonite from your server.");
-        this.message.Error("You must restart your server for changes to be applied.");
+    private void cantOpenConfig(Exception e) {
+        this.message.Error("Unable to open configuration, see console for more information.");
+        this.message.Error("Kryptonite Optimisation System Aborted.");
+        this.log.severe(e.getMessage());
     }
 }
