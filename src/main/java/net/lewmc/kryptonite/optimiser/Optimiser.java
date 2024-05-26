@@ -36,7 +36,7 @@ public class Optimiser {
 
         this.message.Success("Done!");
         this.message.Info("See your server console for more logs.");
-        this.message.Error("You must restart your server for changes to be applied.");
+        this.message.Warning("You must restart your server for changes to be applied.");
 
         if (!this.softwareUtil.isPaper()) {
             this.message.Error("");
