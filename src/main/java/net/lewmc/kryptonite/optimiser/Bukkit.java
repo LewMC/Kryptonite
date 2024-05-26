@@ -42,6 +42,10 @@ public class Bukkit {
         this.plugin.getConfig().set("ticks-per.ambient-spawns", ambient);
     }
 
+    public void chunkGcPeriodInTicks(int value) {
+        this.plugin.getConfig().set("chunk-gc.period-in-ticks", value);
+    }
+
     public void save() {
         try {
             this.plugin.getConfig().save(this.file);

@@ -43,6 +43,7 @@ craftbukkit:
       animals: 400
       ambient: 400
       underground-creature: 400
+  chunk-gc-period-in-ticks: 400
 
 # Spigot Settings
 spigot:

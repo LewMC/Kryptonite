@@ -81,6 +81,8 @@ public class Optimiser {
                 return;
             }
 
+            this.log.info(String.valueOf(this.plugin.getConfig().getInt("craftbukkit.spawn-limits.monsters")));
+
             Bukkit bukkit = new Bukkit(this.plugin);
 
             bukkit.spawnLimits(
@@ -102,6 +104,8 @@ public class Optimiser {
                     this.plugin.getConfig().getInt("craftbukkit.ticks-per.axolotls"),
                     this.plugin.getConfig().getInt("craftbukkit.ticks-per.ambient")
             );
+
+            bukkit.chunkGcPeriodInTicks(this.plugin.getConfig().getInt("craftbukkit.chunk-gc-period-in-ticks"));
 
             bukkit.save();
         } else {
