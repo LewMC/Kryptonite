@@ -4,5 +4,7 @@
 # Wiki: https://wiki.lewmc.net/index.php?title=Kryptonite:Configuration
 #
 
-# Kryptonite Settings
 update-check: true
+kos:
+  override-pregenerated-world-protections: false
+  using-tcpshield: false

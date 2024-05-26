@@ -10,11 +10,6 @@
 # Wiki: https://wiki.lewmc.net/index.php?title=Kryptonite:Configuration
 #
 
-# KOS Settings
-kos:
-  override-pregenerated-world-protections: false
-  using-tcpshield: false
-
 # Server Settings
 server:
   network-compression-threshold: 256
