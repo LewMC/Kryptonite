@@ -49,9 +49,9 @@ public final class Kryptonite extends JavaPlugin {
 
         this.saveDefaultConfig();
 
-        File kitsFile = new File(getDataFolder() + File.separator + "patches.yml");
+        File kitsFile = new File(getDataFolder() + File.separator + "kos.yml");
         if (!kitsFile.exists()) {
-            saveResource("patches.yml", false);
+            saveResource("kos.yml", false);
         }
 
         update.VersionCheck();

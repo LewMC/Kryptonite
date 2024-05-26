@@ -26,7 +26,7 @@ public class Optimiser {
         this.softwareUtil = new SoftwareUtil(this.plugin);
         
         ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
-        this.patches = config.load("plugins/Kryptonite/patches.yml");
+        this.patches = config.load("plugins/Kryptonite/kos.yml");
         
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
     }

@@ -74,10 +74,10 @@ public class UpdateUtil {
     }
 
     public void UpdatePatches() {
-        File configFile = new File(this.plugin.getDataFolder(), "patches.yml");
+        File configFile = new File(this.plugin.getDataFolder(), "kos.yml");
 
         try {
-            ConfigUpdater.update(plugin, "patches.yml", configFile);
+            ConfigUpdater.update(plugin, "kos.yml", configFile);
         } catch (IOException e) {
             this.log.warn("Unable to update patches: "+e);
         }
