@@ -6,5 +6,6 @@
 
 update-check: true
 kos:
+  profile: YouHaveTrouble
   override-pregenerated-world-protections: false
   using-tcpshield: false

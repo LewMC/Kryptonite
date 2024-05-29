@@ -74,12 +74,12 @@ public class UpdateUtil {
     }
 
     public void UpdatePatches() {
-        File configFile = new File(this.plugin.getDataFolder(), "kos.yml");
+        File configFile = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
 
         try {
-            ConfigUpdater.update(plugin, "kos.yml", configFile);
+            ConfigUpdater.update(plugin, "profiles/YouHaveTrouble.kos", configFile);
         } catch (IOException e) {
-            this.log.warn("Unable to update patches: "+e);
+            this.log.warn("Unable to update profiles: "+e);
         }
     }
 }
