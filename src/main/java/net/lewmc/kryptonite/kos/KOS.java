@@ -30,16 +30,16 @@ public class KOS {
 
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
 
-        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
         if (f.exists()) {
-            this.patches = config.load("plugins/Kryptonite/profiles/" + kosconfig.getString("profile") + ".kos");
+            this.patches = config.load("plugins/Kryptonite/profiles/" + kosconfig.getString("kos.profile") + ".kos");
         }
     }
 
     public void runDefault(boolean pregeneratedWorld) {
-        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
         if (f.exists()) {
-            this.message.Success("Running the Kryptonite Optimisation System using the '"+kosconfig.getString("profile")+"' profile.");
+            this.message.Success("Running the Kryptonite Optimisation System using the '"+kosconfig.getString("kos.profile")+"' profile.");
 
             this.runVanilla();
             this.runCraftBukkit();
@@ -69,9 +69,9 @@ public class KOS {
                 this.cantOpenConfig(e);
             }
         } else {
-            this.log.severe("Unable to load the '"+kosconfig.getString("profile")+"' profile.");
+            this.log.severe("Unable to load the '"+kosconfig.getString("kos.profile")+"' profile.");
             this.log.severe("Please verify that the file exists and try again.");
-            this.log.severe("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
+            this.log.severe("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
         }
     }
 
@@ -169,7 +169,7 @@ public class KOS {
 
     private void runPaper(boolean pregeneratedWorld) {
         if (this.softwareUtil.supportsPaperWorld()) {
-            this.log.info("[KOS] 4/4 - Running Paper optimisations");
+            this.log.info("[KOS] 4/6 - Running Paper optimisations");
 
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(this.patches.getInt("paper.chunks.delay-unloads"));
