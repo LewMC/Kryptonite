@@ -9,22 +9,23 @@ import net.lewmc.kryptonite.utils.UpdateUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public final class Kryptonite extends JavaPlugin {
 
     private final LogUtil log = new LogUtil(this);
-    public enum Software {
-        UNKNOWN,
-        CRAFTBUKKIT,
-        PAPER,
+    public enum ConfigurationOptions {
+        SERVER_PROPERTIES,
+        BUKKIT,
         SPIGOT,
-        FOLIA,
+        PAPER_WORLD,
+        PAPER_GLOBAL,
         PURPUR,
         PUFFERFISH
     }
-    public Software server = Software.UNKNOWN;
+    public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -46,6 +47,7 @@ public final class Kryptonite extends JavaPlugin {
         this.checkSoftware();
         this.detectBadPlugins();
 
+        this.log.info("");
         this.log.info("Startup completed.");
     }
 
@@ -92,36 +94,54 @@ public final class Kryptonite extends JavaPlugin {
     }
 
     private void checkSoftware() {
-        if (this.getServer().getName().equals("CraftBukkit")) {
-            File f = new File("spigot.yml");
-            if (f.exists()) {
-                this.server = Software.SPIGOT;
-                this.log.info("Detected server jar: Spigot.");
-            } else {
-                this.server = Software.CRAFTBUKKIT;
-                this.log.info("Detected server jar: CraftBukkit.");
-            }
-            this.log.warn("We highly recommend using Paper, Purpur, or Pufferfish. ");
-        } else if (this.getServer().getName().equals("Paper")) {
-            this.server = Software.PAPER;
-            this.log.info("Detected server jar: Paper.");
-        } else if (this.getServer().getName().equals("Folia")) {
-            this.server = Software.FOLIA;
-            this.log.info("Detected server jar: Folia.");
-        } else if (this.getServer().getName().equals("Luminol")) {
-            this.server = Software.FOLIA;
-            this.log.info("Detected server jar: Luminol.");
-        } else if (this.getServer().getName().equals("Purpur")) {
-            this.server = Software.PURPUR;
-            this.log.info("Detected server jar: Purpur.");
-        } else if (this.getServer().getName().equals("Pufferfish")) {
-            this.server = Software.PUFFERFISH;
-            this.log.info("Detected server jar: Pufferfish.");
-        } else {
-            this.server = Software.UNKNOWN;
-            this.log.info("You are running unsupported server jar: "+this.getServer().getName());
-            this.log.severe("This plugin may not work as expected.");
+        String supportedConfigs = "";
+
+        this.log.info("Running server jar: "+this.getServer().getName()+" version "+this.getServer().getBukkitVersion());
+
+        File serverProperties = new File("server.properties");
+        if (serverProperties.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.SERVER_PROPERTIES);
+            supportedConfigs = supportedConfigs + "Server Properties";
         }
+
+        File bukkitConfig = new File("bukkit.yml");
+        if (bukkitConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.BUKKIT);
+            supportedConfigs = supportedConfigs + ", Bukkit";
+        }
+
+        File spigotConfig = new File("spigot.yml");
+        if (spigotConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.SPIGOT);
+            supportedConfigs = supportedConfigs + ", Spigot";
+        }
+
+        File paperWorldConfig = new File("config/paper-world-defaults.yml");
+        if (paperWorldConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.PAPER_WORLD);
+            supportedConfigs = supportedConfigs + ", Paper (World Defaults)";
+        }
+
+        File paperGlobalConfig = new File("config/paper-global.yml");
+        if (paperGlobalConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.PAPER_GLOBAL);
+            supportedConfigs = supportedConfigs + ", Paper (Global)";
+        }
+
+        File purpurConfig = new File("purpur.yml");
+        if (purpurConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.PURPUR);
+            supportedConfigs = supportedConfigs + ", Purpur";
+        }
+
+        File pufferfishConfig = new File("pufferfish.yml");
+        if (pufferfishConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.PUFFERFISH);
+            supportedConfigs = supportedConfigs + ", Pufferfish";
+        }
+        this.log.info("");
+        this.log.info("Supported configurations loaded: "+supportedConfigs+".");
+        this.log.info("");
     }
 
     private void detectBadPlugins() {

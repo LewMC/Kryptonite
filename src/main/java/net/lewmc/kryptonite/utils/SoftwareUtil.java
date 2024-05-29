@@ -9,41 +9,27 @@ public class SoftwareUtil {
         this.plugin = plugin;
     }
 
-    public boolean isCraftBukkit() {
-        if (this.plugin.server == Kryptonite.Software.CRAFTBUKKIT) { return true; }
-        if (this.plugin.server == Kryptonite.Software.SPIGOT) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
-        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
-
-        return false;
+    public boolean supportsServerProperties() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SERVER_PROPERTIES);
     }
 
-    public boolean isSpigot() {
-        if (this.plugin.server == Kryptonite.Software.SPIGOT) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
-        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
-
-        return false;
+    public boolean supportsCraftBukkit() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.BUKKIT);
     }
 
-    public boolean isPaper() {
-        if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
-        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
-        if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
-
-        return false;
+    public boolean supportsSpigot() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SPIGOT);
     }
 
-    public boolean isPurpur() {
-        return this.plugin.server == Kryptonite.Software.PURPUR;
+    public boolean supportsPaperWorld() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.PAPER_WORLD);
     }
 
-    public boolean isPufferfish() {
-        return this.plugin.server == Kryptonite.Software.PUFFERFISH;
+    public boolean supportsPurpur() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.PURPUR);
+    }
+
+    public boolean supportsPufferfish() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.PUFFERFISH);
     }
 }

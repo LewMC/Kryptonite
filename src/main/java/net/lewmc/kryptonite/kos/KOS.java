@@ -46,7 +46,7 @@ public class KOS {
         this.message.Info("See your server console for more logs.");
         this.message.Warning("You must restart your server for changes to be applied.");
 
-        if (!this.softwareUtil.isPaper()) {
+        if (!this.softwareUtil.supportsPaperWorld()) {
             this.message.Error("");
             this.message.Error("You are using an unoptimised server jar!");
             this.message.Error("This is a problem that Kryptonite can't fix.");
@@ -65,20 +65,25 @@ public class KOS {
     }
 
     private void runVanilla() {
-        this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
+        if (this.softwareUtil.supportsServerProperties()) {
+            this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
-        ServerProperties properties = new ServerProperties();
+            ServerProperties properties = new ServerProperties();
 
-        properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold")+"");
-        properties.simulationDistance(this.patches.getInt("server.distance.simulation")+"");
-        properties.viewDistance(this.patches.getInt("server.distance.view")+"");
-        properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
+            properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold") + "");
+            properties.simulationDistance(this.patches.getInt("server.distance.simulation") + "");
+            properties.viewDistance(this.patches.getInt("server.distance.view") + "");
+            properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
 
-        properties.save();
+            properties.save();
+        } else {
+            this.log.info("[KOS] 2/6 - Server does not support Server Properties, skipping...");
+            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
+        }
     }
 
     private void runCraftBukkit() {
-        if (this.softwareUtil.isCraftBukkit()) {
+        if (this.softwareUtil.supportsCraftBukkit()) {
             this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
 
             Bukkit bukkit = new Bukkit(this.plugin);
@@ -107,13 +112,13 @@ public class KOS {
 
             bukkit.save();
         } else {
-            this.log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
+            this.log.info("[KOS] 2/6 - Server does not support CraftBukkit configurations, skipping...");
             this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
         }
     }
 
     private void runSpigot() {
-        if (this.softwareUtil.isSpigot()) {
+        if (this.softwareUtil.supportsSpigot()) {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
 
             Spigot spigot = new Spigot(this.plugin);
@@ -147,12 +152,12 @@ public class KOS {
 
             spigot.save();
         } else {
-            log.info("[KOS] 3/6 - Server not Spigot, skipping...");
+            log.info("[KOS] 3/6 - Server does not support Spigot configurations, skipping...");
         }
     }
 
     private void runPaper(boolean pregeneratedWorld) {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             this.log.info("[KOS] 4/4 - Running Paper optimisations");
 
             PaperWorld pw = new PaperWorld(this.plugin);
@@ -220,7 +225,7 @@ public class KOS {
             pw.armorStandsDoCollisionEntityLookups(this.patches.getBoolean("paper.armor-stands.do-collision-entity-lookups"));
             pw.spawnerNerfedMobsShouldJump(this.patches.getBoolean("entities.nerfed-spawner-mobs-can-jump"));
 
-            if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
+            if (!this.softwareUtil.supportsPufferfish()) {
                 pw.villagerBehaviourTickRates(
                         this.patches.getInt("paper.tick-rates.villager.behaviour.nearby-poi"),
                         this.patches.getInt("paper.tick-rates.villager.behaviour.acquire-poi")
@@ -294,12 +299,12 @@ public class KOS {
 
             pw.save();
         } else {
-            log.info("[KOS] 4/6 - Server not Paper, skipping...");
+            log.info("[KOS] 4/6 - Server does not support Paper World configurations, skipping...");
         }
     }
 
     private void runPurpur(boolean pregeneratedWorld) {
-        if (this.softwareUtil.isPurpur()) {
+        if (this.softwareUtil.supportsPurpur()) {
             this.log.info("[KOS] 5/6 - Running Purpur optimisations");
 
             Purpur purpur = new Purpur(this.plugin);
@@ -332,12 +337,12 @@ public class KOS {
 
             purpur.save();
         } else {
-            this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
+            this.log.info("[KOS] 5/6 - Server does not support Purpur configurations, skipping...");
         }
     }
 
     private void runPufferfish() {
-        if (this.softwareUtil.isPufferfish()) {
+        if (this.softwareUtil.supportsPufferfish()) {
             this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
             Pufferfish pufferfish = new Pufferfish(this.plugin);
 
@@ -352,7 +357,7 @@ public class KOS {
 
             pufferfish.save();
         } else {
-            this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
+            this.log.info("[KOS] 6/6 - Server does not support Pufferfish configurations, skipping...");
         }
     }
 
