@@ -26,7 +26,7 @@ public class KOS {
         this.softwareUtil = new SoftwareUtil(this.plugin);
         
         ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
-        this.patches = config.load("plugins/Kryptonite/YouHaveTrouble.kos");
+        this.patches = config.load("plugins/Kryptonite/profiles/YouHaveTrouble.kos");
         
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
     }

@@ -5,6 +5,7 @@ import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public final class Kryptonite extends JavaPlugin {
         PUFFERFISH
     }
     public Software server = Software.UNKNOWN;
+    public String[] badPlugins;
 
     @Override
     public void onEnable() {
@@ -42,6 +44,7 @@ public final class Kryptonite extends JavaPlugin {
         this.initFilesystem();
         this.loadCommands();
         this.checkSoftware();
+        this.detectBadPlugins();
 
         this.log.info("Startup completed.");
     }
@@ -116,8 +119,15 @@ public final class Kryptonite extends JavaPlugin {
             this.log.info("Detected server jar: Pufferfish.");
         } else {
             this.server = Software.UNKNOWN;
-            this.log.info("Detected server jar: Unknown.");
+            this.log.info("You are running unsupported server jar: "+this.getServer().getName());
             this.log.severe("This plugin may not work as expected.");
+        }
+    }
+
+    private void detectBadPlugins() {
+        Plugin[] plugins = this.getServer().getPluginManager().getPlugins();
+        for (Plugin p : plugins) {
+            this.log.info("Running plugin: "+p.getName());
         }
     }
 }
