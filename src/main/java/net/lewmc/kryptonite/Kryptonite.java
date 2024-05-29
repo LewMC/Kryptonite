@@ -3,12 +3,13 @@ package net.lewmc.kryptonite;
 import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
+import net.lewmc.kryptonite.utils.CompatablityUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 public final class Kryptonite extends JavaPlugin {
@@ -24,7 +25,6 @@ public final class Kryptonite extends JavaPlugin {
         PUFFERFISH
     }
     public Software server = Software.UNKNOWN;
-    public String[] badPlugins;
 
     @Override
     public void onEnable() {
@@ -125,9 +125,15 @@ public final class Kryptonite extends JavaPlugin {
     }
 
     private void detectBadPlugins() {
-        Plugin[] plugins = this.getServer().getPluginManager().getPlugins();
-        for (Plugin p : plugins) {
-            this.log.info("Running plugin: "+p.getName());
+        CompatablityUtil compat = new CompatablityUtil(this);
+        List<String> badPlugins = new java.util.ArrayList<>(compat.badPlugins());
+
+        for (String badPlugin : badPlugins) {
+            this.log.severe("");
+            this.log.severe("Using known lag-causing plugin: "+badPlugin);
+            this.log.severe("This plugin may cause more lag than it resolves or conflict with Kryptonite. Consider removing it.");
+            this.log.severe("Learn more: https://wiki.lewmc.net/index.php/Lag_Plugins");
+            this.log.severe("");
         }
     }
 }
