@@ -18,7 +18,9 @@ public final class Kryptonite extends JavaPlugin {
         CRAFTBUKKIT,
         PAPER,
         SPIGOT,
-        PURPUR, PUFFERFISH
+        FOLIA,
+        PURPUR,
+        PUFFERFISH
     }
     public Software server = Software.UNKNOWN;
 
@@ -87,6 +89,9 @@ public final class Kryptonite extends JavaPlugin {
         } else if (this.getServer().getName().equals("Paper")) {
             this.server = Software.PAPER;
             this.log.info("Detected server jar: Paper.");
+        } else if (this.getServer().getName().equals("Folia")) {
+            this.server = Software.FOLIA;
+            this.log.info("Detected server jar: Folia.");
         } else if (this.getServer().getName().equals("Purpur")) {
             this.server = Software.PURPUR;
             this.log.info("Detected server jar: Purpur.");

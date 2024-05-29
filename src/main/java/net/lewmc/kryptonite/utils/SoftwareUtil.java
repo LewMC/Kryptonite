@@ -13,6 +13,7 @@ public class SoftwareUtil {
         if (this.plugin.server == Kryptonite.Software.CRAFTBUKKIT) { return true; }
         if (this.plugin.server == Kryptonite.Software.SPIGOT) { return true; }
         if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
+        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
         if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
         if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
 
@@ -22,6 +23,7 @@ public class SoftwareUtil {
     public boolean isSpigot() {
         if (this.plugin.server == Kryptonite.Software.SPIGOT) { return true; }
         if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
+        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
         if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
         if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
 
@@ -30,6 +32,7 @@ public class SoftwareUtil {
 
     public boolean isPaper() {
         if (this.plugin.server == Kryptonite.Software.PAPER) { return true; }
+        if (this.plugin.server == Kryptonite.Software.FOLIA) { return true; }
         if (this.plugin.server == Kryptonite.Software.PURPUR) { return true; }
         if (this.plugin.server == Kryptonite.Software.PUFFERFISH) { return true; }
 
