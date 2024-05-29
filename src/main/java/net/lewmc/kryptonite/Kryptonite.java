@@ -139,9 +139,7 @@ public final class Kryptonite extends JavaPlugin {
             this.SupportedConfigurations.add(ConfigurationOptions.PUFFERFISH);
             supportedConfigs = supportedConfigs + ", Pufferfish";
         }
-        this.log.info("");
         this.log.info("Supported configurations loaded: "+supportedConfigs+".");
-        this.log.info("");
     }
 
     private void detectBadPlugins() {
