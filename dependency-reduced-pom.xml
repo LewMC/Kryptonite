@@ -4,7 +4,7 @@
   <groupId>net.lewmc</groupId>
   <artifactId>kryptonite</artifactId>
   <name>Kryptonite</name>
-  <version>1.2.0-FOLIA</version>
+  <version>1.2.1-SNAPSHOT</version>
   <build>
     <resources>
       <resource>
