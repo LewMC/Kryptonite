@@ -1,7 +1,7 @@
 package net.lewmc.kryptonite.commands;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.optimiser.Optimiser;
+import net.lewmc.kryptonite.kos.KOS;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
@@ -42,16 +42,16 @@ public class OptimiseCommand implements CommandExecutor {
                     message.Info("You'll need to restart the server after completion for changes to be made.");
                     message.Info("");
 
-                    Optimiser opt = new Optimiser(commandSender, this.plugin);
-                    opt.runDefault(true);
+                    KOS kos = new KOS(commandSender, this.plugin);
+                    kos.runDefault(true);
                 } else if (Objects.equals(args[0].toLowerCase(), "no") && perm.isOperator(commandSender)) {
                     message.Info("Kryptonite will now run it's optimisation system.");
                     message.Info("You should backup your server before running Kryptonite.");
                     message.Info("You'll need to restart the server after completion for changes to be made.");
                     message.Info("");
 
-                    Optimiser opt = new Optimiser(commandSender, this.plugin);
-                    opt.runDefault(false);
+                    KOS kos = new KOS(commandSender, this.plugin);
+                    kos.runDefault(false);
                 } else {
                     message.Error("Unknown command. Use /kos for help.");
                 }

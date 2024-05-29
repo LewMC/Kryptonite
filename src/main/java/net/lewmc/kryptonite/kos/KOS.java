@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.optimiser;
+package net.lewmc.kryptonite.kos;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
 
-public class Optimiser {
+public class KOS {
     private final Kryptonite plugin;
     private final MessageUtil message;
     private final SoftwareUtil softwareUtil;
@@ -19,7 +19,7 @@ public class Optimiser {
     private final YamlConfiguration patches;
     private final YamlConfiguration kosconfig;
 
-    public Optimiser(CommandSender cs, Kryptonite plugin) {
+    public KOS(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
         this.log = new LogUtil(this.plugin);
