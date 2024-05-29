@@ -56,8 +56,8 @@ public final class Kryptonite extends JavaPlugin {
 
         this.saveDefaultConfig();
 
-        File kitsFile = new File(getDataFolder() + File.separator + "profiles/YouHaveTrouble.kos");
-        if (!kitsFile.exists()) {
+        File YHTProfile = new File(getDataFolder() + File.separator + "profiles/YouHaveTrouble.kos");
+        if (!YHTProfile.exists()) {
             saveResource("profiles/YouHaveTrouble.kos", false);
         }
 
