@@ -8,12 +8,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.IOException;
 
 public class ConfigurationUtil {
-    private final Kryptonite plugin;
     private final MessageUtil message;
     private final LogUtil log;
 
     public ConfigurationUtil(Kryptonite plugin, CommandSender user) {
-        this.plugin = plugin;
         this.message = new MessageUtil(user);
         this.log = new LogUtil(plugin);
     }
@@ -23,7 +21,6 @@ public class ConfigurationUtil {
             patches.load(path);
         } catch (IOException | InvalidConfigurationException e) {
             this.message.Error("Unable to open configuration, see console for more information.");
-            this.message.Error("Kryptonite Optimisation System Aborted.");
             this.log.severe(e.getMessage());
         }
 

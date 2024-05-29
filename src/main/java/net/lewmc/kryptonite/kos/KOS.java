@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.io.IOException;
 
 public class KOS {
@@ -16,51 +17,61 @@ public class KOS {
     private final MessageUtil message;
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
-    private final YamlConfiguration patches;
     private final YamlConfiguration kosconfig;
+    private YamlConfiguration patches;
 
     public KOS(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
         this.log = new LogUtil(this.plugin);
         this.softwareUtil = new SoftwareUtil(this.plugin);
-        
+
         ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
-        this.patches = config.load("plugins/Kryptonite/profiles/YouHaveTrouble.kos");
-        
+
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
+
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
+        if (f.exists()) {
+            this.patches = config.load("plugins/Kryptonite/profiles/" + kosconfig.getString("profile") + ".kos");
+        }
     }
 
     public void runDefault(boolean pregeneratedWorld) {
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
+        if (f.exists()) {
+            this.message.Success("Running the Kryptonite Optimisation System using the '"+kosconfig.getString("profile")+"' profile.");
 
-        this.message.Success("Running the Kryptonite Optimisation System...");
+            this.runVanilla();
+            this.runCraftBukkit();
+            this.runSpigot();
+            this.runPaper(pregeneratedWorld);
+            this.runPurpur(pregeneratedWorld);
+            this.runPufferfish();
 
-        this.runVanilla();
-        this.runCraftBukkit();
-        this.runSpigot();
-        this.runPaper(pregeneratedWorld);
-        this.runPurpur(pregeneratedWorld);
-        this.runPufferfish();
+            this.message.Success("Done!");
+            this.message.Info("See your server console for more logs.");
+            this.message.Warning("You must restart your server for changes to be applied.");
 
-        this.message.Success("Done!");
-        this.message.Info("See your server console for more logs.");
-        this.message.Warning("You must restart your server for changes to be applied.");
+            if (!this.softwareUtil.supportsPaperWorld()) {
+                this.message.Error("");
+                this.message.Error("You are using an unoptimised server jar!");
+                this.message.Error("This is a problem that Kryptonite can't fix.");
+                this.message.Error("");
+                this.message.Error("We HIGHLY recommend using Paper for your server software.");
+                this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+                this.message.Error("You can download paper from papermc.io");
+                this.message.Error("");
+            }
 
-        if (!this.softwareUtil.supportsPaperWorld()) {
-            this.message.Error("");
-            this.message.Error("You are using an unoptimised server jar!");
-            this.message.Error("This is a problem that Kryptonite can't fix.");
-            this.message.Error("");
-            this.message.Error("We HIGHLY recommend using Paper for your server software.");
-            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
-            this.message.Error("You can download paper from papermc.io");
-            this.message.Error("");
-        }
-
-        try {
-            this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
-        } catch (IOException | InvalidConfigurationException e) {
-            this.cantOpenConfig(e);
+            try {
+                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+            } catch (IOException | InvalidConfigurationException e) {
+                this.cantOpenConfig(e);
+            }
+        } else {
+            this.log.severe("Unable to load the '"+kosconfig.getString("profile")+"' profile.");
+            this.log.severe("Please verify that the file exists and try again.");
+            this.log.severe("plugins/Kryptonite/profiles/"+kosconfig.getString("profile")+".kos");
         }
     }
 
