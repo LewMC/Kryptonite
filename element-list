@@ -1,5 +1,5 @@
 net.lewmc.kryptonite
 net.lewmc.kryptonite.commands
-net.lewmc.kryptonite.exploitdatabase
-net.lewmc.kryptonite.optimiser
+net.lewmc.kryptonite.edb
+net.lewmc.kryptonite.kos
 net.lewmc.kryptonite.utils
