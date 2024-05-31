@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.optimiser;
+package net.lewmc.kryptonite.kos;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
@@ -9,76 +9,92 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.io.IOException;
 
-public class Optimiser {
+public class KOS {
     private final Kryptonite plugin;
     private final MessageUtil message;
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
-    private final YamlConfiguration patches;
     private final YamlConfiguration kosconfig;
+    private YamlConfiguration patches;
 
-    public Optimiser(CommandSender cs, Kryptonite plugin) {
+    public KOS(CommandSender cs, Kryptonite plugin) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
         this.log = new LogUtil(this.plugin);
         this.softwareUtil = new SoftwareUtil(this.plugin);
-        
+
         ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
-        this.patches = config.load("plugins/Kryptonite/kos.yml");
-        
+
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
+
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
+        if (f.exists()) {
+            this.patches = config.load("plugins/Kryptonite/profiles/" + kosconfig.getString("kos.profile") + ".kos");
+        }
     }
 
     public void runDefault(boolean pregeneratedWorld) {
+        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
+        if (f.exists()) {
+            this.message.Success("Running the Kryptonite Optimisation System using the '"+kosconfig.getString("kos.profile")+"' profile.");
 
-        this.message.Success("Running the Kryptonite Optimisation System...");
+            this.runVanilla();
+            this.runCraftBukkit();
+            this.runSpigot();
+            this.runPaper(pregeneratedWorld);
+            this.runPurpur(pregeneratedWorld);
+            this.runPufferfish();
 
-        this.runVanilla();
-        this.runCraftBukkit();
-        this.runSpigot();
-        this.runPaper(pregeneratedWorld);
-        this.runPurpur(pregeneratedWorld);
-        this.runPufferfish();
+            this.message.Success("Done!");
+            this.message.Info("See your server console for more logs.");
+            this.message.Warning("You must restart your server for changes to be applied.");
 
-        this.message.Success("Done!");
-        this.message.Info("See your server console for more logs.");
-        this.message.Warning("You must restart your server for changes to be applied.");
+            if (!this.softwareUtil.supportsPaperWorld()) {
+                this.message.Error("");
+                this.message.Error("You are using an unoptimised server jar!");
+                this.message.Error("This is a problem that Kryptonite can't fix.");
+                this.message.Error("");
+                this.message.Error("We HIGHLY recommend using Paper for your server software.");
+                this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
+                this.message.Error("You can download paper from papermc.io");
+                this.message.Error("");
+            }
 
-        if (!this.softwareUtil.isPaper()) {
-            this.message.Error("");
-            this.message.Error("You are using an unoptimised server jar!");
-            this.message.Error("This is a problem that Kryptonite can't fix.");
-            this.message.Error("");
-            this.message.Error("We HIGHLY recommend using Paper for your server software.");
-            this.message.Error("You are missing out on over 50 optimisations by not using Paper.");
-            this.message.Error("You can download paper from papermc.io");
-            this.message.Error("");
-        }
-
-        try {
-            this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
-        } catch (IOException | InvalidConfigurationException e) {
-            this.cantOpenConfig(e);
+            try {
+                this.plugin.getConfig().load("plugins/Kryptonite/config.yml");
+            } catch (IOException | InvalidConfigurationException e) {
+                this.cantOpenConfig(e);
+            }
+        } else {
+            this.log.severe("Unable to load the '"+kosconfig.getString("kos.profile")+"' profile.");
+            this.log.severe("Please verify that the file exists and try again.");
+            this.log.severe("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
         }
     }
 
     private void runVanilla() {
-        this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
+        if (this.softwareUtil.supportsServerProperties()) {
+            this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
-        ServerProperties properties = new ServerProperties();
+            ServerProperties properties = new ServerProperties();
 
-        properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold")+"");
-        properties.simulationDistance(this.patches.getInt("server.distance.simulation")+"");
-        properties.viewDistance(this.patches.getInt("server.distance.view")+"");
-        properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
+            properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold") + "");
+            properties.simulationDistance(this.patches.getInt("server.distance.simulation") + "");
+            properties.viewDistance(this.patches.getInt("server.distance.view") + "");
+            properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
 
-        properties.save();
+            properties.save();
+        } else {
+            this.log.info("[KOS] 2/6 - Server does not support Server Properties, skipping...");
+            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
+        }
     }
 
     private void runCraftBukkit() {
-        if (this.softwareUtil.isCraftBukkit()) {
+        if (this.softwareUtil.supportsCraftBukkit()) {
             this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
 
             Bukkit bukkit = new Bukkit(this.plugin);
@@ -107,13 +123,13 @@ public class Optimiser {
 
             bukkit.save();
         } else {
-            this.log.info("[KOS] 2/6 - Server not CraftBukkit, skipping...");
+            this.log.info("[KOS] 2/6 - Server does not support CraftBukkit configurations, skipping...");
             this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
         }
     }
 
     private void runSpigot() {
-        if (this.softwareUtil.isSpigot()) {
+        if (this.softwareUtil.supportsSpigot()) {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
 
             Spigot spigot = new Spigot(this.plugin);
@@ -147,13 +163,13 @@ public class Optimiser {
 
             spigot.save();
         } else {
-            log.info("[KOS] 3/6 - Server not Spigot, skipping...");
+            log.info("[KOS] 3/6 - Server does not support Spigot configurations, skipping...");
         }
     }
 
     private void runPaper(boolean pregeneratedWorld) {
-        if (this.softwareUtil.isPaper()) {
-            this.log.info("[KOS] 4/4 - Running Paper optimisations");
+        if (this.softwareUtil.supportsPaperWorld()) {
+            this.log.info("[KOS] 4/6 - Running Paper optimisations");
 
             PaperWorld pw = new PaperWorld(this.plugin);
             pw.delayChunkUnloads(this.patches.getInt("paper.chunks.delay-unloads"));
@@ -220,7 +236,7 @@ public class Optimiser {
             pw.armorStandsDoCollisionEntityLookups(this.patches.getBoolean("paper.armor-stands.do-collision-entity-lookups"));
             pw.spawnerNerfedMobsShouldJump(this.patches.getBoolean("entities.nerfed-spawner-mobs-can-jump"));
 
-            if (this.plugin.server != Kryptonite.Software.PUFFERFISH) {
+            if (!this.softwareUtil.supportsPufferfish()) {
                 pw.villagerBehaviourTickRates(
                         this.patches.getInt("paper.tick-rates.villager.behaviour.nearby-poi"),
                         this.patches.getInt("paper.tick-rates.villager.behaviour.acquire-poi")
@@ -294,12 +310,12 @@ public class Optimiser {
 
             pw.save();
         } else {
-            log.info("[KOS] 4/6 - Server not Paper, skipping...");
+            log.info("[KOS] 4/6 - Server does not support Paper World configurations, skipping...");
         }
     }
 
     private void runPurpur(boolean pregeneratedWorld) {
-        if (this.softwareUtil.isPurpur()) {
+        if (this.softwareUtil.supportsPurpur()) {
             this.log.info("[KOS] 5/6 - Running Purpur optimisations");
 
             Purpur purpur = new Purpur(this.plugin);
@@ -332,12 +348,12 @@ public class Optimiser {
 
             purpur.save();
         } else {
-            this.log.info("[KOS] 5/6 - Server not Purpur, skipping...");
+            this.log.info("[KOS] 5/6 - Server does not support Purpur configurations, skipping...");
         }
     }
 
     private void runPufferfish() {
-        if (this.softwareUtil.isPufferfish()) {
+        if (this.softwareUtil.supportsPufferfish()) {
             this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
             Pufferfish pufferfish = new Pufferfish(this.plugin);
 
@@ -352,7 +368,7 @@ public class Optimiser {
 
             pufferfish.save();
         } else {
-            this.log.info("[KOS] 6/6 - Server not Pufferfish, skipping...");
+            this.log.info("[KOS] 6/6 - Server does not support Pufferfish configurations, skipping...");
         }
     }
 

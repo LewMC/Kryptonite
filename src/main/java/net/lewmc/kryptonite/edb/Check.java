@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.exploitdatabase;
+package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.LogUtil;
@@ -22,7 +22,7 @@ public class Check {
     }
 
     public boolean edb1() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -59,7 +59,7 @@ public class Check {
     }
 
     public boolean edb2() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-global.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -86,7 +86,7 @@ public class Check {
     }
 
     public boolean edb3() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -122,7 +122,7 @@ public class Check {
     }
 
     public boolean edb4() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-global.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -165,7 +165,7 @@ public class Check {
     }
 
     public boolean edb5() {
-        if (this.softwareUtil.isSpigot()) {
+        if (this.softwareUtil.supportsSpigot()) {
             try {
                 this.plugin.getConfig().load(new File("spigot.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -192,7 +192,7 @@ public class Check {
     }
 
     public boolean edb6() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-global.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -220,7 +220,7 @@ public class Check {
     }
 
     public boolean edb7() {
-        if (this.softwareUtil.isCraftBukkit()) {
+        if (this.softwareUtil.supportsCraftBukkit()) {
             String maxChainedNeighbor = null;
 
             try {
@@ -251,7 +251,7 @@ public class Check {
     }
 
     public boolean edb8() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -324,7 +324,7 @@ public class Check {
     }
 
     public boolean edb9() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-global.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -370,7 +370,7 @@ public class Check {
     }
 
     public boolean edb10a() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
             } catch (IOException | InvalidConfigurationException e) {
@@ -397,7 +397,7 @@ public class Check {
     }
 
     public boolean edb10b() {
-        if (this.softwareUtil.isPaper()) {
+        if (this.softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
             } catch (IOException | InvalidConfigurationException e) {

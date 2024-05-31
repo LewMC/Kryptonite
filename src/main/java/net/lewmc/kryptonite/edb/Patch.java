@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.exploitdatabase;
+package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.LogUtil;
@@ -39,7 +39,7 @@ public class Patch {
     }
 
     public boolean edb1() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
                 this.plugin.getConfig().set("entities.armor-stands.do-collision-entity-lookups", false);
@@ -57,7 +57,7 @@ public class Patch {
     }
 
     public boolean edb2() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperGlobalConfig);
                 this.plugin.getConfig().set("item-validation.book-size.page-max", 1024);
@@ -74,7 +74,7 @@ public class Patch {
     }
 
     public boolean edb3() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
                 this.plugin.getConfig().set("collisions.max-entity-collisions", 2);
@@ -92,7 +92,7 @@ public class Patch {
     }
 
     public boolean edb4() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperGlobalConfig);
                 this.plugin.getConfig().set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action", "DROP");
@@ -111,7 +111,7 @@ public class Patch {
     }
 
     public boolean edb5() {
-        if (softwareUtil.isSpigot()) {
+        if (softwareUtil.supportsSpigot()) {
             try {
                 this.plugin.getConfig().load(this.spigotConfig);
                 this.plugin.getConfig().set("commands.spam-exclusions", "[]");
@@ -128,7 +128,7 @@ public class Patch {
     }
 
     public boolean edb6() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperGlobalConfig);
                 this.plugin.getConfig().set("misc.max-joins-per-tick", 3);
@@ -145,7 +145,7 @@ public class Patch {
     }
 
     public boolean edb7() {
-        if (softwareUtil.isCraftBukkit()) {
+        if (softwareUtil.supportsCraftBukkit()) {
             PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
             propertiesUtil.setProperty("max-chained-neighbor-updates", "10000");
 
@@ -156,7 +156,7 @@ public class Patch {
     }
 
     public boolean edb8() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
                 this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.arrow", 8);
@@ -178,7 +178,7 @@ public class Patch {
     }
 
     public boolean edb9() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperGlobalConfig);
                 this.plugin.getConfig().set("packet-limiter.overrides.ServerboundPlaceRecipePacket.action", "DROP");
@@ -197,7 +197,7 @@ public class Patch {
     }
 
     public boolean edb10a() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
                 this.plugin.getConfig().set("environment.treasure-maps.enabled", false);
@@ -214,7 +214,7 @@ public class Patch {
     }
 
     public boolean edb10b() {
-        if (softwareUtil.isPaper()) {
+        if (softwareUtil.supportsPaperWorld()) {
             try {
                 this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
                 this.plugin.getConfig().set("environment.treasure-maps.find-already-discovered.loot-tables", true);

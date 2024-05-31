@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.optimiser;
+package net.lewmc.kryptonite.kos;
 
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 
