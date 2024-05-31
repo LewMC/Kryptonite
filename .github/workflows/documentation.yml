@@ -1,0 +1,36 @@
+name: Deploy JavaDoc
+permissions:
+  contents: write
+  pages: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📡
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17 🔧
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven 🏗️
+        run: mvn -B package --file pom.xml
+
+      - name: Deploy JavaDoc 🚀
+        uses: MathieuSoysal/Javadoc-publisher.yml@v2.5.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          javadoc-branch: javadoc
+          java-version: 17
+          target-folder: .
+          project: maven
