@@ -2,4 +2,6 @@ net.lewmc.kryptonite
 net.lewmc.kryptonite.commands
 net.lewmc.kryptonite.edb
 net.lewmc.kryptonite.kos
+net.lewmc.kryptonite.kos.config
+net.lewmc.kryptonite.kos.gui
 net.lewmc.kryptonite.utils
