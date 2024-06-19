@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * The "have you pregenerated?" menu GUI for KOS.
+ */
 public class KosPregeneratedGui {
     private final CommandSender commandSender;
     private final Kryptonite plugin;

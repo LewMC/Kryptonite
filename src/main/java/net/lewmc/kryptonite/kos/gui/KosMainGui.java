@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * The main menu GUI for KOS.
+ */
 public class KosMainGui {
     private final CommandSender commandSender;
     private final Kryptonite plugin;
