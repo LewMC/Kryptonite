@@ -20,27 +20,29 @@ public class KOS {
     private final LogUtil log;
     private final YamlConfiguration kosconfig;
     private YamlConfiguration patches;
+    private final String profile;
 
-    public KOS(CommandSender cs, Kryptonite plugin) {
+    public KOS(CommandSender cs, Kryptonite plugin, String profile) {
         this.plugin = plugin;
         this.message = new MessageUtil(cs);
         this.log = new LogUtil(this.plugin);
         this.softwareUtil = new SoftwareUtil(this.plugin);
+        this.profile = profile;
 
         ConfigurationUtil config = new ConfigurationUtil(this.plugin, cs);
 
         this.kosconfig = config.load("plugins/Kryptonite/config.yml");
 
-        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
+        File f = new File("plugins/Kryptonite/profiles/" + profile + ".kos");
         if (f.exists()) {
-            this.patches = config.load("plugins/Kryptonite/profiles/" + kosconfig.getString("kos.profile") + ".kos");
+            this.patches = config.load("plugins/Kryptonite/profiles/" + profile + ".kos");
         }
     }
 
     public void runDefault(boolean pregeneratedWorld) {
-        File f = new File("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
+        File f = new File("plugins/Kryptonite/profiles/"+this.profile+".kos");
         if (f.exists()) {
-            this.message.Success("Running the Kryptonite Optimisation System using the '"+kosconfig.getString("kos.profile")+"' profile.");
+            this.message.Success("Running the Kryptonite Optimisation System using the '"+this.profile+"' profile.");
 
             this.runVanilla();
             this.runCraftBukkit();
@@ -70,9 +72,9 @@ public class KOS {
                 this.cantOpenConfig(e);
             }
         } else {
-            this.log.severe("Unable to load the '"+kosconfig.getString("kos.profile")+"' profile.");
+            this.log.severe("Unable to load the '"+this.profile+"' profile.");
             this.log.severe("Please verify that the file exists and try again.");
-            this.log.severe("plugins/Kryptonite/profiles/"+kosconfig.getString("kos.profile")+".kos");
+            this.log.severe("plugins/Kryptonite/profiles/"+this.profile+".kos");
         }
     }
 
@@ -82,10 +84,10 @@ public class KOS {
 
             ServerProperties properties = new ServerProperties();
 
-            properties.networkCompressionThreshold(this.patches.getInt("server.network-compression-threshold") + "");
-            properties.simulationDistance(this.patches.getInt("server.distance.simulation") + "");
-            properties.viewDistance(this.patches.getInt("server.distance.view") + "");
-            properties.syncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
+            properties.setNetworkCompressionThreshold(this.patches.getInt("server.network-compression-threshold") + "");
+            properties.setSimulationDistance(this.patches.getInt("server.distance.simulation") + "");
+            properties.setViewDistance(this.patches.getInt("server.distance.view") + "");
+            properties.setSyncChunkWrites(this.patches.getBoolean("server.sync-chunk-writes"));
 
             properties.save();
         } else {
