@@ -5,6 +5,7 @@ import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
+import net.lewmc.kryptonite.kos.config.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;

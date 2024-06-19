@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.kos;
+package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 

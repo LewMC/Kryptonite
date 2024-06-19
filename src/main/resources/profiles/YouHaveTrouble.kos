@@ -7,6 +7,11 @@
 # Wiki: https://wiki.lewmc.net/index.php?title=Kryptonite:Profiles
 #
 
+# Profile information
+meta:
+  description: A profile for KOS based on the YouHaveTrouble optimisation guide.
+  author: YouHaveTrouble and LewMC
+
 # Server Settings
 server:
   network-compression-threshold: 256
