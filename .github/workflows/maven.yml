@@ -13,11 +13,11 @@ jobs:
       - name: Checkout Repository 📡
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17 🔧
+      - name: Set up JDK 21 🔧
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Build with Maven 🏗️
         run: mvn -B package --file pom.xml
