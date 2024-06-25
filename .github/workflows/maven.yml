@@ -1,31 +1,33 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Maven Build
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - "*"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
+      - name: Checkout Repository 📡
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 🔧
+        uses: actions/setup-java@v4
         with:
-          java-version: '21'
           distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
+          java-version: '17'
+
+      - name: Build with Maven 🏗️
         run: mvn -B package --file pom.xml
+
+      - name: Extract Version from pom.xml 📄
+        id: extract_version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Upload Plugin jar 📁
+        uses: actions/upload-artifact@v4
+        with:
+          name: essence-${{ env.VERSION }}-SNAPSHOT.jar
+          path: /home/runner/work/Essence/Essence/target/essence-${{ env.VERSION }}.jar
