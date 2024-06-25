@@ -29,5 +29,5 @@ jobs:
       - name: Upload Plugin jar 📁
         uses: actions/upload-artifact@v4
         with:
-          name: kryptonite-${{ env.VERSION }}-SNAPSHOT.jar
+          name: kryptonite-${{ env.VERSION }}.jar
           path: /home/runner/work/Kryptonite/Kryptonite/target/kryptonite-${{ env.VERSION }}.jar
