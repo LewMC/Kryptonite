@@ -2,7 +2,7 @@
 name: Feature request
 description: Request or suggest a new feature.
 title: Feature request
-labels: enhancement
+labels: feature request
 assignees: "LewMilburn"
 body:
 - type: textarea
