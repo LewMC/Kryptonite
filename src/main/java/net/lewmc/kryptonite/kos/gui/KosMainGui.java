@@ -3,12 +3,17 @@ package net.lewmc.kryptonite.kos.gui;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
+import net.lewmc.kryptonite.utils.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+
+import java.io.File;
 
 /**
  * The main menu GUI for KOS.
@@ -46,17 +51,32 @@ public class KosMainGui {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        this.gui.addElement(new StaticGuiElement('y',
-                new ItemStack(Material.OAK_SIGN),
-                1,
-                click -> {
-                    click.getGui().close();
-                    KosPregeneratedGui kpg = new KosPregeneratedGui(this.plugin, this.commandSender, "YouHaveTrouble");
-                    kpg.show();
-                    return true;
-                },
-                "YouHaveTrouble"
-        ));
+        File dir = new File(this.plugin.getDataFolder() + "/profiles");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                if (child.getName().contains(".kos")) {
+                    ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, commandSender);
+                    YamlConfiguration item = cfg.load(this.plugin.getDataFolder() + "/profiles/"+child.getName());
+                    this.gui.addElement(new StaticGuiElement('y',
+                            new ItemStack(Material.OAK_SIGN),
+                            1,
+                            click -> {
+                                click.getGui().close();
+                                KosPregeneratedGui kpg = new KosPregeneratedGui(this.plugin, this.commandSender, child.getName().replace(".kos", ""));
+                                kpg.show();
+                                return true;
+                            },
+                            child.getName().replace(".kos", ""),
+                            item.getString("meta.description"),
+                            "Created by " + item.getString("meta.author")
+                    ));
+                }
+            }
+        } else {
+            MessageUtil msg = new MessageUtil(this.commandSender);
+            msg.Error("Unable to find any installed KOS profiles.");
+        }
 
         this.gui.addElement(new StaticGuiElement('h',
                 new ItemStack(Material.PAPER),
