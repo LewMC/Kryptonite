@@ -56,32 +56,8 @@ public final class Kryptonite extends JavaPlugin {
 
         this.saveDefaultConfig();
 
-        File YHTProfile = new File(getDataFolder() + File.separator + "profiles/YouHaveTrouble.kos");
-        if (!YHTProfile.exists()) {
-            saveResource("profiles/YouHaveTrouble.kos", false);
-        }
-
-        File FFProfile = new File(getDataFolder() + File.separator + "profiles/FarmFriendly.kos");
-        if (!FFProfile.exists()) {
-            saveResource("profiles/FarmFriendly.kos", false);
-        }
-
-        File profilesFolder = new File(getDataFolder() + File.separator + "profiles");
-        if (!profilesFolder.exists()) {
-            if (!profilesFolder.mkdirs()) {
-                this.log.info("");
-                log.severe("Unable to make data folder.");
-                log.severe("The plugin is being disabled, most of the plugin's features will not work without the profiles folder.");
-                log.warn("Please create a folder called 'profiles' in the 'Kryptonite' folder.");
-                log.warn("Once this is complete, restart the server and Essence will re-enable.");
-                this.log.info("");
-                getServer().getPluginManager().disablePlugin(this);
-            }
-        }
-
         update.VersionCheck();
         update.UpdateConfig();
-        update.UpdatePatches();
         update.DeleteOldFiles();
     }
 
