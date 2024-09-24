@@ -74,19 +74,27 @@ public class UpdateUtil {
     }
 
     public void UpdatePatches() {
-        File YHT = new File(this.plugin.getDataFolder(), "/profiles/YouHaveTrouble.kos");
-        File FF = new File(this.plugin.getDataFolder(), "/profiles/FarmFriendly.kos");
+        File YHT = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
+        File FF = new File(this.plugin.getDataFolder(), "profiles/FarmFriendly.kos");
 
         try {
-            ConfigUpdater.update(plugin, "/profiles/YouHaveTrouble.kos", YHT);
+            ConfigUpdater.update(plugin, "profiles/YouHaveTrouble.kos", YHT);
         } catch (IOException|NullPointerException e) {
             this.log.warn("Unable to update YouHaveTrouble profile: "+e);
         }
 
         try {
-            ConfigUpdater.update(plugin, "/profiles/FarmFriendly.kos", FF);
+            ConfigUpdater.update(plugin, "profiles/FarmFriendly.kos", FF);
         } catch (IOException|NullPointerException e) {
             this.log.warn("Unable to update FarmFriendly profile: "+e);
+        }
+    }
+
+    public void DeleteOldFiles() {
+        File kosYML = new File(this.plugin.getDataFolder(), "kos.yml");
+
+        if (kosYML.exists()) {
+            kosYML.delete();
         }
     }
 }

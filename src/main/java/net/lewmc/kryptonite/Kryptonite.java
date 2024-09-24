@@ -82,6 +82,7 @@ public final class Kryptonite extends JavaPlugin {
         update.VersionCheck();
         update.UpdateConfig();
         update.UpdatePatches();
+        update.DeleteOldFiles();
     }
 
     @Override
