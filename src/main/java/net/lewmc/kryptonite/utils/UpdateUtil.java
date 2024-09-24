@@ -78,7 +78,7 @@ public class UpdateUtil {
 
         try {
             ConfigUpdater.update(plugin, "/profiles/YouHaveTrouble.kos", configFile);
-        } catch (IOException e) {
+        } catch (IOException|NullPointerException e) {
             this.log.warn("Unable to update profiles: "+e);
         }
     }

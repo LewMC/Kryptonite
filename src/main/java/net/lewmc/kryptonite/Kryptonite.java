@@ -150,7 +150,6 @@ public final class Kryptonite extends JavaPlugin {
             this.log.severe("");
             this.log.severe("Using known lag-causing plugin: "+badPlugin);
             this.log.severe("This plugin may cause more lag than it resolves or conflict with Kryptonite. Consider removing it.");
-            this.log.severe("Learn more: https://wiki.lewmc.net/index.php/Lag_Plugins");
             this.log.severe("");
         }
     }
