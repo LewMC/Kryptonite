@@ -1,20 +1,14 @@
 package net.lewmc.kryptonite.commands;
 
-import de.themoep.inventorygui.InventoryGui;
-import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.KOS;
 import net.lewmc.kryptonite.kos.gui.KosMainGui;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.PermissionUtil;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 
@@ -43,31 +37,38 @@ public class OptimiseCommand implements CommandExecutor {
         PermissionUtil perm = new PermissionUtil();
 
         if (perm.isOperator(commandSender)) {
-            if (args.length == 1) {
-                if (Objects.equals(args[0].toLowerCase(), "yes")) {
-                    message.Info("Kryptonite will now run it's optimisation system.");
-                    message.Info("You should backup your server before running Kryptonite.");
-                    message.Info("You'll need to restart the server after completion for changes to be made.");
-                    message.Info("");
-
-                    KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.profile"));
-                    kos.runDefault(true);
-                } else if (Objects.equals(args[0].toLowerCase(), "no") && perm.isOperator(commandSender)) {
-                    message.Info("Kryptonite will now run it's optimisation system.");
-                    message.Info("You should backup your server before running Kryptonite.");
-                    message.Info("You'll need to restart the server after completion for changes to be made.");
-                    message.Info("");
-
-                    KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.profile"));
-                    kos.runDefault(false);
-                } else {
-                    message.Error("Unknown command. Use /kos for help.");
-                }
+            if (commandSender instanceof Player) {
+                KosMainGui gui = new KosMainGui(this.plugin, commandSender);
+                gui.show();
             } else {
-                if (commandSender instanceof Player) {
-                    KosMainGui gui = new KosMainGui(this.plugin, commandSender);
-                    gui.show();
+                if (args.length == 1) {
+                    if (Objects.equals(args[0].toLowerCase(), "yes")) {
+                        message.Info("Kryptonite will now run it's optimisation system.");
+                        message.Info("You should backup your server before running Kryptonite.");
+                        message.Info("You'll need to restart the server after completion for changes to be made.");
+                        message.Info("");
+                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
+
+                        KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
+                        kos.runDefault(true);
+                    } else if (Objects.equals(args[0].toLowerCase(), "no") && perm.isOperator(commandSender)) {
+                        message.Info("Kryptonite will now run it's optimisation system.");
+                        message.Info("You should backup your server before running Kryptonite.");
+                        message.Info("You'll need to restart the server after completion for changes to be made.");
+                        message.Info("");
+                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
+
+                        KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
+                        kos.runDefault(false);
+                    } else {
+                        message.Error("Unknown command. Use /kos for help.");
+                    }
                 } else {
+                    message.Info("--- KRYPTONITE OPTIMISATION SYSTEM ---");
+                    message.Info("KOS will use the kos.default-profile value set in Kryptonite.yml");
+                    message.Info("Please ensure this is correct before continuing.");
+                    message.Info("Current profile: " + this.plugin.getConfig().getString("kos.default-profile"));
+                    message.Info("");
                     message.Info("Have you pregenerated your world and set a vanilla world border?");
                     message.Info("This will affect which optimisations can be applied.");
                     message.Info("");

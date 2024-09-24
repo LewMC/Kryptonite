@@ -74,12 +74,19 @@ public class UpdateUtil {
     }
 
     public void UpdatePatches() {
-        File configFile = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
+        File YHT = new File(this.plugin.getDataFolder(), "/profiles/YouHaveTrouble.kos");
+        File FF = new File(this.plugin.getDataFolder(), "/profiles/FarmFriendly.kos");
 
         try {
-            ConfigUpdater.update(plugin, "profiles/YouHaveTrouble.kos", configFile);
-        } catch (IOException e) {
-            this.log.warn("Unable to update profiles: "+e);
+            ConfigUpdater.update(plugin, "/profiles/YouHaveTrouble.kos", YHT);
+        } catch (IOException|NullPointerException e) {
+            this.log.warn("Unable to update YouHaveTrouble profile: "+e);
+        }
+
+        try {
+            ConfigUpdater.update(plugin, "/profiles/FarmFriendly.kos", FF);
+        } catch (IOException|NullPointerException e) {
+            this.log.warn("Unable to update FarmFriendly profile: "+e);
         }
     }
 }

@@ -71,42 +71,42 @@ public class PaperWorld {
         this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.wither_skull", witherSkull);
     }
 
-    public void ambientDespawnRanges(int hard, int soft) {
+    public void ambientDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.ambient.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.ambient.soft", soft);
     }
 
-    public void axolotlsDespawnRanges(int hard, int soft) {
+    public void axolotlsDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.axolotls.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.axolotls.soft", soft);
     }
 
-    public void creatureDespawnRanges(int hard, int soft) {
+    public void creatureDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.creature.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.creature.soft", soft);
     }
 
-    public void miscDespawnRanges(int hard, int soft) {
+    public void miscDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.misc.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.misc.soft", soft);
     }
 
-    public void monsterDespawnRanges(int hard, int soft) {
+    public void monsterDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.monster.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.monster.soft", soft);
     }
 
-    public void undergroundWaterCreatureDespawnRanges(int hard, int soft) {
+    public void undergroundWaterCreatureDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.underground_water_creature.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.underground_water_creature.soft", soft);
     }
 
-    public void waterAmbientDespawnRanges(int hard, int soft) {
+    public void waterAmbientDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.water_ambient.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.water_ambient.soft", soft);
     }
 
-    public void waterCreatureDespawnRanges(int hard, int soft) {
+    public void waterCreatureDespawnRanges(Object hard, Object soft) {
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.water_creature.hard", hard);
         this.plugin.getConfig().set("entities.spawning.despawn-ranges.water_creature.soft", soft);
     }

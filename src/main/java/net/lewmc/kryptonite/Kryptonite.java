@@ -61,6 +61,11 @@ public final class Kryptonite extends JavaPlugin {
             saveResource("profiles/YouHaveTrouble.kos", false);
         }
 
+        File FFProfile = new File(getDataFolder() + File.separator + "profiles/FarmFriendly.kos");
+        if (!FFProfile.exists()) {
+            saveResource("profiles/FarmFriendly.kos", false);
+        }
+
         File profilesFolder = new File(getDataFolder() + File.separator + "profiles");
         if (!profilesFolder.exists()) {
             if (!profilesFolder.mkdirs()) {
@@ -150,7 +155,6 @@ public final class Kryptonite extends JavaPlugin {
             this.log.severe("");
             this.log.severe("Using known lag-causing plugin: "+badPlugin);
             this.log.severe("This plugin may cause more lag than it resolves or conflict with Kryptonite. Consider removing it.");
-            this.log.severe("Learn more: https://wiki.lewmc.net/index.php/Lag_Plugins");
             this.log.severe("");
         }
     }
