@@ -135,7 +135,7 @@ public class KOS_ManualGUI {
         }
 
         if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.PAPER_WORLD)) {
-            this.gui.addElement(new StaticGuiElement('w',
+            this.gui.addElement(new StaticGuiElement('o',
                     new ItemStack(Material.FILLED_MAP),
                     1,
                     click -> {
@@ -146,7 +146,7 @@ public class KOS_ManualGUI {
                     ChatColor.AQUA + "Manage the Paper World configuration."
             ));
         } else {
-            this.gui.addElement(new StaticGuiElement('w',
+            this.gui.addElement(new StaticGuiElement('o',
                     new ItemStack(Material.BARRIER),
                     1,
                     click -> true,
@@ -212,7 +212,7 @@ public class KOS_ManualGUI {
 
         return new String[]{
                 " p b s g ",
-                "  w u f  ",
+                "  o u f  ",
                 "  w x y  "
         };
     }
