@@ -269,8 +269,12 @@ public class KOS_ServerPropertiesGui {
         click.getGui().close();
         if (click.getType() == ClickType.RIGHT) {
             this.properties.set(key, String.valueOf(value + 1));
-        } else if (click.getType() == ClickType.LEFT) {
+        } else if (click.getType() == ClickType.SHIFT_RIGHT) {
+            this.properties.set(key, String.valueOf(value + 10));
+        } else if (click.getType() == ClickType.LEFT && value != 0) {
             this.properties.set(key, String.valueOf(value - 1));
+        } else if (click.getType() == ClickType.SHIFT_LEFT && value >= 10) {
+            this.properties.set(key, String.valueOf(value - 10));
         }
         this.show();
         return true;

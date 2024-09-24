@@ -59,6 +59,10 @@ public class Bukkit {
             @Override
             public String toString() { return "ticks-per.animal-spawns"; }
         },
+        TICKS_PER_WATER_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.water-spawns"; }
+        },
         TICKS_PER_WATER_AMBIENT_SPAWNS {
             @Override
             public String toString() { return "ticks-per.water-ambient-spawns"; }
@@ -87,10 +91,11 @@ public class Bukkit {
      * @param value int - The requested value.
      */
     public void setInt(Key key, int value) {
+        this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        YamlConfiguration config = cfg.load("bukkit.yml");
-        config.set(key.toString(), value);
-        config.save("bukkit.yml");
+        cfg.load("bukkit.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
     }
 
     /**
@@ -98,19 +103,8 @@ public class Bukkit {
      * @param key Key - The requested key.
      */
     public int getInt(Key key) {
-        this.plugin.getConfig().getInt(key.toString());
-    }
-
-    /**
-     * Saves the configuration file.
-     */
-    public void save() {
-        try {
-            this.plugin.getConfig().save(this.file);
-        } catch (IOException e) {
-            LogUtil log = new LogUtil(plugin);
-            log.severe("Error whilst saving Bukkit configuration:");
-            log.severe(e.getMessage());
-        }
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("bukkit.yml");
+        return cfg.getInt(key.toString());
     }
 }

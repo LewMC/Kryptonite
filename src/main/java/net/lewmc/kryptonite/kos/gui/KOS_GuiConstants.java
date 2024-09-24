@@ -48,7 +48,8 @@ public class KOS_GuiConstants
                     1,
                     click -> true,
                     ChatColor.GOLD + "Alerts",
-                    ChatColor.YELLOW + "Restart Required"
+                    ChatColor.YELLOW + "Restart Required - You must restart your",
+                    ChatColor.YELLOW + "server for changes to be applied."
             ));
         } else {
             this.gui.addElement(new StaticGuiElement('x',

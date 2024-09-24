@@ -74,6 +74,8 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
+                        KOS_BukkitGui bGui = new KOS_BukkitGui(this.plugin, this.user);
+                        bGui.show();
                         return true;
                     },
                     ChatColor.BLUE + "Bukkit",
