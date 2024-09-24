@@ -26,6 +26,7 @@ public final class Kryptonite extends JavaPlugin {
         PUFFERFISH
     }
     public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
+    public boolean restartRequired = false;
 
     @Override
     public void onEnable() {

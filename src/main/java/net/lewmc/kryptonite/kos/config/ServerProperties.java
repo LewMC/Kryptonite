@@ -1,5 +1,6 @@
 package net.lewmc.kryptonite.kos.config;
 
+import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 /**
@@ -7,12 +8,15 @@ import net.lewmc.kryptonite.utils.PropertiesUtil;
  */
 public class ServerProperties {
     private final PropertiesUtil util;
+    private final Kryptonite plugin;
 
     /**
      * Constructor for the ServerProperties class.
+     * @param plugin Kryptonite - Reference to the main plugin class.
      */
-    public ServerProperties() {
+    public ServerProperties(Kryptonite plugin) {
         this.util = new PropertiesUtil("server.properties");
+        this.plugin = plugin;
     }
 
     /**
@@ -51,6 +55,7 @@ public class ServerProperties {
      * @param value String - The value to set.
      */
     public void set(Config key, String value) {
+        plugin.restartRequired = true;
         this.util.setProperty(key.toString(), value);
     }
 

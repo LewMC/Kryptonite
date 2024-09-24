@@ -200,28 +200,8 @@ public class KOS_ManualGUI {
             ));
         }
 
-        this.gui.addElement(new StaticGuiElement('e',
-                new ItemStack(Material.OAK_DOOR),
-                1,
-                click -> {
-                    click.getGui().close();
-                    return true;
-                },
-                ChatColor.DARK_RED + "Exit"
-        ));
-
-        this.gui.addElement(new StaticGuiElement('h',
-                new ItemStack(Material.BOOK),
-                1,
-                click -> {
-                    click.getWhoClicked().sendMessage(ChatColor.YELLOW + "https://wiki.lewmc.net/kr-kos-guide.html#manual");
-                    click.getGui().close();
-                    return true;
-                },
-                ChatColor.DARK_GREEN + "Help",
-                ChatColor.GREEN + "Not sure what to do? Click here for",
-                ChatColor.GREEN + "a link to our Wiki for help."
-        ));
+        KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
+        consts.addConstants();
     }
 
     /**
@@ -233,7 +213,7 @@ public class KOS_ManualGUI {
         return new String[]{
                 " p b s g ",
                 "  w u f  ",
-                "   h e   "
+                "  w x y  "
         };
     }
 }
