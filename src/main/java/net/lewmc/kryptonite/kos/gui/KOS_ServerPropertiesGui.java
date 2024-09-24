@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Objects;
 
 /**
- * KOS Main GUI
+ * KOS Server Properties GUI
  */
 public class KOS_ServerPropertiesGui {
     private final Kryptonite plugin;
@@ -25,7 +25,7 @@ public class KOS_ServerPropertiesGui {
     private ServerProperties properties;
 
     /**
-     * Constructor for the KOS Main GUI
+     * Constructor for the KOS Server Properties GUI
      * @param plugin Kryptonite - Reference to the main plugin class.
      * @param user CommandSender - The user who sent the command.
      */
@@ -37,7 +37,7 @@ public class KOS_ServerPropertiesGui {
     }
 
     /**
-     * Shows the KOS Main GUI
+     * Shows the KOS Server Properties GUI
      */
     public void show() {
         InventoryHolder holder = this.user.getServer().getPlayer(this.user.getName());
