@@ -47,7 +47,7 @@ public class OptimiseCommand implements CommandExecutor {
                         message.Info("You should backup your server before running Kryptonite.");
                         message.Info("You'll need to restart the server after completion for changes to be made.");
                         message.Info("");
-                        message.Info("Using default profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
+                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
 
                         KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
                         kos.runDefault(true);
@@ -56,7 +56,7 @@ public class OptimiseCommand implements CommandExecutor {
                         message.Info("You should backup your server before running Kryptonite.");
                         message.Info("You'll need to restart the server after completion for changes to be made.");
                         message.Info("");
-                        message.Info("Using default profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
+                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
 
                         KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
                         kos.runDefault(false);
@@ -64,6 +64,11 @@ public class OptimiseCommand implements CommandExecutor {
                         message.Error("Unknown command. Use /kos for help.");
                     }
                 } else {
+                    message.Info("--- KRYPTONITE OPTIMISATION SYSTEM ---");
+                    message.Info("KOS will use the kos.default-profile value set in Kryptonite.yml");
+                    message.Info("Please ensure this is correct before continuing.");
+                    message.Info("Current profile: " + this.plugin.getConfig().getString("kos.default-profile"));
+                    message.Info("");
                     message.Info("Have you pregenerated your world and set a vanilla world border?");
                     message.Info("This will affect which optimisations can be applied.");
                     message.Info("");

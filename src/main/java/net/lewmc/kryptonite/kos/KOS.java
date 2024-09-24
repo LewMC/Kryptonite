@@ -199,36 +199,36 @@ public class KOS {
             );
 
             pw.ambientDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.ambient.hard"),
-                    this.patches.getInt("paper.despawn-ranges.ambient.soft")
+                    this.patches.get("paper.despawn-ranges.ambient.hard"),
+                    this.patches.get("paper.despawn-ranges.ambient.soft")
             );
             pw.axolotlsDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.axolotl.hard"),
-                    this.patches.getInt("paper.despawn-ranges.axolotl.soft")
+                    this.patches.get("paper.despawn-ranges.axolotl.hard"),
+                    this.patches.get("paper.despawn-ranges.axolotl.soft")
             );
             pw.creatureDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.creature.hard"),
-                    this.patches.getInt("paper.despawn-ranges.creature.soft")
+                    this.patches.get("paper.despawn-ranges.creature.hard"),
+                    this.patches.get("paper.despawn-ranges.creature.soft")
             );
             pw.miscDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.misc.hard"),
-                    this.patches.getInt("paper.despawn-ranges.misc.soft")
+                    this.patches.get("paper.despawn-ranges.misc.hard"),
+                    this.patches.get("paper.despawn-ranges.misc.soft")
             );
             pw.monsterDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.monster.hard"),
-                    this.patches.getInt("paper.despawn-ranges.monster.soft")
+                    this.patches.get("paper.despawn-ranges.monster.hard"),
+                    this.patches.get("paper.despawn-ranges.monster.soft")
             );
             pw.undergroundWaterCreatureDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.water.underground-creature.hard"),
-                    this.patches.getInt("paper.despawn-ranges.water.underground-creature.soft")
+                    this.patches.get("paper.despawn-ranges.water.underground-creature.hard"),
+                    this.patches.get("paper.despawn-ranges.water.underground-creature.soft")
             );
             pw.waterAmbientDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.water.ambient.hard"),
-                    this.patches.getInt("paper.despawn-ranges.water.ambient.soft")
+                    this.patches.get("paper.despawn-ranges.water.ambient.hard"),
+                    this.patches.get("paper.despawn-ranges.water.ambient.soft")
             );
             pw.waterCreatureDespawnRanges(
-                    this.patches.getInt("paper.despawn-ranges.water.creature.hard"),
-                    this.patches.getInt("paper.despawn-ranges.water.creature.soft")
+                    this.patches.get("paper.despawn-ranges.water.creature.hard"),
+                    this.patches.get("paper.despawn-ranges.water.creature.soft")
             );
 
             pw.perPlayerMobSpawns(this.patches.getBoolean("paper.per-player-mob-spawns"));

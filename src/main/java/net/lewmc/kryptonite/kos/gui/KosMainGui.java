@@ -38,10 +38,13 @@ public class KosMainGui {
      */
     public void show() {
         InventoryHolder holder = this.commandSender.getServer().getPlayer(this.commandSender.getName());
-        this.gui = new InventoryGui(this.plugin, holder, "KOS - Select a Profile", this.getElements());
+        char[] chars = this.addElements(false);
+
+        this.gui = new InventoryGui(this.plugin, holder, "KOS - Select a Profile", this.getElements(chars));
+
+        this.addElements(true);
 
         this.gui.setFiller(new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
-        this.addElements();
 
         this.gui.build();
         this.gui.show((Player) this.commandSender);
@@ -50,27 +53,35 @@ public class KosMainGui {
     /**
      * Adds pre-programmed elements to the GUI
      */
-    private void addElements() {
+    private char[] addElements(boolean addToGui) {
         File dir = new File(this.plugin.getDataFolder() + "/profiles");
         File[] directoryListing = dir.listFiles();
+        char firstChar = 'a';
+        char[] chars = new char[directoryListing.length];
         if (directoryListing != null) {
+            int index = 0;
             for (File child : directoryListing) {
                 if (child.getName().contains(".kos")) {
                     ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, commandSender);
                     YamlConfiguration item = cfg.load(this.plugin.getDataFolder() + "/profiles/"+child.getName());
-                    this.gui.addElement(new StaticGuiElement('y',
-                            new ItemStack(Material.OAK_SIGN),
-                            1,
-                            click -> {
-                                click.getGui().close();
-                                KosPregeneratedGui kpg = new KosPregeneratedGui(this.plugin, this.commandSender, child.getName().replace(".kos", ""));
-                                kpg.show();
-                                return true;
-                            },
-                            child.getName().replace(".kos", ""),
-                            item.getString("meta.description"),
-                            "Created by " + item.getString("meta.author")
-                    ));
+                    chars[index] = firstChar;
+                    if (addToGui) {
+                        this.gui.addElement(new StaticGuiElement(firstChar,
+                                new ItemStack(Material.OAK_SIGN),
+                                1,
+                                click -> {
+                                    click.getGui().close();
+                                    KosPregeneratedGui kpg = new KosPregeneratedGui(this.plugin, this.commandSender, child.getName().replace(".kos", ""));
+                                    kpg.show();
+                                    return true;
+                                },
+                                child.getName().replace(".kos", ""),
+                                item.getString("meta.description"),
+                                "Created by " + item.getString("meta.author")
+                        ));
+                    }
+                    index++;
+                    firstChar++;
                 }
             }
         } else {
@@ -78,28 +89,45 @@ public class KosMainGui {
             msg.Error("Unable to find any installed KOS profiles.");
         }
 
-        this.gui.addElement(new StaticGuiElement('h',
-                new ItemStack(Material.PAPER),
-                1,
-                click -> {
-                    click.getWhoClicked().sendMessage(ChatColor.YELLOW+"https://wiki.lewmc.net/kr-kryptonite-optimisation-system.html");
-                    click.getGui().close();
-                    return true;
-                },
-                "Need help?",
-                "Click here to get a link to our Wiki."
-        ));
+        if (addToGui) {
+            this.gui.addElement(new StaticGuiElement('h',
+                    new ItemStack(Material.PAPER),
+                    1,
+                    click -> {
+                        click.getWhoClicked().sendMessage(ChatColor.YELLOW + "https://wiki.lewmc.net/kr-kryptonite-optimisation-system.html");
+                        click.getGui().close();
+                        return true;
+                    },
+                    "Need help?",
+                    "Click here to get a link to our Wiki."
+            ));
+        }
+
+        return chars;
     }
 
     /**
      * Determines where the elements should be positioned.
-     * @return String[] - The position of the elements.
+     * @return chars[] - The characters used.
      */
-    private String[] getElements() {
+    private String[] getElements(char[] chars) {
+        StringBuilder line1 = new StringBuilder("         ");
+        StringBuilder line2 = new StringBuilder("         ");
+        String line3 = "    h    ";
+
+        int i = 0;
+        for (; i < chars.length && i < 9; i++) {
+            line1.setCharAt(i, chars[i]);
+        }
+
+        for (int j = 0; i < chars.length && j < 9; i++, j++) {
+            line2.setCharAt(j, chars[i]);
+        }
+
         return new String[]{
-                " y       ",
-                "         ",
-                "    h    "
+                line1.toString(),
+                line2.toString(),
+                line3
         };
     }
 }

@@ -61,6 +61,11 @@ public final class Kryptonite extends JavaPlugin {
             saveResource("profiles/YouHaveTrouble.kos", false);
         }
 
+        File FFProfile = new File(getDataFolder() + File.separator + "profiles/FarmFriendly.kos");
+        if (!FFProfile.exists()) {
+            saveResource("profiles/FarmFriendly.kos", false);
+        }
+
         File profilesFolder = new File(getDataFolder() + File.separator + "profiles");
         if (!profilesFolder.exists()) {
             if (!profilesFolder.mkdirs()) {
