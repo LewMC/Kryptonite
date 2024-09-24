@@ -22,7 +22,7 @@ public class ServerProperties {
     /**
      * Configuration values supported by this format.
      */
-    public enum Config {
+    public enum Key {
         NETWORK_COMPRESSION_THRESHOLD {
             @Override
             public String toString() {
@@ -46,6 +46,12 @@ public class ServerProperties {
             public String toString() {
                 return "sync-chunk-writes";
             }
+        },
+        ALLOW_FLIGHT {
+            @Override
+            public String toString() {
+                return "allow-flight";
+            }
         }
     }
 
@@ -54,7 +60,7 @@ public class ServerProperties {
      * @param key Config - A valid configuration key.
      * @param value String - The value to set.
      */
-    public void set(Config key, String value) {
+    public void set(Key key, String value) {
         plugin.restartRequired = true;
         this.util.setProperty(key.toString(), value);
     }
@@ -64,7 +70,7 @@ public class ServerProperties {
      * @param key Config - A valid configuration key.
      * @return String - The value.
      */
-    public String getString(Config key) {
+    public String getString(Key key) {
         return this.util.getProperty(key.toString());
     }
 
@@ -73,7 +79,7 @@ public class ServerProperties {
      * @param key Config - A valid configuration key.
      * @return int - The value.
      */
-    public int getInt(Config key) {
+    public int getInt(Key key) {
         return Integer.parseInt(this.util.getProperty(key.toString()));
     }
 }

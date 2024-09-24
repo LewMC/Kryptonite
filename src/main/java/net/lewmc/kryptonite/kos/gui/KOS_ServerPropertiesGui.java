@@ -56,6 +56,7 @@ public class KOS_ServerPropertiesGui {
         this.viewDistance('b');
         this.simulationDistance('c');
         this.syncChunkWrites('d');
+        this.allowFlight('e');
 
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
@@ -69,18 +70,18 @@ public class KOS_ServerPropertiesGui {
 
         return new String[]{
                 " a b c d ",
-                "         ",
+                "    e    ",
                 "  w x y  "
         };
     }
 
     private void networkCompressionThreshold(char id) {
-        int value = this.properties.getInt(ServerProperties.Config.NETWORK_COMPRESSION_THRESHOLD);
+        int value = this.properties.getInt(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD);
         if (value == 256) {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.NETWORK_COMPRESSION_THRESHOLD, click, value),
+                    click -> this.setInt(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD, click, value),
                     ChatColor.DARK_GREEN + "Network Compression Threshold",
                     ChatColor.GREEN + "256",
                     ChatColor.GREEN + "Ideal value",
@@ -90,7 +91,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.NETWORK_COMPRESSION_THRESHOLD, click, value),
+                    click -> this.setInt(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD, click, value),
                     ChatColor.DARK_RED + "Network Compression Threshold",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too low.",
@@ -100,7 +101,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.NETWORK_COMPRESSION_THRESHOLD, click, value),
+                    click -> this.setInt(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD, click, value),
                     ChatColor.DARK_RED + "Network Compression Threshold",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too high.",
@@ -110,13 +111,13 @@ public class KOS_ServerPropertiesGui {
     }
 
     private void viewDistance(char id) {
-        int value = this.properties.getInt(ServerProperties.Config.VIEW_DISTANCE);
+        int value = this.properties.getInt(ServerProperties.Key.VIEW_DISTANCE);
 
         if (value < 5) {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.VIEW_DISTANCE, click, value),
+                    click -> this.setInt(ServerProperties.Key.VIEW_DISTANCE, click, value),
                     ChatColor.DARK_RED + "View distance",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too low - impact to player experience.",
@@ -126,7 +127,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.VIEW_DISTANCE, click, value),
+                    click -> this.setInt(ServerProperties.Key.VIEW_DISTANCE, click, value),
                     ChatColor.DARK_RED + "View distance",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too high - large impact to performance.",
@@ -136,7 +137,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.VIEW_DISTANCE, click, value),
+                    click -> this.setInt(ServerProperties.Key.VIEW_DISTANCE, click, value),
                     ChatColor.DARK_RED + "View distance",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "High - moderate impact to performance.",
@@ -146,7 +147,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.VIEW_DISTANCE, click, value),
+                    click -> this.setInt(ServerProperties.Key.VIEW_DISTANCE, click, value),
                     ChatColor.DARK_GREEN + "View distance",
                     ChatColor.GREEN + String.valueOf(value),
                     ChatColor.GREEN + "Within ideal range.",
@@ -156,14 +157,14 @@ public class KOS_ServerPropertiesGui {
     }
 
     private void simulationDistance(char id) {
-        int viewDistance = this.properties.getInt(ServerProperties.Config.VIEW_DISTANCE);
-        int simuDistance = this.properties.getInt(ServerProperties.Config.SIMULATION_DISTANCE);
+        int viewDistance = this.properties.getInt(ServerProperties.Key.VIEW_DISTANCE);
+        int simuDistance = this.properties.getInt(ServerProperties.Key.SIMULATION_DISTANCE);
 
         if (simuDistance < 5) {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.SIMULATION_DISTANCE, click, simuDistance),
+                    click -> this.setInt(ServerProperties.Key.SIMULATION_DISTANCE, click, simuDistance),
                     ChatColor.DARK_RED + "Simulation Distance",
                     ChatColor.RED + String.valueOf(simuDistance),
                     ChatColor.RED + "Too low - impact to player experience.",
@@ -173,7 +174,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.SIMULATION_DISTANCE, click, simuDistance),
+                    click -> this.setInt(ServerProperties.Key.SIMULATION_DISTANCE, click, simuDistance),
                     ChatColor.DARK_GREEN + "Simulation Distance",
                     ChatColor.GREEN + String.valueOf(simuDistance),
                     ChatColor.GREEN + "Lower or equal to view distance.",
@@ -183,7 +184,7 @@ public class KOS_ServerPropertiesGui {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(ServerProperties.Config.SIMULATION_DISTANCE, click, simuDistance),
+                    click -> this.setInt(ServerProperties.Key.SIMULATION_DISTANCE, click, simuDistance),
                     ChatColor.DARK_RED + "Simulation Distance",
                     ChatColor.RED + String.valueOf(simuDistance),
                     ChatColor.RED + "Higher than view distance - impact to performance.",
@@ -193,7 +194,7 @@ public class KOS_ServerPropertiesGui {
     }
 
     private void syncChunkWrites(char id) {
-        String value = this.properties.getString(ServerProperties.Config.SYNC_CHUNK_WRITES);
+        String value = this.properties.getString(ServerProperties.Key.SYNC_CHUNK_WRITES);
 
         if (Objects.equals(value, "false")) {
             this.gui.addElement(new StaticGuiElement(id,
@@ -201,7 +202,7 @@ public class KOS_ServerPropertiesGui {
                     1,
                     click -> {
                         click.getGui().close();
-                        this.properties.set(ServerProperties.Config.SYNC_CHUNK_WRITES, "true");
+                        this.properties.set(ServerProperties.Key.SYNC_CHUNK_WRITES, "true");
                         this.show();
                         return true;
                     },
@@ -216,7 +217,7 @@ public class KOS_ServerPropertiesGui {
                     1,
                     click -> {
                         click.getGui().close();
-                        this.properties.set(ServerProperties.Config.SYNC_CHUNK_WRITES, "false");
+                        this.properties.set(ServerProperties.Key.SYNC_CHUNK_WRITES, "false");
                         this.show();
                         return true;
                     },
@@ -228,7 +229,43 @@ public class KOS_ServerPropertiesGui {
         }
     }
 
-    private boolean setInt(ServerProperties.Config key, GuiElement.Click click, int value) {
+    private void allowFlight(char id) {
+        String value = this.properties.getString(ServerProperties.Key.ALLOW_FLIGHT);
+
+        if (Objects.equals(value, "false")) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        this.properties.set(ServerProperties.Key.ALLOW_FLIGHT, "true");
+                        this.show();
+                        return true;
+                    },
+                    ChatColor.DARK_RED + "Allow Flight",
+                    ChatColor.RED + "false",
+                    ChatColor.RED + "False - players may be kicked if it lags.",
+                    ChatColor.BLUE + "Click to toggle true/false"
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        this.properties.set(ServerProperties.Key.ALLOW_FLIGHT, "false");
+                        this.show();
+                        return true;
+                    },
+                    ChatColor.DARK_GREEN + "Allow Flight",
+                    ChatColor.GREEN + "true",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Click to toggle true/false"
+            ));
+        }
+    }
+
+    private boolean setInt(ServerProperties.Key key, GuiElement.Click click, int value) {
         click.getGui().close();
         if (click.getType() == ClickType.RIGHT) {
             this.properties.set(key, String.valueOf(value + 1));
