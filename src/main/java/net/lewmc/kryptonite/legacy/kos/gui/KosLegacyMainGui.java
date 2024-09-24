@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.kos.gui;
+package net.lewmc.kryptonite.legacy.kos.gui;
 
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
@@ -17,8 +17,10 @@ import java.io.File;
 
 /**
  * The main menu GUI for KOS.
+ * @deprecated
  */
-public class KosMainGui {
+@Deprecated
+public class KosLegacyMainGui {
     private final CommandSender commandSender;
     private final Kryptonite plugin;
     private InventoryGui gui;
@@ -28,7 +30,7 @@ public class KosMainGui {
      * @param plugin Kryptonite - Reference to the main plugin class.
      * @param commandSender CommandSender - the player who sent the command.
      */
-    public KosMainGui(Kryptonite plugin, CommandSender commandSender) {
+    public KosLegacyMainGui(Kryptonite plugin, CommandSender commandSender) {
         this.plugin = plugin;
         this.commandSender = commandSender;
     }
@@ -71,7 +73,7 @@ public class KosMainGui {
                                 1,
                                 click -> {
                                     click.getGui().close();
-                                    KosPregeneratedGui kpg = new KosPregeneratedGui(this.plugin, this.commandSender, child.getName().replace(".kos", ""));
+                                    KosLegacyPregeneratedGui kpg = new KosLegacyPregeneratedGui(this.plugin, this.commandSender, child.getName().replace(".kos", ""));
                                     kpg.show();
                                     return true;
                                 },

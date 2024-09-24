@@ -1,9 +1,9 @@
-package net.lewmc.kryptonite.kos.gui;
+package net.lewmc.kryptonite.legacy.kos.gui;
 
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.KOS;
+import net.lewmc.kryptonite.legacy.kos.KOS;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -13,8 +13,10 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * The "have you pregenerated?" menu GUI for KOS.
+ * @deprecated
  */
-public class KosPregeneratedGui {
+@Deprecated
+public class KosLegacyPregeneratedGui {
     private final CommandSender commandSender;
     private final Kryptonite plugin;
     private InventoryGui gui;
@@ -25,7 +27,7 @@ public class KosPregeneratedGui {
      * @param plugin Kryptonite - Reference to the main plugin class.
      * @param commandSender CommandSender - the player who sent the command.
      */
-    public KosPregeneratedGui(Kryptonite plugin, CommandSender commandSender, String profile) {
+    public KosLegacyPregeneratedGui(Kryptonite plugin, CommandSender commandSender, String profile) {
         this.plugin = plugin;
         this.commandSender = commandSender;
         this.profile = profile;

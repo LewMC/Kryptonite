@@ -1,8 +1,8 @@
 package net.lewmc.kryptonite.commands;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.KOS;
-import net.lewmc.kryptonite.kos.gui.KosMainGui;
+import net.lewmc.kryptonite.kos.gui.KOS_MainGui;
+import net.lewmc.kryptonite.legacy.kos.KOS;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
@@ -38,7 +38,7 @@ public class OptimiseCommand implements CommandExecutor {
 
         if (perm.isOperator(commandSender)) {
             if (commandSender instanceof Player) {
-                KosMainGui gui = new KosMainGui(this.plugin, commandSender);
+                KOS_MainGui gui = new KOS_MainGui(this.plugin, commandSender);
                 gui.show();
             } else {
                 if (args.length == 1) {
@@ -78,7 +78,7 @@ public class OptimiseCommand implements CommandExecutor {
             }
         } else {
             message.Error("You do not have the required permissions to run this command.");
-            message.Error("Please visit https://wiki.lewmc.net/index.php/Kryptonite_Commands for more information.");
+            message.Error("Please visit https://wiki.lewmc.net/kr-commands.html for more information.");
         }
         return true;
     }

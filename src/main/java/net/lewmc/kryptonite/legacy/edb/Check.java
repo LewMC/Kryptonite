@@ -1,4 +1,4 @@
-package net.lewmc.kryptonite.edb;
+package net.lewmc.kryptonite.legacy.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.LogUtil;
