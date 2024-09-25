@@ -41,7 +41,7 @@ public class KOS_BukkitGui {
      */
     public void show() {
         InventoryHolder holder = this.user.getServer().getPlayer(this.user.getName());
-        this.gui = new InventoryGui(this.plugin, holder, "KOS - Server Configuration", this.getElements());
+        this.gui = new InventoryGui(this.plugin, holder, "KOS - Bukkit Configuration", this.getElements());
         this.addElements();
 
         this.gui.build();
