@@ -209,7 +209,7 @@ public class KOS_ServerPropertiesGui {
                     ChatColor.DARK_RED + "Sync Chunk Writes",
                     ChatColor.RED + "false",
                     ChatColor.RED + "False - impact to player experience.",
-                    ChatColor.BLUE + "Click to toggle true/false"
+                    ChatColor.BLUE + "Click to toggle true/false."
             ));
         } else {
             this.gui.addElement(new StaticGuiElement(id,
@@ -224,7 +224,7 @@ public class KOS_ServerPropertiesGui {
                     ChatColor.DARK_GREEN + "Sync Chunk Writes",
                     ChatColor.GREEN + "true",
                     ChatColor.GREEN + "Ideal value.",
-                    ChatColor.BLUE + "Click to toggle true/false"
+                    ChatColor.BLUE + "Click to toggle true/false."
             ));
         }
     }

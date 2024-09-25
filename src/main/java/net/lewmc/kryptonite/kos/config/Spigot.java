@@ -81,6 +81,10 @@ public class Spigot {
             @Override
             public String toString() { return "world-settings.default.entity-tracking-range.other"; }
         },
+        ENTITY_TRACKING_RANGE_DISPLAY {
+            @Override
+            public String toString() { return "world-settings.default.entity-tracking-range.display"; }
+        },
         TICK_INACTIVE_VILLAGERS {
             @Override
             public String toString() { return "world-settings.default.entity-activation-range.tick-inactive-villagers"; }
@@ -88,14 +92,6 @@ public class Spigot {
         NERF_SPAWNER_MOBS {
             @Override
             public String toString() { return "world-settings.default.nerf-spawner-mobs"; }
-        },
-        MERGE_RADIUS_ITEM {
-            @Override
-            public String toString() { return "world-settings.default.merge-radius.item"; }
-        },
-        MERGE_RADIUS_EXP {
-            @Override
-            public String toString() { return "world-settings.default.merge-radius.exp"; }
         },
         TICKS_PER_HOPPER_TRANSFER {
             @Override
@@ -112,7 +108,7 @@ public class Spigot {
      * @param key Key - The requested key.
      * @param value int - The requested value.
      */
-    public void setInt(Bukkit.Key key, int value) {
+    public void setInt(Key key, int value) {
         this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("spigot.yml");
@@ -124,7 +120,7 @@ public class Spigot {
      * Gets a requested key's value.
      * @param key Key - The requested key.
      */
-    public int getInt(Bukkit.Key key) {
+    public int getInt(Key key) {
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("spigot.yml");
         return cfg.getInt(key.toString());
@@ -135,7 +131,7 @@ public class Spigot {
      * @param key Key - The requested key.
      * @param value int - The requested value.
      */
-    public void setBoolean(Bukkit.Key key, boolean value) {
+    public void setBoolean(Key key, boolean value) {
         this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("spigot.yml");
@@ -147,9 +143,42 @@ public class Spigot {
      * Gets a requested key's value.
      * @param key Key - The requested key.
      */
-    public boolean getBoolean(Bukkit.Key key) {
+    public boolean getBoolean(Key key) {
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("spigot.yml");
         return cfg.getBoolean(key.toString());
+    }
+
+    /**
+     * Sets a requested key to a requested value.
+     * @param key Key - The requested key.
+     * @param value int - The requested value.
+     */
+    public void setString(Key key, String value) {
+        this.plugin.restartRequired = true;
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("spigot.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
+    }
+
+    /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public String getString(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("spigot.yml");
+        return cfg.getString(key.toString());
+    }
+
+    /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public Object getObject(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("spigot.yml");
+        return cfg.get(key.toString());
     }
 }

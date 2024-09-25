@@ -98,6 +98,8 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
+                        KOS_SpigotGui_1 spigGui = new KOS_SpigotGui_1(this.plugin, this.user);
+                        spigGui.show();
                         return true;
                     },
                     ChatColor.BLUE + "Spigot",
