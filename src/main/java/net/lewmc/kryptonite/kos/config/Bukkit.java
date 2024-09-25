@@ -2,13 +2,7 @@ package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * The Bukkit class manages the bukkit.yml configuration file.
