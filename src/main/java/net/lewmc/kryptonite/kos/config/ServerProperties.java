@@ -4,7 +4,7 @@ import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 /**
- * Manages the server.properties file.
+ * The ServerProperties class manages the server.properties configuration file.
  */
 public class ServerProperties {
     private final PropertiesUtil util;

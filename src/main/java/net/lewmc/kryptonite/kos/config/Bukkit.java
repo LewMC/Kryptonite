@@ -10,10 +10,18 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Bukkit class manages the bukkit.yml configuration file.
+ */
 public class Bukkit {
     private final Kryptonite plugin;
     private final CommandSender user;
 
+    /**
+     * Constructor for the Bukkit class.
+     * @param plugin Kryptonite - Reference to the main plugin class.
+     * @param user CommandSender - The user who sent the command.
+     */
     public Bukkit(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
