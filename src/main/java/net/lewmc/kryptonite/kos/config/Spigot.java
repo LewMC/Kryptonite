@@ -166,16 +166,6 @@ public class Spigot {
      * Gets a requested key's value.
      * @param key Key - The requested key.
      */
-    public String getString(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("spigot.yml");
-        return cfg.getString(key.toString());
-    }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
     public Object getObject(Key key) {
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("spigot.yml");
