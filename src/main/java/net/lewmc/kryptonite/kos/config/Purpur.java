@@ -121,14 +121,4 @@ public class Purpur {
         cfg.set(key.toString(), value);
         cfg.save();
     }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
-    public Object getObject(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("purpur.yml");
-        return cfg.get(key.toString());
-    }
 }
