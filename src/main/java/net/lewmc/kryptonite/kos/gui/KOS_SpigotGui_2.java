@@ -15,30 +15,28 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * KOS Bukkit GUI
+ * KOS Spigot GUI (Page 2/2)
  */
 public class KOS_SpigotGui_2 {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final int simulationDistance;
     private InventoryGui gui;
-    private Spigot spigot;
+    private final Spigot spigot;
 
     /**
-     * Constructor for the KOS Bukkit GUI
+     * Constructor for the KOS Spigot GUI (Page 2/2)
      * @param plugin Kryptonite - Reference to the main plugin class.
      * @param user CommandSender - The user who sent the command.
      */
     public KOS_SpigotGui_2(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.simulationDistance = (new ServerProperties(plugin).getInt(ServerProperties.Key.SIMULATION_DISTANCE) -1)*16;
 
         this.spigot = new Spigot(plugin, user);
     }
 
     /**
-     * Shows the KOS Bukkit GUI
+     * Shows the KOS Spigot GUI (Page 2/2)
      */
     public void show() {
         InventoryHolder holder = this.user.getServer().getPlayer(this.user.getName());
