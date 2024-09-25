@@ -4,10 +4,7 @@ import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.Bukkit;
-import net.lewmc.kryptonite.kos.config.Pufferfish;
 import net.lewmc.kryptonite.kos.config.Purpur;
-import net.lewmc.kryptonite.kos.config.ServerProperties;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -22,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 public class KOS_PurpurGui {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final int simulationDistance;
     private final Purpur purpur;
     private InventoryGui gui;
 
@@ -34,7 +30,6 @@ public class KOS_PurpurGui {
     public KOS_PurpurGui(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.simulationDistance = (new ServerProperties(plugin).getInt(ServerProperties.Key.SIMULATION_DISTANCE) -1)*16;
 
         this.purpur = new Purpur(plugin, user);
     }
@@ -353,6 +348,7 @@ public class KOS_PurpurGui {
                     ChatColor.YELLOW + "true",
                     ChatColor.YELLOW + "Impact to player experience - dolphins won't",
                     ChatColor.YELLOW + "perform structure searches.",
+                    ChatColor.YELLOW + "Only enable if you have pre-generated your world.",
                     ChatColor.BLUE + "Click to toggle true/false."
             ));
         } else {
@@ -368,6 +364,7 @@ public class KOS_PurpurGui {
                     ChatColor.DARK_RED + "Dolphin Disable Treasure Searching",
                     ChatColor.RED + "false",
                     ChatColor.RED + "Impact to performance.",
+                    ChatColor.RED + "Only enable if you have pre-generated your world.",
                     ChatColor.BLUE + "Click to toggle true/false."
             ));
         }
