@@ -166,6 +166,8 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
+                        KOS_PurpurGui purpurGui = new KOS_PurpurGui(this.plugin, this.user);
+                        purpurGui.show();
                         return true;
                     },
                     ChatColor.BLUE + "Purpur",
@@ -188,6 +190,8 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
+                        KOS_PufferfishGui pufferfishGui = new KOS_PufferfishGui(this.plugin, this.user);
+                        pufferfishGui.show();
                         return true;
                     },
                     ChatColor.BLUE + "Pufferfish",
