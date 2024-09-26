@@ -299,7 +299,7 @@ public class PaperWorld {
      * @param key Key - The requested key.
      * @param value int - The requested value.
      */
-    public void setInt(Pufferfish.Key key, int value) {
+    public void setInt(Key key, int value) {
         this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("config/paper-world-defaults.yml");
@@ -311,7 +311,7 @@ public class PaperWorld {
      * Gets a requested key's value.
      * @param key Key - The requested key.
      */
-    public int getInt(Pufferfish.Key key) {
+    public int getInt(Key key) {
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("config/paper-world-defaults.yml");
         return cfg.getInt(key.toString());
@@ -322,7 +322,7 @@ public class PaperWorld {
      * @param key Key - The requested key.
      * @param value int - The requested value.
      */
-    public void setBoolean(Pufferfish.Key key, boolean value) {
+    public void setBoolean(Key key, boolean value) {
         this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("config/paper-world-defaults.yml");
@@ -334,7 +334,7 @@ public class PaperWorld {
      * Gets a requested key's value.
      * @param key Key - The requested key.
      */
-    public boolean getBoolean(Pufferfish.Key key) {
+    public boolean getBoolean(Key key) {
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("config/paper-world-defaults.yml");
         return cfg.getBoolean(key.toString());
@@ -345,7 +345,7 @@ public class PaperWorld {
      * @param key Key - The requested key.
      * @param value int - The requested value.
      */
-    public void setString(Pufferfish.Key key, String value) {
+    public void setString(Key key, String value) {
         this.plugin.restartRequired = true;
         ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
         cfg.load("config/paper-world-defaults.yml");
