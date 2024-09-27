@@ -4,9 +4,16 @@
 # Wiki: https://wiki.lewmc.net/kryptonite.html
 #
 
+# Should Kryptonite check for updates?
 update-check: true
+
+# Kryptonite Optimisation System settings
 kos:
   override-pregenerated-world-protections: false
   using-tcpshield: false
   expected-player-count: 20
   player-style: 1
+
+# Verbose mode
+# Outputs the result of kryptonite.log to the console as well.
+verbose: false

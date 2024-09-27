@@ -2,6 +2,7 @@ package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -74,6 +75,9 @@ public class Purpur {
         cfg.load("purpur.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 
     /**
@@ -97,6 +101,9 @@ public class Purpur {
         cfg.load("purpur.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 
     /**
@@ -120,5 +127,8 @@ public class Purpur {
         cfg.load("purpur.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 }

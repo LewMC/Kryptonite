@@ -36,6 +36,10 @@
                   <pattern>com.tchristofferson</pattern>
                   <shadedPattern>net.lewmc.kryptonite</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>com.tcoded.folialib</pattern>
+                  <shadedPattern>net.lewmc.kryptonite.lib.folialib</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
@@ -55,6 +59,10 @@
     <repository>
       <id>minebench-repo</id>
       <url>https://repo.minebench.de/</url>
+    </repository>
+    <repository>
+      <id>jitpack</id>
+      <url>https://jitpack.io</url>
     </repository>
   </repositories>
   <dependencies>

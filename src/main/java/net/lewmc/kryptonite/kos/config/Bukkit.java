@@ -2,6 +2,7 @@ package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -98,6 +99,9 @@ public class Bukkit {
         cfg.load("bukkit.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>bukkit.yml set '" + key + "' to '" + value + "'");
     }
 
     /**

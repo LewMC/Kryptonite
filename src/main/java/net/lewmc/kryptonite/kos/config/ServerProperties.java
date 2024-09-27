@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 /**
@@ -63,6 +64,9 @@ public class ServerProperties {
     public void set(Key key, String value) {
         plugin.restartRequired = true;
         this.util.setProperty(key.toString(), value);
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>server.properties set '" + key + "' to '" + value + "'");
     }
 
     /**

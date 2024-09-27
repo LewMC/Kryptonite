@@ -129,7 +129,7 @@ public class KOS_SpigotGui_1 {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.BARRIER),
                     1,
-                    click -> this.setInt(Spigot.Key.VIEW_DISTANCE, click, (int) value, true),
+                    click -> true,
                     ChatColor.DARK_RED + "Spawn Limit (Monsters)",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",

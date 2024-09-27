@@ -1,5 +1,6 @@
 package net.lewmc.kryptonite;
 
+import com.tcoded.folialib.FoliaLib;
 import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
@@ -56,6 +57,7 @@ public final class Kryptonite extends JavaPlugin {
         UpdateUtil update = new UpdateUtil(this);
 
         this.saveDefaultConfig();
+        this.saveResource("kryptonite.log", false);
 
         update.VersionCheck();
         update.UpdateConfig();
@@ -64,7 +66,8 @@ public final class Kryptonite extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        FoliaLib foliaLib = new FoliaLib(this);
+        foliaLib.getScheduler().cancelAllTasks();
     }
 
     /**

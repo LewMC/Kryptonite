@@ -144,6 +144,8 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
+                        KOS_PaperWorld_1 paperWorldGui = new KOS_PaperWorld_1(this.plugin, this.user);
+                        paperWorldGui.show();
                         return true;
                     },
                     ChatColor.BLUE + "Paper World",

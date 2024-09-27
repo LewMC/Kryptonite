@@ -2,6 +2,7 @@ package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
+import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -305,6 +306,9 @@ public class PaperWorld {
         cfg.load("config/paper-world-defaults.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
     }
 
     /**
@@ -328,6 +332,9 @@ public class PaperWorld {
         cfg.load("config/paper-world-defaults.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
     }
 
     /**
@@ -361,5 +368,8 @@ public class PaperWorld {
         cfg.load("config/paper-world-defaults.yml");
         cfg.set(key.toString(), value);
         cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
     }
 }
