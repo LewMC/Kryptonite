@@ -58,6 +58,15 @@ public class KOS_PaperWorld_1 {
         this.entityPerChunkSaveLimitEgg('g');
         this.entityPerChunkSaveLimitEnderPearl('h');
         this.entityPerChunkSaveLimitExperienceBottle('i');
+        this.entityPerChunkSaveLimitExperienceOrb('j');
+        this.entityPerChunkSaveLimitEyeOfEnder('k');
+        this.entityPerChunkSaveLimitFireball('l');
+        this.entityPerChunkSaveLimitLlamaSpit('m');
+        this.entityPerChunkSaveLimitPotion('n');
+        this.entityPerChunkSaveLimitShulkerBullet('o');
+        this.entityPerChunkSaveLimitSmallFireball('p');
+        this.entityPerChunkSaveLimitSnowball('q');
+        this.entityPerChunkSaveLimitSpectralArrow('r');
 
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
@@ -124,7 +133,7 @@ public class KOS_PaperWorld_1 {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.BARRIER),
                     1,
-                    click -> this.setInt(PaperWorld.Key.DELAY_CHUNK_UNLOADS_BY, click, (int) value, true),
+                    click -> true,
                     ChatColor.DARK_RED + "Delay Chunk Unloads By",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
@@ -336,6 +345,231 @@ public class KOS_PaperWorld_1 {
                     1,
                     click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_BOTTLE, click, value, false),
                     ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Experience Bottle)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitExperienceOrb(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB);
+        if (value < 21) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Experience Orb)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Experience Orb)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitEyeOfEnder(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER);
+        if (value < 11) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Eye of Ender)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Eye of Ender)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitFireball(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL);
+        if (value < 11) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Fireball)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Fireball)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitLlamaSpit(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT);
+        if (value < 6) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Llama Spit)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Llama Spit)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitPotion(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION);
+        if (value < 6) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Potion)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Potion)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitShulkerBullet(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET);
+        if (value < 9) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Shulker Bullet)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Shulker Bullet)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitSmallFireball(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL);
+        if (value < 11) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Small Fireball)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Small Fireball)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitSnowball(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL);
+        if (value < 21) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Snowball)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Snowball)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitSpectralArrow(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW);
+        if (value < 6) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Spectral Arrow)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Spectral Arrow)",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too high - impact to chunk loading performance.",
                     ChatColor.BLUE + "Right click to increase - left click to decrease."

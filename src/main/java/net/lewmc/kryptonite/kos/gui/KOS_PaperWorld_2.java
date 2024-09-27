@@ -49,7 +49,24 @@ public class KOS_PaperWorld_2 {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        this.mobSpawnRange('a');
+        this.entityPerChunkSaveLimitTrident('a');
+        this.entityPerChunkSaveLimitWitherSkull('b');
+        this.entityDespawnRangesAmbientHard('c');
+        this.entityDespawnRangesAmbientSoft('d');
+        this.entityDespawnRangesAxolotlsHard('e');
+        this.entityDespawnRangesAxolotlsSoft('f');
+        this.entityDespawnRangesCreatureHard('g');
+        this.entityDespawnRangesCreatureSoft('h');
+        this.entityDespawnRangesMiscHard('i');
+        this.entityDespawnRangesMiscSoft('j');
+        this.entityDespawnRangesMonsterHard('k');
+        this.entityDespawnRangesMonsterSoft('l');
+        this.entityDespawnRangesUndergroundWaterCreatureHard('m');
+        this.entityDespawnRangesUndergroundWaterCreatureSoft('n');
+        this.entityDespawnRangesWaterAmbientHard('o');
+        this.entityDespawnRangesWaterAmbientSoft('p');
+        this.entityDespawnRangesWaterCreatureHard('q');
+        this.entityDespawnRangesWaterCreatureSoft('r');
 
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
@@ -92,43 +109,934 @@ public class KOS_PaperWorld_2 {
         };
     }
 
-    private void mobSpawnRange(char id) {
-        /*
-        NOT VALID OR COMPLETED
-
-        int value = this.spigot.getInt(Spigot.Key.MOB_SPAWN_RANGE);
-        if (value >= 3 && value <= 8) {
+    private void entityPerChunkSaveLimitTrident(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT);
+        if (value < 11) {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> this.setInt(Spigot.Key.MOB_SPAWN_RANGE, click, value, false),
-                    ChatColor.DARK_GREEN + "Mob Spawn Range",
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Trident)",
                     ChatColor.GREEN + String.valueOf(value),
                     ChatColor.GREEN + "Within ideal range.",
-                    ChatColor.BLUE + "Right click to increase - left click to decrease."
-            ));
-        } else if (value < 3) {
-            this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
-                    1,
-                    click -> this.setInt(Spigot.Key.MOB_SPAWN_RANGE, click, value, false),
-                    ChatColor.GOLD + "Delay Chunk Unloads By",
-                    ChatColor.YELLOW + String.valueOf(value),
-                    ChatColor.YELLOW + "Too low - impact to player experience.",
                     ChatColor.BLUE + "Right click to increase - left click to decrease."
             ));
         } else {
             this.gui.addElement(new StaticGuiElement(id,
                     new ItemStack(Material.RED_CONCRETE),
                     1,
-                    click -> this.setInt(PaperWorld.Key.DELAY_CHUNK_UNLOADS_BY, click, value, false),
-                    ChatColor.DARK_RED + "Delay Chunk Unloads By",
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Trident)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityPerChunkSaveLimitWitherSkull(char id) {
+        int value = this.paperWorld.getInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT);
+        if (value < 11) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL, click, value, false),
+                    ChatColor.DARK_GREEN + "Entity Per Chunk Save Limit (Wither Skull)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL, click, value, false),
+                    ChatColor.DARK_RED + "Entity Per Chunk Save Limit (Wither Skull)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to chunk loading performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        }
+    }
+
+    private void entityDespawnRangesAmbientHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Ambient (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Ambient (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Ambient (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Ambient (Hard)",
                     ChatColor.RED + String.valueOf(value),
                     ChatColor.RED + "Too high - impact to performance.",
                     ChatColor.BLUE + "Right click to increase - left click to decrease."
             ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Ambient (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
         }
-        */
+    }
+
+    private void entityDespawnRangesAmbientSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Ambient (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Ambient (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Ambient (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Ambient (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Ambient (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesAxolotlsHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Axolotls (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Axolotls (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Axolotls (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Axolotls (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Axolotls (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesAxolotlsSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Axolotls (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Axolotls (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Axolotls (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Axolotls (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Axolotls (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesCreatureHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Creature (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Creature (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Creature (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesCreatureSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Creature (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Creature (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Creature (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesMiscHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Misc (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Misc (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Misc (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Misc (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Misc (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesMiscSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Misc (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Misc (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Misc (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Misc (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Misc (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesMonsterHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Monster (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Monster (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Monster (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Monster (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Monster (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesMonsterSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Monster (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Monster (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Monster (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Monster (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Monster (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesUndergroundWaterCreatureHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Underground Water Creature (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Underground Water Creature (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Underground Water Creature (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Underground Water Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Underground Water Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesUndergroundWaterCreatureSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Underground Water Creature (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Underground Water Creature (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Underground Water Creature (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Underground Water Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Underground Water Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesWaterAmbientHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Ambient (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 15) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Water Ambient (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 64) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Ambient (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Ambient (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Ambient (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesWaterAmbientSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Ambient (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 5) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Water Ambient (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Ambient (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Ambient (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Ambient (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesWaterCreatureHard(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Creature (Hard)",
+                    ChatColor.GREEN + "default (128)",
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 20) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Water Creature (Hard)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 128) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Creature (Hard)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Creature (Hard)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
+    }
+
+    private void entityDespawnRangesWaterCreatureSoft(char id) {
+        Object value = this.paperWorld.getObject(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT);
+        if (value instanceof String) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, click, 0, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Creature (Soft)",
+                    ChatColor.GREEN + "default (32)",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 10) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.GOLD + "Entity Despawn Ranges - Water Creature (Soft)",
+                    ChatColor.YELLOW + String.valueOf(value),
+                    ChatColor.YELLOW + "Too low - impact to player experience.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer && (int) value <= 32) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_GREEN + "Entity Despawn Ranges - Water Creature (Soft)",
+                    ChatColor.GREEN + String.valueOf(value),
+                    ChatColor.GREEN + "Within ideal range.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else if (value instanceof Integer) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> this.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, click, (int) value, true),
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Too high - impact to performance.",
+                    ChatColor.BLUE + "Right click to increase - left click to decrease."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Entity Despawn Ranges - Water Creature (Soft)",
+                    ChatColor.RED + String.valueOf(value),
+                    ChatColor.RED + "Kryptonite cannot recognise this value, and therefore cannot edit it.",
+                    ChatColor.RED + "Please send a screenshot of this error to github.com/lewmc/kryptonite"
+            ));
+        }
     }
 
     private boolean setInt(PaperWorld.Key key, GuiElement.Click click, int value, boolean canBeDefault) {
