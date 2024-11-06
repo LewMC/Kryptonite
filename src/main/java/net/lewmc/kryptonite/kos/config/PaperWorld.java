@@ -361,6 +361,16 @@ public class PaperWorld {
     }
 
     /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public String getString(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("config/paper-world-defaults.yml");
+        return cfg.getString(key.toString());
+    }
+
+    /**
      * Sets a requested key to a requested value.
      * @param key Key - The requested key.
      * @param value int - The requested value.
