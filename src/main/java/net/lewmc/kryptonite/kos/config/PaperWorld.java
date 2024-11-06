@@ -254,6 +254,9 @@ public class PaperWorld {
         ALT_ITEM_DESPAWN_RATE_SCAFFOLDING {
             @Override public String toString() { return "entities.spawning.alt-item-despawn-rate.items.scaffolding"; }
         },
+        ALT_ITEM_DESPAWN_RATE_EGG {
+            @Override public String toString() { return "entities.spawning.alt-item-despawn-rate.items.egg"; }
+        },
         REDSTONE_IMPLEMENTATION {
             @Override public String toString() { return "misc.redstone-implementation"; }
         },
