@@ -673,7 +673,7 @@ public class KOS_PaperWorld_5 {
             ));
         } else if (value > 30) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_NON_PLAYER, click, value, false),
                     ChatColor.DARK_RED + "Arrow Despawn Rate - Non-Player",
@@ -684,7 +684,7 @@ public class KOS_PaperWorld_5 {
             ));
         } else {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.RED_CONCRETE),
+                    new ItemStack(Material.ORANGE_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_NON_PLAYER, click, value, false),
                     ChatColor.GOLD + "Arrow Despawn Rate - Non-Player",
@@ -709,7 +709,7 @@ public class KOS_PaperWorld_5 {
             ));
         } else if (value > 30) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_CREATIVE, click, value, false),
                     ChatColor.DARK_RED + "Arrow Despawn Rate - Creative",
@@ -720,7 +720,7 @@ public class KOS_PaperWorld_5 {
             ));
         } else {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.RED_CONCRETE),
+                    new ItemStack(Material.ORANGE_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_CREATIVE, click, value, false),
                     ChatColor.GOLD + "Arrow Despawn Rate - Creative",

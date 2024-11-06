@@ -41,6 +41,9 @@ public class OptimiseCommand implements CommandExecutor {
                 gui.show();
             } else {
                 message.Info("Please run this command in-game.");
+                message.Info("We're working on bringing CLI access back soon, but it's temporarily disabled in this version.");
+                message.Info("Please either downgrade to the previous version where it is enabled, or wait for the next update.");
+                message.Info("We apologise for any inconvenience.");
             }
         } else {
             message.Error("You do not have the required permissions to run this command.");

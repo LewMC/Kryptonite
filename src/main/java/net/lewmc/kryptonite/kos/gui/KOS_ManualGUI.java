@@ -121,7 +121,7 @@ public class KOS_ManualGUI {
                     new ItemStack(Material.MAP),
                     1,
                     click -> {
-                        click.getGui().close();
+                        click.getWhoClicked().sendMessage(ChatColor.DARK_RED + "There are no options that can be changed for this configuration file.");
                         return true;
                     },
                     ChatColor.BLUE + "Paper Global",
