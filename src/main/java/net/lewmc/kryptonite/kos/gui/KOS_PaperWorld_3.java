@@ -667,7 +667,7 @@ public class KOS_PaperWorld_3 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_COBBLESTONE, click, value, false, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Cobblestone",
@@ -712,7 +712,7 @@ public class KOS_PaperWorld_3 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_NETHERRACK, click, value, false, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Netherrack",
@@ -757,7 +757,7 @@ public class KOS_PaperWorld_3 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SAND, click, value, false, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Sand",
@@ -802,7 +802,7 @@ public class KOS_PaperWorld_3 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_RED_SAND, click, value, false, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Red Sand",
@@ -847,7 +847,7 @@ public class KOS_PaperWorld_3 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_GRAVEL, click, value, false, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Gravel",

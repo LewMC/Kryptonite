@@ -125,7 +125,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DIRT, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Dirt",
@@ -170,7 +170,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SHORT_GRASS, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Short Grass",
@@ -215,7 +215,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_PUMPKIN, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Pumpkin",
@@ -260,7 +260,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_MELON_SLICE, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Melon Slice",
@@ -305,7 +305,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_KELP, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Kelp",
@@ -350,7 +350,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_BAMBOO, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Bamboo",
@@ -395,7 +395,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SUGAR_CANE, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Sugar Cane",
@@ -440,7 +440,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_TWISTING_VINES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Twisting Vines",
@@ -485,7 +485,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_WEEPING_VINES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Weeping Vines",
@@ -530,7 +530,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_OAK_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Oak Leaves",
@@ -575,7 +575,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SPRUCE_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Spruce Leaves",
@@ -620,7 +620,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_BIRCH_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Birch Leaves",
@@ -665,7 +665,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_JUNGLE_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Jungle Leaves",
@@ -710,7 +710,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_ACACIA_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Acacia Leaves",
@@ -755,7 +755,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DARK_OAK_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Dark Oak Leaves",
@@ -800,7 +800,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_MANGROVE_LEAVES, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Mangrove Leaves",
@@ -845,7 +845,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_CACTUS, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Cactus",
@@ -890,7 +890,7 @@ public class KOS_PaperWorld_4 {
             ));
         } else if (value >= 300 && value <= 600) {
             this.gui.addElement(new StaticGuiElement(id,
-                    new ItemStack(Material.ORANGE_CONCRETE),
+                    new ItemStack(Material.LIME_CONCRETE),
                     1,
                     click -> this.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DIORITE, click, value, false),
                     ChatColor.DARK_GREEN + "Alt Item Despawn Rate - Diorite",
