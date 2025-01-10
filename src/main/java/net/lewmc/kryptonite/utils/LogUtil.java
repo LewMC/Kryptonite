@@ -88,19 +88,21 @@ public class LogUtil {
      * @param message String - The message to log.
      */
     private void logToFile(Type type, final String message) {
-        FoliaLib foliaLib = new FoliaLib(this.plugin);
+        if (this.plugin.getConfig().getBoolean("logfile")) {
+            FoliaLib foliaLib = new FoliaLib(this.plugin);
 
-        foliaLib.getScheduler().runAsync((WrappedTask task) -> {
-            String msg = "[" + type.toString() + "]" + message;
-            Path p = Paths.get(this.plugin.getDataFolder().getAbsolutePath() + "/kryptonite.log");
-            String s = System.lineSeparator() + msg;
+            foliaLib.getScheduler().runAsync((WrappedTask task) -> {
+                String msg = "[" + type.toString() + "]" + message;
+                Path p = Paths.get(this.plugin.getDataFolder().getAbsolutePath() + "/kryptonite.log");
+                String s = System.lineSeparator() + msg;
 
-            try (BufferedWriter writer = Files.newBufferedWriter(p, StandardOpenOption.APPEND)) {
-                writer.write(s);
-            } catch (IOException e) {
-                Bukkit.getLogger().severe("[Kryptonite] Unable to write to file: " + e.getMessage());
-            }
-            foliaLib.getScheduler().cancelTask(task);
-        });
+                try (BufferedWriter writer = Files.newBufferedWriter(p, StandardOpenOption.APPEND)) {
+                    writer.write(s);
+                } catch (IOException e) {
+                    Bukkit.getLogger().severe("[Kryptonite] Unable to write to file: " + e.getMessage());
+                }
+                foliaLib.getScheduler().cancelTask(task);
+            });
+        }
     }
 }

@@ -36,7 +36,7 @@ public class SoftwareUtil {
     }
 
     public boolean dabEnabled(CommandSender cs) {
-        if (this.supportsServerProperties()) {
+        if (this.supportsPufferfish()) {
             Pufferfish pf = new Pufferfish(this.plugin, cs);
             return pf.getBoolean(Pufferfish.Key.DAB_ENABLED);
         } else {

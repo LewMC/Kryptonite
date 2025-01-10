@@ -13,5 +13,7 @@ kos:
   using-tcpshield: false
 
 # Verbose mode
-# Outputs the result of kryptonite.log to the console as well.
+# Outputs additional information to the console and file.
+# Useful for diagnosing issues and seeing who does what, but can use up system storage space.
 verbose: false
+logfile: true
