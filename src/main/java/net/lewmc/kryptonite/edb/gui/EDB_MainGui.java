@@ -4,6 +4,7 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.edb.Check;
+import net.lewmc.kryptonite.edb.Patch;
 import net.lewmc.kryptonite.kos.gui.KOS_GuiConstants;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -53,10 +54,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('a',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-1: Armour stand lag machines",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -66,10 +64,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb1();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-1: Armour stand lag machines",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -77,10 +81,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('b',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-2: Book Exploits",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -90,10 +91,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb2();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-2: Book Exploits",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -101,10 +108,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('c',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-3: Collision Lag Machines",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -114,10 +118,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb3();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-3: Collision Lag Machines",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -125,10 +135,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('d',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-4: Command suggestion packet spam attack",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -138,10 +145,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb4();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-4: Command suggestion packet spam attack",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -149,10 +162,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('e',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-5: Command spam attack",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -162,10 +172,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb5();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-5: Command spam attack",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -173,10 +189,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('f',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-6: Join spam attack",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -186,10 +199,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb6();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-6: Join spam attack",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -197,10 +216,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('g',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-7: Neighbor update lag machines",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -210,10 +226,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+                        
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb7();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-7: Neighbor update lag machines",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -221,10 +243,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('h',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-8: Projectile suspension",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -234,10 +253,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+                        
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb8();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-8: Projectile suspension",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 
@@ -245,10 +270,7 @@ public class EDB_MainGui {
             this.gui.addElement(new StaticGuiElement('i',
                     new ItemStack(Material.LIME_CONCRETE),
                     1,
-                    click -> {
-                        click.getGui().close();
-                        return true;
-                    },
+                    click -> true,
                     ChatColor.DARK_GREEN + "EDB-9: Recipe book spam attack",
                     ChatColor.GREEN + "Passed - Your server is safe!"
             ));
@@ -258,10 +280,16 @@ public class EDB_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+                        
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb9();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-9: Recipe book spam attack",
-                    ChatColor.RED + "Failed - Your server is exploitable!"
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
             ));
         }
 

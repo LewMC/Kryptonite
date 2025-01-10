@@ -30,7 +30,7 @@ public class Check {
                 this.logThis(
                         "EDB-1",
                         "entities.armor-stands.do-collision-entity-lookups",
-                        Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups")).toString(),
+                        this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups").toString(),
                         "false");
 
                 return false;
@@ -38,7 +38,7 @@ public class Check {
                 this.logThis(
                         "EDB-1",
                         "entities.armor-stands.tick",
-                        Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.tick")).toString(),
+                        this.plugin.getConfig().get("entities.armor-stands.tick").toString(),
                         "false");
 
                 return false;
@@ -60,11 +60,11 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("item-validation.book-size.page-max")), "1024")) {
+            if (!Objects.equals(cf.getString("item-validation.book-size.page-max"), "1024")) {
                 this.logThis(
                         "EDB-2",
                         "item-validation.book-size.page-max",
-                        Objects.requireNonNull(cf.getString("item-validation.book-size.page-max")),
+                        cf.getString("item-validation.book-size.page-max"),
                         "1024");
                 return false;
             }
@@ -84,20 +84,20 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-world-defaults.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("collisions.max-entity-collisions")), "2")) {
+            if (!Objects.equals(cf.getString("collisions.max-entity-collisions"), "2")) {
                 this.logThis(
                         "EDB-3",
                         "collisions.max-entity-collisions",
-                        Objects.requireNonNull(cf.getString("collisions.max-entity-collisions")),
+                        cf.getString("collisions.max-entity-collisions"),
                         "2");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("collisions.fix-climbing-bypassing-cramming-rule")), "true")) {
+            if (!Objects.equals(cf.getString("collisions.fix-climbing-bypassing-cramming-rule"), "true")) {
                 this.logThis(
                         "EDB-3",
                         "collisions.fix-climbing-bypassing-cramming-rule",
-                        Objects.requireNonNull(cf.getString("collisions.fix-climbing-bypassing-cramming-rule")),
+                        cf.getString("collisions.fix-climbing-bypassing-cramming-rule"),
                         "true");
                 return false;
             }
@@ -117,27 +117,27 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action")), "DROP")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action"), "DROP")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.action",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action")),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action"),
                         "DROP");
                 return false;
             }
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval")), "1.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval"), "1.0")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval")),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval"),
                         "1.0");
                 return false;
             }
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate")), "15.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate"), "15.0")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate")),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate"),
                         "15.0");
                 return false;
             }
@@ -157,11 +157,11 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("spigot.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("commands.spam-exclusions")), "[]")) {
+            if (!Objects.equals(cf.getString("commands.spam-exclusions"), "[]")) {
                 this.logThis(
                         "EDB-5",
                         "commands.spam-exclusions",
-                        Objects.requireNonNull(cf.getString("commands.spam-exclusions")),
+                        cf.getString("commands.spam-exclusions"),
                         "null");
                 return false;
             }
@@ -181,11 +181,11 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("misc.max-joins-per-tick")), "3")) {
+            if (!Objects.equals(cf.getString("misc.max-joins-per-tick"), "3")) {
                 this.logThis(
                         "EDB-6",
                         "misc.max-joins-per-tick",
-                        Objects.requireNonNull(cf.getString("misc.max-joins-per-tick")),
+                        cf.getString("misc.max-joins-per-tick"),
                         "3");
                 return false;
             }
@@ -212,11 +212,11 @@ public class Check {
                 this.log.severe(e.getMessage());
             }
 
-            if (!Objects.equals(Objects.requireNonNull(maxChainedNeighbor), "10000")) {
+            if (!Objects.equals(maxChainedNeighbor, "10000")) {
                 this.logThis(
                         "EDB-7",
                         "max-chained-neighbor-updates",
-                        Objects.requireNonNull(maxChainedNeighbor),
+                        maxChainedNeighbor,
                         "10000");
                 return false;
             }
@@ -237,56 +237,56 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-world-defaults.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.arrow")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.arrow"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.arrow",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.arrow")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.arrow"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.ender_pearl",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.experience_orb")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.experience_orb"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.experience_orb",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.experience_orb")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.experience_orb"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.fireball")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.fireball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.fireball",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.fireball")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.fireball"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.small_fireball")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.small_fireball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.small_fireball",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.small_fireball")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.small_fireball"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.snowball")), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.snowball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.snowball",
-                        Objects.requireNonNull(cf.getString("chunks.entity-per-chunk-save-limit.snowball")),
+                        cf.getString("chunks.entity-per-chunk-save-limit.snowball"),
                         "8");
                 return false;
             }
@@ -307,29 +307,29 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action")), "DROP")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action"), "DROP")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.action",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action")),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action"),
                         "DROP");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval")), "4.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval"), "4.0")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.interval",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval")),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval"),
                         "4.0");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate")), "5.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate"), "5.0")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate",
-                        Objects.requireNonNull(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate")),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate"),
                         "5.0");
                 return false;
             }
