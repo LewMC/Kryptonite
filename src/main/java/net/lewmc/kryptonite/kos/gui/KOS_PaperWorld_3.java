@@ -5,7 +5,6 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.config.PaperWorld;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -58,46 +57,25 @@ public class KOS_PaperWorld_3 {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        LogUtil log = new LogUtil(this.plugin);
-        log.info("1");
         this.perPlayerMobSpawns('a');
-        log.info("1");
         this.maxEntityCollisions('b');
-        log.info("1");
         this.updatePathfindingOnBlockUpdate('c');
-        log.info("1");
         this.fixClimbingBypassingCrammingRule('d');
-        log.info("1");
         this.armorStandsTick('e');
-        log.info("1");
         this.armorStandsDoCollisionEntityLookups('e');
-        log.info("1");
         this.tickRateVillagerValidatesNearbyPoi('f');
-        log.info("1");
         this.tickRateVillagerAcquirePoi('g');
-        log.info("1");
         this.tickRateVillagerSensorNearestBed('h');
-        log.info("1");
         this.tickRateVillagerSensorSecondaryPoi('i');
-        log.info("1");
         this.tickRateVillagerSensorVillagerBabies('j');
-        log.info("1");
         this.tickRateVillagerSensorPlayer('k');
-        log.info("1");
         this.tickRateVillagerSensorNearestLivingEntity('l');
-        log.info("1");
         this.altItemDespawnRateEnabled('m');
-        log.info("1");
         this.altItemDespawnRateCobblestone('n');
-        log.info("1");
         this.altItemDespawnRateNetherrack('o');
-        log.info("1");
         this.altItemDespawnRateSand('p');
-        log.info("1");
         this.altItemDespawnRateRedSand('q');
-        log.info("1");
         this.altItemDespawnRateGravel('r');
-        log.info("1");
 
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
