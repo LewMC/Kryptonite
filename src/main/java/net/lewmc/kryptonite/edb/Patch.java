@@ -1,9 +1,10 @@
-package net.lewmc.kryptonite.legacy.edb;
+package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
@@ -19,11 +20,11 @@ public class Patch {
     private final File paperWorldDefaultsConfig = new File("config/paper-world-defaults.yml");
     private final File spigotConfig = new File("spigot.yml");
 
-    public Patch(Kryptonite plugin) {
+    public Patch(Kryptonite plugin, CommandSender sender) {
         this.plugin = plugin;
         this.softwareUtil = new SoftwareUtil(plugin);
         this.log = new LogUtil(plugin);
-        this.check = new Check(plugin);
+        this.check = new Check(plugin, sender);
     }
 
     public boolean all() {
@@ -187,41 +188,6 @@ public class Patch {
                 this.plugin.getConfig().save(this.paperGlobalConfig);
 
                 return this.check.edb9();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public boolean edb10a() {
-        if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("environment.treasure-maps.enabled", false);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
-
-                return this.check.edb10a();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public boolean edb10b() {
-        if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("environment.treasure-maps.find-already-discovered.loot-tables", true);
-                this.plugin.getConfig().set("environment.treasure-maps.find-already-discovered.villager-trade", true);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
-
-                return this.check.edb10b();
             } catch (IOException | InvalidConfigurationException e) {
                 this.log.severe(e.toString());
                 return false;
