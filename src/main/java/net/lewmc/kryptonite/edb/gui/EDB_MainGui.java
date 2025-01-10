@@ -293,6 +293,88 @@ public class EDB_MainGui {
             ));
         }
 
+        if (this.Check.edb10()) {
+            this.gui.addElement(new StaticGuiElement('j',
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_GREEN + "EDB-10: Nether Roof Access",
+                    ChatColor.GREEN + "Passed - Your server is safe!"
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement('j',
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb10();
+                        return true;
+                    },
+                    ChatColor.DARK_RED + "EDB-10: Nether Roof Access",
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
+            ));
+        }
+
+        if (this.Check.edb11()) {
+            this.gui.addElement(new StaticGuiElement('k',
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_GREEN + "EDB-11: Xray",
+                    ChatColor.GREEN + "Passed - Your server is safe!"
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement('k',
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb11();
+                        return true;
+                    },
+                    ChatColor.DARK_RED + "EDB-11: Xray",
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.YELLOW + "Click to patch."
+            ));
+        }
+
+        if (this.Check.edb12()) {
+            this.gui.addElement(new StaticGuiElement('l',
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_GREEN + "EDB-12: Impersonation",
+                    ChatColor.GREEN + "Passed - Your server is safe!"
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement('l',
+                    new ItemStack(Material.ORANGE_CONCRETE),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
+                        mainGui.show();
+
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb12();
+                        return true;
+                    },
+                    ChatColor.DARK_RED + "EDB-12: Impersonation",
+                    ChatColor.RED + "Failed - Your server is exploitable!",
+                    ChatColor.DARK_RED + "DO NOT PATCH IF RUNNING A PROXY CORRECTLY!",
+                    ChatColor.YELLOW + "Click to patch."
+            ));
+        }
+
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
     }

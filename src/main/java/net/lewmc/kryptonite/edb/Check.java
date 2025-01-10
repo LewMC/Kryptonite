@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.kos.config.ServerProperties;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
@@ -341,6 +342,80 @@ public class Check {
                     "software",
                     this.plugin.getServer().getName(),
                     "Paper");
+            return false;
+        }
+    }
+
+    public boolean edb10() {
+        if (this.softwareUtil.supportsPaperWorld()) {
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
+
+            if (!Objects.equals(cf.getString("environment.nether-ceiling-void-damage-height"), "127")) {
+                this.logThis(
+                        "EDB-10",
+                        "environment.nether-ceiling-void-damage-height",
+                        cf.getString("environment.nether-ceiling-void-damage-height"),
+                        "127");
+                return false;
+            }
+
+            return true;
+        } else {
+            this.logThis(
+                    "EDB-10",
+                    "software",
+                    this.plugin.getServer().getName(),
+                    "Paper");
+            return false;
+        }
+    }
+
+    public boolean edb11() {
+        if (this.softwareUtil.supportsPaperWorld()) {
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
+
+            if (!Objects.equals(cf.getString("anticheat.anti-xray.enabled"), "true")) {
+                this.logThis(
+                        "EDB-11",
+                        "anticheat.anti-xray.enabled",
+                        cf.getString("anticheat.anti-xray.enabled"),
+                        "true");
+                return false;
+            }
+
+            return true;
+        } else {
+            this.logThis(
+                    "EDB-11",
+                    "software",
+                    this.plugin.getServer().getName(),
+                    "Paper");
+            return false;
+        }
+    }
+
+    public boolean edb12() {
+        if (this.softwareUtil.supportsServerProperties()) {
+            PropertiesUtil sp = new PropertiesUtil("server.properties");
+
+            if (!Objects.equals(sp.getProperty("online-mode"), "true")) {
+                this.logThis(
+                        "EDB-12",
+                        "online-mode",
+                        sp.getProperty("online-mode"),
+                        "true");
+                return false;
+            }
+
+            return true;
+        } else {
+            this.logThis(
+                    "EDB-12",
+                    "software",
+                    this.plugin.getServer().getName(),
+                    "MinecraftServer");
             return false;
         }
     }
