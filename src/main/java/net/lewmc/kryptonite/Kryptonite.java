@@ -4,9 +4,11 @@ import com.tcoded.folialib.FoliaLib;
 import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
+import net.lewmc.kryptonite.event.JoinEvent;
 import net.lewmc.kryptonite.utils.CompatablityUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -28,6 +30,7 @@ public final class Kryptonite extends JavaPlugin {
     }
     public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
     public boolean restartRequired = false;
+    public boolean updatePending = false;
 
     @Override
     public void onEnable() {
@@ -48,6 +51,7 @@ public final class Kryptonite extends JavaPlugin {
         this.loadCommands();
         this.checkSoftware();
         this.detectBadPlugins();
+        this.loadEventHandlers();
 
         this.log.info("");
         this.log.info("Startup completed.");
@@ -141,5 +145,12 @@ public final class Kryptonite extends JavaPlugin {
             this.log.severe("This plugin may cause more lag than it resolves or conflict with Kryptonite. Consider removing it.");
             this.log.severe("");
         }
+    }
+
+    /**
+     * Loads and registers all the plugin's event handlers.
+     */
+    private void loadEventHandlers() {
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
     }
 }

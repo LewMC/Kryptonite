@@ -7,6 +7,10 @@
 # Should Kryptonite check for updates?
 update-check: true
 
+# Display alerts in chat for updates & restarts.
+# Respects update-check for updates.
+chat-alerts: true
+
 # Kryptonite Optimisation System settings
 kos:
   override-pregenerated-world-protections: false
