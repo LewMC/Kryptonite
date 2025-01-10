@@ -33,7 +33,7 @@ public class KOS_GuiConstants
                 new ItemStack(Material.BOOK),
                 1,
                 click -> {
-                    click.getWhoClicked().sendMessage(ChatColor.YELLOW + "https://wiki.lewmc.net/kr-kos-guide.html#manual");
+                    click.getWhoClicked().sendMessage(ChatColor.YELLOW + "https://wiki.lewmc.net/kr-kos-guide.html");
                     click.getGui().close();
                     return true;
                 },
