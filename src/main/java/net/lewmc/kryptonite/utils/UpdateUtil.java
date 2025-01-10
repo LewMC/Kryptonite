@@ -73,26 +73,30 @@ public class UpdateUtil {
         }
     }
 
+    public void UpdateProfiles() {
+        File YouHaveTrouble = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
+        File FarmFriendly = new File(this.plugin.getDataFolder(), "profiles/FarmFriendly.kos");
+
+        try {
+            ConfigUpdater.update(plugin, "profiles/YouHaveTrouble.kos", YouHaveTrouble);
+        } catch (IOException e) {
+            this.log.warn("Unable to update configuration: "+e);
+        }
+
+        try {
+            ConfigUpdater.update(plugin, "profiles/FarmFriendly.kos", FarmFriendly);
+        } catch (IOException e) {
+            this.log.warn("Unable to update configuration: "+e);
+        }
+    }
+
     public void DeleteOldFiles() {
         File kosYML = new File(this.plugin.getDataFolder(), "kos.yml");
-        File YHT = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
-        File FF = new File(this.plugin.getDataFolder(), "profiles/FarmFriendly.kos");
-        File profiles = new File(this.plugin.getDataFolder(), "profiles");
 
         if (kosYML.exists()) {
-            kosYML.delete();
-        }
-
-        if (YHT.exists()) {
-            YHT.delete();
-        }
-
-        if (FF.exists()) {
-            FF.delete();
-        }
-
-        if (profiles.exists()) {
-            profiles.delete();
+            if (!kosYML.delete()) {
+                this.log.warn("Unable to delete old files: "+kosYML);
+            }
         }
     }
 }

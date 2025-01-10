@@ -49,9 +49,9 @@ public class KOS_MainGui {
                     new ItemStack(Material.COMMAND_BLOCK),
                     1,
                     click -> {
-                        click.getWhoClicked().sendMessage(ChatColor.DARK_RED + "This feature is currently disabled in this version of Kryptonite.");
-                        click.getWhoClicked().sendMessage(ChatColor.RED + "If you'd like to use it please either downgrade to a version wher it was enabled, or wait for an update to re-enable it. We apologise for any inconvenience.");
                         click.getGui().close();
+                        KOS_AutoGUI autoGUI = new KOS_AutoGUI(this.plugin, this.user);
+                        autoGUI.show();
                         return true;
                     },
                     ChatColor.BLUE + "Automatic",

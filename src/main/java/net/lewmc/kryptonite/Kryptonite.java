@@ -41,7 +41,7 @@ public final class Kryptonite extends JavaPlugin {
         this.log.info("Beginning startup...");
         this.log.info("");
 
-        int pluginId = 21962; // <-- Replace with the id of your plugin!
+        int pluginId = 21962;
         new Metrics(this, pluginId);
 
         this.initFilesystem();
@@ -58,9 +58,12 @@ public final class Kryptonite extends JavaPlugin {
 
         this.saveDefaultConfig();
         this.saveResource("kryptonite.log", false);
+        this.saveResource("profiles/YouHaveTrouble.kos", false);
+        this.saveResource("profiles/FarmFriendly.kos", false);
 
         update.VersionCheck();
         update.UpdateConfig();
+        update.UpdateProfiles();
         update.DeleteOldFiles();
     }
 
