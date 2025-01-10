@@ -50,8 +50,13 @@ public class KOS_MainGui {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_AutoGUI autoGUI = new KOS_AutoGUI(this.plugin, this.user);
-                        autoGUI.show();
+                        if (this.plugin.getConfig().get("kos.world-is-pregenerated") == "0") {
+                            KOS_PregeneratedGUI pregenGUI = new KOS_PregeneratedGUI(this.plugin, this.user);
+                            pregenGUI.show();
+                        } else {
+                            KOS_AutoGUI autoGUI = new KOS_AutoGUI(this.plugin, this.user);
+                            autoGUI.show();
+                        }
                         return true;
                     },
                     ChatColor.BLUE + "Automatic",

@@ -63,12 +63,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb1();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb1();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-1: Armour stand lag machines",
@@ -90,12 +90,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb2();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb2();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-2: Book Exploits",
@@ -117,12 +117,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb3();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb3();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-3: Collision Lag Machines",
@@ -144,12 +144,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb4();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb4();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-4: Command suggestion packet spam attack",
@@ -171,12 +171,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb5();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb5();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-5: Command spam attack",
@@ -198,12 +198,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb6();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb6();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-6: Join spam attack",
@@ -225,12 +225,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb7();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-                        
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb7();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-7: Neighbor update lag machines",
@@ -252,12 +252,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb8();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-                        
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb8();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-8: Projectile suspension",
@@ -279,12 +279,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb9();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-                        
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb9();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-9: Recipe book spam attack",
@@ -306,12 +306,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb10();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb10();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-10: Nether Roof Access",
@@ -333,12 +333,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.RED_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb11();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb11();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-11: Xray",
@@ -360,12 +360,12 @@ public class EDB_MainGui {
                     new ItemStack(Material.ORANGE_CONCRETE),
                     1,
                     click -> {
+                        Patch patch = new Patch(this.plugin, this.user);
+                        patch.edb12();
+
                         click.getGui().close();
                         EDB_MainGui mainGui = new EDB_MainGui(this.plugin, this.user);
                         mainGui.show();
-
-                        Patch patch = new Patch(this.plugin, this.user);
-                        patch.edb12();
                         return true;
                     },
                     ChatColor.DARK_RED + "EDB-12: Impersonation",
@@ -387,7 +387,7 @@ public class EDB_MainGui {
 
         return new String[]{
                 "abcdefghi",
-                "jk       ",
+                "jkl      ",
                 "  w x y  "
         };
     }

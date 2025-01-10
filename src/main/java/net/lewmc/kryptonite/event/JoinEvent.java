@@ -28,7 +28,7 @@ public class JoinEvent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         MessageUtil msg = new MessageUtil(event.getPlayer());
 
-        if (this.plugin.getConfig().getBoolean("chat-alerts")) {
+        if (this.plugin.getConfig().getBoolean("chat-alerts") && event.getPlayer().isOp()) {
             if (this.plugin.updatePending && this.plugin.getConfig().getBoolean("update-check")) {
                 msg.Warning("Your version of Kryptonite is outdated!");
                 msg.Warning("Please download an update from lewmc.net");

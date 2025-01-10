@@ -41,6 +41,7 @@ public class UpdateUtil {
                         log.info("You are running the latest version of Kryptonite.");
                         this.log.info("");
                     } else {
+                        this.plugin.updatePending = true;
                         log.warn("UPDATE > There's a new version of Kryptonite available.");
                         log.warn("UPDATE > Your version: "+this.plugin.getDescription().getVersion()+" - latest version: "+response);
                         log.warn("UPDATE > You can download the latest version from lewmc.net/kryptonite");

@@ -48,8 +48,11 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-world-defaults.yml");
 
-            cf.set("entities.armor-stands.do-collision-entity-lookups", false);
-            cf.set("entities.armor-stands.tick", false);
+            cf.set("entities.armor-stands.do-collision-entity-lookups", "false");
+            cf.set("entities.armor-stands.tick", "false");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb1();
         } else {
@@ -62,7 +65,10 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-global.yml");
 
-            cf.set("item-validation.book-size.page-max", 1024);
+            cf.set("item-validation.book-size.page-max", "1024");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb2();
         } else {
@@ -75,8 +81,11 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-world-defaults.yml");
 
-            cf.set("collisions.max-entity-collisions", 2);
-            cf.set("collisions.fix-climbing-bypassing-cramming-rule", true);
+            cf.set("collisions.max-entity-collisions", "2");
+            cf.set("collisions.fix-climbing-bypassing-cramming-rule", "true");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb3();
         } else {
@@ -90,8 +99,11 @@ public class Patch {
             cf.load("config/paper-global.yml");
 
             cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action", "DROP");
-            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval", 1.0);
-            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate", 15.0);
+            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval", "1.0");
+            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate", "15.0");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb4();
         } else {
@@ -105,6 +117,9 @@ public class Patch {
             cf.load("spigot.yml");
             
             cf.set("commands.spam-exclusions", "[]");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb5();
         } else {
@@ -117,7 +132,10 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-global.yml");
 
-            cf.set("misc.max-joins-per-tick", 3);
+            cf.set("misc.max-joins-per-tick", "3");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb6();
         } else {
@@ -130,6 +148,8 @@ public class Patch {
             PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
             propertiesUtil.setProperty("max-chained-neighbor-updates", "10000");
 
+            this.plugin.restartRequired = true;
+
             return this.check.edb7();
         } else {
             return false;
@@ -141,12 +161,15 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-world-defaults.yml");
 
-            cf.set("chunks.entity-per-chunk-save-limit.arrow", 8);
-            cf.set("chunks.entity-per-chunk-save-limit.ender_pearl", 8);
-            cf.set("chunks.entity-per-chunk-save-limit.experience_orb", 8);
-            cf.set("chunks.entity-per-chunk-save-limit.fireball", 8);
-            cf.set("chunks.entity-per-chunk-save-limit.small_fireball", 8);
-            cf.set("chunks.entity-per-chunk-save-limit.snowball", 8);
+            cf.set("chunks.entity-per-chunk-save-limit.arrow", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.ender_pearl", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.experience_orb", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.fireball", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.small_fireball", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.snowball", "8");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb8();
         } else {
@@ -160,8 +183,11 @@ public class Patch {
             cf.load("config/paper-global.yml");
 
             cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.action", "DROP");
-            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval", 4.0);
-            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate", 5.0);
+            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval", "4.0");
+            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate", "5.0");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb9();
         } else {
@@ -174,7 +200,10 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-world-defaults.yml");
 
-            cf.set("environment.nether-ceiling-void-damage-height", 127);
+            cf.set("environment.nether-ceiling-void-damage-height", "127");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb10();
         } else {
@@ -187,7 +216,10 @@ public class Patch {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
             cf.load("config/paper-world-defaults.yml");
 
-            cf.set("anticheat.anti-xray.enabled", true);
+            cf.set("anticheat.anti-xray.enabled", "true");
+            cf.save();
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb11();
         } else {
@@ -199,6 +231,8 @@ public class Patch {
         if (softwareUtil.supportsServerProperties()) {
             PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
             propertiesUtil.setProperty("online-mode", "true");
+
+            this.plugin.restartRequired = true;
 
             return this.check.edb12();
         } else {

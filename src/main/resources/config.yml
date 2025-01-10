@@ -15,6 +15,7 @@ chat-alerts: true
 kos:
   override-pregenerated-world-protections: false
   using-tcpshield: false
+  world-is-pregenerated: 0
 
 # Verbose mode
 # Outputs additional information to the console and file.

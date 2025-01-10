@@ -27,24 +27,33 @@ public class Check {
             ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
             cf.load("config/paper-world-defaults.yml");
 
-            if (cf.getBoolean("entities.armor-stands.do-collision-entity-lookups")) {
-                this.logThis(
-                        "EDB-1",
-                        "entities.armor-stands.do-collision-entity-lookups",
-                        this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups").toString(),
-                        "false");
+            try {
+                if (cf.getBoolean("entities.armor-stands.do-collision-entity-lookups")) {
+                    this.logThis(
+                            "EDB-1",
+                            "entities.armor-stands.do-collision-entity-lookups",
+                            Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups")).toString(),
+                            "false");
 
-                return false;
-            } else if (cf.getBoolean("entities.armor-stands.tick")) {
+                    return false;
+                } else if (cf.getBoolean("entities.armor-stands.tick")) {
+                    this.logThis(
+                            "EDB-1",
+                            "entities.armor-stands.tick",
+                            Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.tick")).toString(),
+                            "false");
+
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
                 this.logThis(
                         "EDB-1",
                         "entities.armor-stands.tick",
-                        this.plugin.getConfig().get("entities.armor-stands.tick").toString(),
+                        e.getMessage(),
                         "false");
-
                 return false;
-            } else {
-                return true;
             }
         } else {
             this.logThis(

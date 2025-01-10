@@ -280,7 +280,6 @@ public class AutoKOS {
             pw.setInt(PaperWorld.Key.TICK_RATE_CONTAINER_UPDATE, this.patches.getInt("paper.tick-rates.container-update"));
             pw.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_NON_PLAYER, this.patches.getInt("paper.optimised-despawn.arrow.non-player"));
             pw.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_CREATIVE, this.patches.getInt("paper.optimised-despawn.arrow.creative"));
-
         } else {
             log.info("[KOS] 4/6 - Server does not support Paper World configurations, skipping...");
         }

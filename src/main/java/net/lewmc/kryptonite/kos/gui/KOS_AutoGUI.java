@@ -73,7 +73,11 @@ public class KOS_AutoGUI {
                                         1,
                                         click -> {
                                             AutoKOS ak = new AutoKOS(this.plugin, this.user);
-                                            ak.run(false, file.getName());
+                                            if (this.plugin.getConfig().get("kos.world-is-pregenerated") == "2") {
+                                                ak.run(true, file.getName());
+                                            } else {
+                                                ak.run(false, file.getName());
+                                            }
                                             this.gui.close();
                                             return true;
                                         },
@@ -89,7 +93,11 @@ public class KOS_AutoGUI {
                                         1,
                                         click -> {
                                             AutoKOS ak = new AutoKOS(this.plugin, this.user);
-                                            ak.run(false, file.getName());
+                                            if (this.plugin.getConfig().get("kos.world-is-pregenerated") == "2") {
+                                                ak.run(true, file.getName());
+                                            } else {
+                                                ak.run(false, file.getName());
+                                            }
                                             this.gui.close();
                                             return true;
                                         },

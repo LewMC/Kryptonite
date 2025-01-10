@@ -55,15 +55,43 @@ public final class Kryptonite extends JavaPlugin {
 
         this.log.info("");
         this.log.info("Startup completed.");
+
+        if (Objects.equals(System.getProperty("KRYPTONITE_LOADED", ""), "TRUE")) {
+            this.log.severe("");
+            this.log.severe("WARNING: RELOAD DETECTED!");
+            this.log.severe("");
+            this.log.severe("This may cause issues with Kryptonite, other plugins, and your server overall.");
+            this.log.severe("These issues include breaking permissions and other crashing exceptions.");
+            this.log.severe("If you are reloading datapacks use /minecraft:reload instead.");
+            this.log.severe("");
+            this.log.severe("WE HIGHLY RECOMMEND RESTARTING YOUR SERVER.");
+            this.log.severe("");
+            this.log.severe("We will not provide support for any issues when plugin reloaders are used.");
+            this.log.severe("");
+            this.log.severe("More info: https://madelinemiller.dev/blog/problem-with-reload");
+            this.log.severe("");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+
+        System.setProperty("KRYPTONITE_LOADED", "TRUE");
     }
 
     private void initFilesystem() {
         UpdateUtil update = new UpdateUtil(this);
 
         this.saveDefaultConfig();
-        this.saveResource("kryptonite.log", false);
-        this.saveResource("profiles/YouHaveTrouble.kos", false);
-        this.saveResource("profiles/FarmFriendly.kos", false);
+
+        if (!(new File(this.getDataFolder(), "kryptonite.log").exists())) {
+            this.saveResource("kryptonite.log", false);
+        }
+
+        if (!(new File(this.getDataFolder(), "profiles/YouHaveTrouble.kos").exists())) {
+            this.saveResource("profiles/YouHaveTrouble.kos", false);
+        }
+
+        if (!(new File(this.getDataFolder(), "profiles/FarmFriendly.kos").exists())) {
+            this.saveResource("profiles/FarmFriendly.kos", false);
+        }
 
         update.VersionCheck();
         update.UpdateConfig();
