@@ -35,9 +35,9 @@ public class JoinEvent implements Listener {
             }
 
             if (this.plugin.restartRequired) {
-                msg.Warning("There are pending patches that have been");
-                msg.Warning("applied by Kryptonite will not work until");
-                msg.Warning("the server has been restarted.");
+                msg.Warning("There are pending patches that have been applied");
+                msg.Warning("by Kryptonite that will not work until the server");
+                msg.Warning("has been restarted.");
             }
         }
     }
