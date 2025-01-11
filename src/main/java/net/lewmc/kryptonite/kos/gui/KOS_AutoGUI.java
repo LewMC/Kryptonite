@@ -14,6 +14,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * KOS Auto GUI
@@ -21,7 +22,6 @@ import java.io.File;
 public class KOS_AutoGUI {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final net.lewmc.kryptonite.kos.AutoKOS AutoKOS;
     private InventoryGui gui;
 
     /**
@@ -32,7 +32,6 @@ public class KOS_AutoGUI {
     public KOS_AutoGUI(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.AutoKOS = new AutoKOS(plugin, user);
     }
 
     /**
@@ -73,12 +72,12 @@ public class KOS_AutoGUI {
                                         1,
                                         click -> {
                                             AutoKOS ak = new AutoKOS(this.plugin, this.user);
-                                            if (this.plugin.getConfig().get("kos.world-is-pregenerated") == "2") {
+                                            this.gui.close();
+                                            if (Objects.equals(this.plugin.getConfig().getString("kos.world-is-pregenerated"), "2")) {
                                                 ak.run(true, file.getName());
                                             } else {
                                                 ak.run(false, file.getName());
                                             }
-                                            this.gui.close();
                                             return true;
                                         },
                                         ChatColor.DARK_PURPLE + "★ Official Profile ★",
@@ -93,12 +92,12 @@ public class KOS_AutoGUI {
                                         1,
                                         click -> {
                                             AutoKOS ak = new AutoKOS(this.plugin, this.user);
-                                            if (this.plugin.getConfig().get("kos.world-is-pregenerated") == "2") {
+                                            this.gui.close();
+                                            if (Objects.equals(this.plugin.getConfig().getString("kos.world-is-pregenerated"), "2")) {
                                                 ak.run(true, file.getName());
                                             } else {
                                                 ak.run(false, file.getName());
                                             }
-                                            this.gui.close();
                                             return true;
                                         },
                                         ChatColor.DARK_GREEN + file.getName(),
