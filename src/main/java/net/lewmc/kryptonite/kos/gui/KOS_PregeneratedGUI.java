@@ -3,9 +3,6 @@ package net.lewmc.kryptonite.kos.gui;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.AutoKOS;
-import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -14,6 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * KOS Auto GUI
@@ -21,7 +19,6 @@ import java.io.File;
 public class KOS_PregeneratedGUI {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final net.lewmc.kryptonite.kos.AutoKOS AutoKOS;
     private InventoryGui gui;
 
     /**
@@ -32,7 +29,6 @@ public class KOS_PregeneratedGUI {
     public KOS_PregeneratedGUI(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.AutoKOS = new AutoKOS(plugin, user);
     }
 
     /**
@@ -51,8 +47,6 @@ public class KOS_PregeneratedGUI {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        LogUtil log = new LogUtil(this.plugin);
-
         this.gui.addElement(new StaticGuiElement('a',
                 new ItemStack(Material.PAPER),
                 1,
@@ -71,6 +65,11 @@ public class KOS_PregeneratedGUI {
                 1,
                 click -> {
                     this.plugin.getConfig().set("kos.world-is-pregenerated", "1");
+                    try {
+                        this.plugin.getConfig().save(new File(this.plugin.getDataFolder()+"/config.yml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     this.gui.close();
 
                     KOS_AutoGUI ag = new KOS_AutoGUI(this.plugin, user);
@@ -86,6 +85,11 @@ public class KOS_PregeneratedGUI {
                 1,
                 click -> {
                     this.plugin.getConfig().set("kos.world-is-pregenerated", "2");
+                    try {
+                        this.plugin.getConfig().save(new File(this.plugin.getDataFolder()+"/config.yml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     this.gui.close();
 
                     KOS_AutoGUI ag = new KOS_AutoGUI(this.plugin, user);
