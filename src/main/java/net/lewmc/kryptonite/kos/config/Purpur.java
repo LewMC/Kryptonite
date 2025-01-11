@@ -1,70 +1,134 @@
 package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
-import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.command.CommandSender;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * The Purpur class manages the purpur.yml configuration file.
+ */
 public class Purpur {
     private final Kryptonite plugin;
-    private final File file = new File("purpur.yml");
+    private final CommandSender user;
 
-    public Purpur(final Kryptonite plugin) {
+    /**
+     * Constructor for the Purpur class.
+     * @param plugin Kryptonite - Reference to the main plugin class.
+     * @param user CommandSender - The user who sent the command.
+     */
+    public Purpur(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
-        try {
-            plugin.getConfig().load(this.file);
-        } catch (IOException | InvalidConfigurationException e) {
-            LogUtil log = new LogUtil(plugin);
-            log.severe("Error whilst loading Purpur configuration:");
-            log.severe(e.getMessage());
+        this.user = user;
+    }
+
+    /**
+     * Configuration values supported by this format.
+     */
+    public enum Key {
+        USE_ALTERNATE_KEEPALIVE {
+            @Override
+            public String toString() { return "settings.use-alternate-keepalive"; }
+        },
+        ZOMBIE_AGGRESSIVE_TOWARDS_VILLAGER_WHEN_LAGGING {
+            @Override
+            public String toString() { return "world-settings.default.mobs.zombie.aggressive-towards-villager-when-lagging"; }
+        },
+        ENTITIES_CAN_USE_PORTALS {
+            @Override
+            public String toString() { return "world-settings.default.gameplay-mechanics.entities-can-use-portals"; }
+        },
+        VILLAGER_IS_LOBOTOMIZED {
+            @Override
+            public String toString() { return "world-settings.default.mobs.villager.lobotomize.enabled"; }
+        },
+        VILLAGER_SEARCH_RADIUS_ACQUIRE_POI {
+            @Override
+            public String toString() { return "world-settings.default.mobs.villager.search-radius.acquire-poi"; }
+        },
+        VILLAGER_SEARCH_RADIUS_NEAREST_BED_SENSOR {
+            @Override
+            public String toString() { return "world-settings.default.mobs.villager.search-radius.nearest-bed-sensor"; }
+        },
+        DOLPHIN_DISABLE_TREASURE_SEARCHING {
+            @Override
+            public String toString() { return "world-settings.default.mobs.dolphin.disable-treasure-searching"; }
+        },
+        TELEPORT_IF_OUTSIDE_BORDER {
+            @Override
+            public String toString() { return "world-settings.default.gameplay-mechanics.player.teleport-if-outside-border"; }
+        },
+        LAGGING_THRESHOLD {
+            @Override
+            public String toString() { return "settings.lagging-threshold"; }
         }
     }
 
-    public void useAlternativeKeepalive(boolean value) {
-        this.plugin.getConfig().set("settings.use-alternate-keepalive", value);
+    /**
+     * Sets a requested key to a requested value.
+     * @param key Key - The requested key.
+     * @param value int - The requested value.
+     */
+    public void setInt(Key key, int value) {
+        this.plugin.restartRequired = true;
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("purpur.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 
-    public void zombieAggressiveTowardsVillagerWhenLagging(boolean value) {
-        this.plugin.getConfig().set("world-settings.default.mobs.zombie.aggressive-towards-villager-when-lagging", value);
+    /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public int getInt(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("purpur.yml");
+        return cfg.getInt(key.toString());
     }
 
-    public void entitiesCanUsePortals(boolean value) {
-        this.plugin.getConfig().set("world-settings.default.gameplay-mechanics.entities-can-use-portals", value);
+    /**
+     * Sets a requested key to a requested value.
+     * @param key Key - The requested key.
+     * @param value int - The requested value.
+     */
+    public void setBoolean(Key key, boolean value) {
+        this.plugin.restartRequired = true;
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("purpur.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 
-    public void villagerIsLobotomized(boolean value) {
-        this.plugin.getConfig().set("world-settings.default.mobs.villager.lobotomize.enabled", value);
+    /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public boolean getBoolean(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("purpur.yml");
+        return cfg.getBoolean(key.toString());
     }
 
-    public void villagerSearchRadiusAcquirePoi(int value) {
-        this.plugin.getConfig().set("world-settings.default.mobs.villager.search-radius.acquire-poi", value);
-    }
+    /**
+     * Sets a requested key to a requested value.
+     * @param key Key - The requested key.
+     * @param value int - The requested value.
+     */
+    public void setString(Key key, String value) {
+        this.plugin.restartRequired = true;
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("purpur.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
 
-    public void villagerSearchRadiusNearestBedSensor(int value) {
-        this.plugin.getConfig().set("world-settings.default.mobs.villager.search-radius.nearest-bed-sensor", value);
-    }
-
-    public void dolphinDisableTreasureSearching(boolean value) {
-        this.plugin.getConfig().set("world-settings.default.mobs.dolphin.disable-treasure-searching", value);
-    }
-
-    public void teleportIfOutsideBorder(boolean value) {
-        this.plugin.getConfig().set("world-settings.default.gameplay-mechanics.player.teleport-if-outside-border", value);
-    }
-
-    public void laggingThreshold(double value) {
-        this.plugin.getConfig().set("settings.lagging-threshold", value);
-    }
-
-    public void save() {
-        try {
-            this.plugin.getConfig().save(this.file);
-        } catch (IOException e) {
-            LogUtil log = new LogUtil(plugin);
-            log.severe("Error whilst saving Purpur configuration:");
-            log.severe(e.getMessage());
-        }
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>purpur.yml set '" + key + "' to '" + value + "'");
     }
 }

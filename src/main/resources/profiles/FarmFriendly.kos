@@ -62,9 +62,6 @@ spigot:
       other: 64
     tick-inactive-villagers: true
     spawner-mobs-nerfed: false
-    merge-radius:
-      items: 3.5
-      exp: 4.0
   hopper:
     transfer: 8
     check: 8
@@ -177,7 +174,8 @@ paper:
     disable-move-event: true
     ignore-occluding-blocks: true
   optimise-explosions: true
-  find-already-discovered-treasure-maps: true
+  find-already-discovered-loot-tables: true
+  find-already-discovered-villager-trade: true
 
 # Purpur Settings
 purpur:

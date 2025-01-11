@@ -41,6 +41,7 @@ public class UpdateUtil {
                         log.info("You are running the latest version of Kryptonite.");
                         this.log.info("");
                     } else {
+                        this.plugin.updatePending = true;
                         log.warn("UPDATE > There's a new version of Kryptonite available.");
                         log.warn("UPDATE > Your version: "+this.plugin.getDescription().getVersion()+" - latest version: "+response);
                         log.warn("UPDATE > You can download the latest version from lewmc.net/kryptonite");
@@ -73,20 +74,30 @@ public class UpdateUtil {
         }
     }
 
-    public void UpdatePatches() {
-        File YHT = new File(this.plugin.getDataFolder(), "/profiles/YouHaveTrouble.kos");
-        File FF = new File(this.plugin.getDataFolder(), "/profiles/FarmFriendly.kos");
+    public void UpdateProfiles() {
+        File YouHaveTrouble = new File(this.plugin.getDataFolder(), "profiles/YouHaveTrouble.kos");
+        File FarmFriendly = new File(this.plugin.getDataFolder(), "profiles/FarmFriendly.kos");
 
         try {
-            ConfigUpdater.update(plugin, "/profiles/YouHaveTrouble.kos", YHT);
-        } catch (IOException|NullPointerException e) {
-            this.log.warn("Unable to update YouHaveTrouble profile: "+e);
+            ConfigUpdater.update(plugin, "profiles/YouHaveTrouble.kos", YouHaveTrouble);
+        } catch (IOException e) {
+            this.log.warn("Unable to update configuration: "+e);
         }
 
         try {
-            ConfigUpdater.update(plugin, "/profiles/FarmFriendly.kos", FF);
-        } catch (IOException|NullPointerException e) {
-            this.log.warn("Unable to update FarmFriendly profile: "+e);
+            ConfigUpdater.update(plugin, "profiles/FarmFriendly.kos", FarmFriendly);
+        } catch (IOException e) {
+            this.log.warn("Unable to update configuration: "+e);
+        }
+    }
+
+    public void DeleteOldFiles() {
+        File kosYML = new File(this.plugin.getDataFolder(), "kos.yml");
+
+        if (kosYML.exists()) {
+            if (!kosYML.delete()) {
+                this.log.warn("Unable to delete old files: "+kosYML);
+            }
         }
     }
 }

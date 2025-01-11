@@ -40,7 +40,10 @@ public class KryptoniteCommand implements CommandExecutor {
             }
         } else {
             message.Info("Kryptonite version "+this.plugin.getDescription().getVersion()+ " by LewMC.");
-            message.Info("You must be an operator to run Kryptonite commands.");
+            message.Info("You must be an operator to run Kryptonite");
+            message.Info("commands.");
+            message.Info("");
+            message.Info("Feedback: https://github.com/lewmc/Kryptonite");
             message.Info("");
             message.Info("/kr - Main command.");
             message.Info("/kos - Kryptonite Optimisation System.");

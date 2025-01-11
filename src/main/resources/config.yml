@@ -4,8 +4,21 @@
 # Wiki: https://wiki.lewmc.net/kryptonite.html
 #
 
+# Should Kryptonite check for updates?
 update-check: true
+
+# Display alerts in chat for updates & restarts.
+# Respects update-check for updates.
+chat-alerts: true
+
+# Kryptonite Optimisation System settings
 kos:
-  default-profile: YouHaveTrouble
   override-pregenerated-world-protections: false
   using-tcpshield: false
+  world-is-pregenerated: 0
+
+# Verbose mode
+# Outputs additional information to the console and file.
+# Useful for diagnosing issues and seeing who does what, but can use up system storage space.
+verbose: false
+logfile: true

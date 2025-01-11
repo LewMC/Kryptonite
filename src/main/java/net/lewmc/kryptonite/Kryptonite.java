@@ -1,11 +1,14 @@
 package net.lewmc.kryptonite;
 
+import com.tcoded.folialib.FoliaLib;
 import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
+import net.lewmc.kryptonite.event.JoinEvent;
 import net.lewmc.kryptonite.utils.CompatablityUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -26,6 +29,8 @@ public final class Kryptonite extends JavaPlugin {
         PUFFERFISH
     }
     public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
+    public boolean restartRequired = false;
+    public boolean updatePending = false;
 
     @Override
     public void onEnable() {
@@ -39,16 +44,36 @@ public final class Kryptonite extends JavaPlugin {
         this.log.info("Beginning startup...");
         this.log.info("");
 
-        int pluginId = 21962; // <-- Replace with the id of your plugin!
+        int pluginId = 21962;
         new Metrics(this, pluginId);
 
         this.initFilesystem();
         this.loadCommands();
         this.checkSoftware();
         this.detectBadPlugins();
+        this.loadEventHandlers();
 
         this.log.info("");
         this.log.info("Startup completed.");
+
+        if (Objects.equals(System.getProperty("KRYPTONITE_LOADED", ""), "TRUE")) {
+            this.log.severe("");
+            this.log.severe("WARNING: RELOAD DETECTED!");
+            this.log.severe("");
+            this.log.severe("This may cause issues with Kryptonite, other plugins, and your server overall.");
+            this.log.severe("These issues include breaking permissions and other crashing exceptions.");
+            this.log.severe("If you are reloading datapacks use /minecraft:reload instead.");
+            this.log.severe("");
+            this.log.severe("WE HIGHLY RECOMMEND RESTARTING YOUR SERVER.");
+            this.log.severe("");
+            this.log.severe("We will not provide support for any issues when plugin reloaders are used.");
+            this.log.severe("");
+            this.log.severe("More info: https://madelinemiller.dev/blog/problem-with-reload");
+            this.log.severe("");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+
+        System.setProperty("KRYPTONITE_LOADED", "TRUE");
     }
 
     private void initFilesystem() {
@@ -56,37 +81,28 @@ public final class Kryptonite extends JavaPlugin {
 
         this.saveDefaultConfig();
 
-        File YHTProfile = new File(getDataFolder() + File.separator + "profiles/YouHaveTrouble.kos");
-        if (!YHTProfile.exists()) {
-            saveResource("profiles/YouHaveTrouble.kos", false);
+        if (!(new File(this.getDataFolder(), "kryptonite.log").exists())) {
+            this.saveResource("kryptonite.log", false);
         }
 
-        File FFProfile = new File(getDataFolder() + File.separator + "profiles/FarmFriendly.kos");
-        if (!FFProfile.exists()) {
-            saveResource("profiles/FarmFriendly.kos", false);
+        if (!(new File(this.getDataFolder(), "profiles/YouHaveTrouble.kos").exists())) {
+            this.saveResource("profiles/YouHaveTrouble.kos", false);
         }
 
-        File profilesFolder = new File(getDataFolder() + File.separator + "profiles");
-        if (!profilesFolder.exists()) {
-            if (!profilesFolder.mkdirs()) {
-                this.log.info("");
-                log.severe("Unable to make data folder.");
-                log.severe("The plugin is being disabled, most of the plugin's features will not work without the profiles folder.");
-                log.warn("Please create a folder called 'profiles' in the 'Kryptonite' folder.");
-                log.warn("Once this is complete, restart the server and Essence will re-enable.");
-                this.log.info("");
-                getServer().getPluginManager().disablePlugin(this);
-            }
+        if (!(new File(this.getDataFolder(), "profiles/FarmFriendly.kos").exists())) {
+            this.saveResource("profiles/FarmFriendly.kos", false);
         }
 
         update.VersionCheck();
         update.UpdateConfig();
-        update.UpdatePatches();
+        update.UpdateProfiles();
+        update.DeleteOldFiles();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        FoliaLib foliaLib = new FoliaLib(this);
+        foliaLib.getScheduler().cancelAllTasks();
     }
 
     /**
@@ -157,5 +173,12 @@ public final class Kryptonite extends JavaPlugin {
             this.log.severe("This plugin may cause more lag than it resolves or conflict with Kryptonite. Consider removing it.");
             this.log.severe("");
         }
+    }
+
+    /**
+     * Loads and registers all the plugin's event handlers.
+     */
+    private void loadEventHandlers() {
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
     }
 }

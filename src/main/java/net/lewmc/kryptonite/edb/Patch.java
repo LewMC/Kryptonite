@@ -1,10 +1,14 @@
 package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.edb.gui.EDB_MainGui;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,16 +18,14 @@ public class Patch {
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
     private final Check check;
+    private final CommandSender user;
 
-    private final File paperGlobalConfig = new File("config/paper-global.yml");
-    private final File paperWorldDefaultsConfig = new File("config/paper-world-defaults.yml");
-    private final File spigotConfig = new File("spigot.yml");
-
-    public Patch(Kryptonite plugin) {
+    public Patch(Kryptonite plugin, CommandSender sender) {
         this.plugin = plugin;
         this.softwareUtil = new SoftwareUtil(plugin);
         this.log = new LogUtil(plugin);
-        this.check = new Check(plugin);
+        this.check = new Check(plugin, sender);
+        this.user = sender;
     }
 
     public boolean all() {
@@ -35,22 +37,24 @@ public class Patch {
                 this.edb6() &&
                 this.edb7() &&
                 this.edb8() &&
-                this.edb9();
+                this.edb9() &&
+                this.edb10() &&
+                this.edb11() &&
+                this.edb12();
     }
 
     public boolean edb1() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("entities.armor-stands.do-collision-entity-lookups", false);
-                this.plugin.getConfig().set("entities.armor-stands.tick", false);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-world-defaults.yml");
 
-                return this.check.edb1();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("entities.armor-stands.do-collision-entity-lookups", "false");
+            cf.set("entities.armor-stands.tick", "false");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb1();
         } else {
             return false;
         }
@@ -58,16 +62,15 @@ public class Patch {
 
     public boolean edb2() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperGlobalConfig);
-                this.plugin.getConfig().set("item-validation.book-size.page-max", 1024);
-                this.plugin.getConfig().save(this.paperGlobalConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-global.yml");
 
-                return this.check.edb2();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("item-validation.book-size.page-max", "1024");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb2();
         } else {
             return false;
         }
@@ -75,17 +78,16 @@ public class Patch {
 
     public boolean edb3() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("collisions.max-entity-collisions", 2);
-                this.plugin.getConfig().set("collisions.fix-climbing-bypassing-cramming-rule", true);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-world-defaults.yml");
 
-                return this.check.edb3();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("collisions.max-entity-collisions", "2");
+            cf.set("collisions.fix-climbing-bypassing-cramming-rule", "true");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb3();
         } else {
             return false;
         }
@@ -93,18 +95,17 @@ public class Patch {
 
     public boolean edb4() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperGlobalConfig);
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action", "DROP");
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval", 1.0);
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate", 15.0);
-                this.plugin.getConfig().save(this.paperGlobalConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-global.yml");
 
-                return this.check.edb4();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action", "DROP");
+            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval", "1.0");
+            cf.set("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate", "15.0");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb4();
         } else {
             return false;
         }
@@ -112,16 +113,15 @@ public class Patch {
 
     public boolean edb5() {
         if (softwareUtil.supportsSpigot()) {
-            try {
-                this.plugin.getConfig().load(this.spigotConfig);
-                this.plugin.getConfig().set("commands.spam-exclusions", "[]");
-                this.plugin.getConfig().save(this.spigotConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("spigot.yml");
+            
+            cf.set("commands.spam-exclusions", "[]");
+            cf.save();
 
-                return this.check.edb5();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            this.plugin.restartRequired = true;
+
+            return this.check.edb5();
         } else {
             return false;
         }
@@ -129,16 +129,15 @@ public class Patch {
 
     public boolean edb6() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperGlobalConfig);
-                this.plugin.getConfig().set("misc.max-joins-per-tick", 3);
-                this.plugin.getConfig().save(this.paperGlobalConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-global.yml");
 
-                return this.check.edb6();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("misc.max-joins-per-tick", "3");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb6();
         } else {
             return false;
         }
@@ -149,6 +148,8 @@ public class Patch {
             PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
             propertiesUtil.setProperty("max-chained-neighbor-updates", "10000");
 
+            this.plugin.restartRequired = true;
+
             return this.check.edb7();
         } else {
             return false;
@@ -157,21 +158,20 @@ public class Patch {
 
     public boolean edb8() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.arrow", 8);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.ender_pearl", 8);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.experience_orb", 8);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.fireball", 8);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.small_fireball", 8);
-                this.plugin.getConfig().set("chunks.entity-per-chunk-save-limit.snowball", 8);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-world-defaults.yml");
 
-                return this.check.edb8();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("chunks.entity-per-chunk-save-limit.arrow", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.ender_pearl", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.experience_orb", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.fireball", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.small_fireball", "8");
+            cf.set("chunks.entity-per-chunk-save-limit.snowball", "8");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb8();
         } else {
             return false;
         }
@@ -179,53 +179,62 @@ public class Patch {
 
     public boolean edb9() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperGlobalConfig);
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundPlaceRecipePacket.action", "DROP");
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval", 4.0);
-                this.plugin.getConfig().set("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate", 5.0);
-                this.plugin.getConfig().save(this.paperGlobalConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-global.yml");
 
-                return this.check.edb9();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.action", "DROP");
+            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval", "4.0");
+            cf.set("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate", "5.0");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb9();
         } else {
             return false;
         }
     }
 
-    public boolean edb10a() {
+    public boolean edb10() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("environment.treasure-maps.enabled", false);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-world-defaults.yml");
 
-                return this.check.edb10a();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("environment.nether-ceiling-void-damage-height", "127");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb10();
         } else {
             return false;
         }
     }
 
-    public boolean edb10b() {
+    public boolean edb11() {
         if (softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(this.paperWorldDefaultsConfig);
-                this.plugin.getConfig().set("environment.treasure-maps.find-already-discovered.loot-tables", true);
-                this.plugin.getConfig().set("environment.treasure-maps.find-already-discovered.villager-trade", true);
-                this.plugin.getConfig().save(this.paperWorldDefaultsConfig);
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.user);
+            cf.load("config/paper-world-defaults.yml");
 
-                return this.check.edb10b();
-            } catch (IOException | InvalidConfigurationException e) {
-                this.log.severe(e.toString());
-                return false;
-            }
+            cf.set("anticheat.anti-xray.enabled", "true");
+            cf.save();
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb11();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean edb12() {
+        if (softwareUtil.supportsServerProperties()) {
+            PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
+            propertiesUtil.setProperty("online-mode", "true");
+
+            this.plugin.restartRequired = true;
+
+            return this.check.edb12();
         } else {
             return false;
         }

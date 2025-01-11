@@ -1,21 +1,22 @@
 package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.kos.config.ServerProperties;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
-import org.bukkit.configuration.InvalidConfigurationException;
-
-import java.io.File;
-import java.io.IOException;
+import org.bukkit.command.CommandSender;
 import java.util.Objects;
 
 public class Check {
     private final Kryptonite plugin;
     private final SoftwareUtil softwareUtil;
     private final LogUtil log;
+    private final CommandSender player;
 
-    public Check(Kryptonite plugin) {
+    public Check(Kryptonite plugin, CommandSender player) {
+        this.player = player;
         this.plugin = plugin;
         this.softwareUtil = new SoftwareUtil(plugin);
         this.log = new LogUtil(plugin);
@@ -23,30 +24,36 @@ public class Check {
 
     public boolean edb1() {
         if (this.softwareUtil.supportsPaperWorld()) {
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
+
             try {
-                this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+                if (cf.getBoolean("entities.armor-stands.do-collision-entity-lookups")) {
+                    this.logThis(
+                            "EDB-1",
+                            "entities.armor-stands.do-collision-entity-lookups",
+                            Objects.requireNonNull(cf.getString("entities.armor-stands.do-collision-entity-lookups")),
+                            "false");
 
-            if (this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups") == "true") {
-                this.logThis(
-                        "EDB-1",
-                        "entities.armor-stands.do-collision-entity-lookups",
-                        Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups")).toString(),
-                        "false");
+                    return false;
+                } else if (cf.getBoolean("entities.armor-stands.tick")) {
+                    this.logThis(
+                            "EDB-1",
+                            "entities.armor-stands.tick",
+                            Objects.requireNonNull(cf.getString("entities.armor-stands.tick")),
+                            "false");
 
-                return false;
-            } else if (this.plugin.getConfig().get("entities.armor-stands.tick") == "true") {
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
                 this.logThis(
                         "EDB-1",
                         "entities.armor-stands.tick",
-                        Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.tick")).toString(),
+                        e.getMessage(),
                         "false");
-
                 return false;
-            } else {
-                return true;
             }
         } else {
             this.logThis(
@@ -60,17 +67,14 @@ public class Check {
 
     public boolean edb2() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-global.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("item-validation.book-size.page-max")).toString(), "1024")) {
+            if (!Objects.equals(cf.getString("item-validation.book-size.page-max"), "1024")) {
                 this.logThis(
                         "EDB-2",
                         "item-validation.book-size.page-max",
-                        Objects.requireNonNull(this.plugin.getConfig().get("item-validation.book-size.page-max")).toString(),
+                        cf.getString("item-validation.book-size.page-max"),
                         "1024");
                 return false;
             }
@@ -87,26 +91,23 @@ public class Check {
 
     public boolean edb3() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("collisions.max-entity-collisions")).toString(), "2")) {
+            if (!Objects.equals(cf.getString("collisions.max-entity-collisions"), "2")) {
                 this.logThis(
                         "EDB-3",
                         "collisions.max-entity-collisions",
-                        Objects.requireNonNull(this.plugin.getConfig().get("collisions.max-entity-collisions")).toString(),
+                        cf.getString("collisions.max-entity-collisions"),
                         "2");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("collisions.fix-climbing-bypassing-cramming-rule")).toString(), "true")) {
+            if (!Objects.equals(cf.getString("collisions.fix-climbing-bypassing-cramming-rule"), "true")) {
                 this.logThis(
                         "EDB-3",
                         "collisions.fix-climbing-bypassing-cramming-rule",
-                        Objects.requireNonNull(this.plugin.getConfig().get("collisions.fix-climbing-bypassing-cramming-rule")).toString(),
+                        cf.getString("collisions.fix-climbing-bypassing-cramming-rule"),
                         "true");
                 return false;
             }
@@ -123,33 +124,30 @@ public class Check {
 
     public boolean edb4() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-global.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action")).toString(), "DROP")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action"), "DROP")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.action",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.action"),
                         "DROP");
                 return false;
             }
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval")).toString(), "1.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval"), "1.0")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.interval"),
                         "1.0");
                 return false;
             }
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate")).toString(), "15.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate"), "15.0")) {
                 this.logThis(
                         "EDB-4",
                         "packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundCommandSuggestionPacket.max-packet-rate"),
                         "15.0");
                 return false;
             }
@@ -166,17 +164,14 @@ public class Check {
 
     public boolean edb5() {
         if (this.softwareUtil.supportsSpigot()) {
-            try {
-                this.plugin.getConfig().load(new File("spigot.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("spigot.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("commands.spam-exclusions")).toString(), "[]")) {
+            if (!Objects.equals(cf.getString("commands.spam-exclusions"), "[]")) {
                 this.logThis(
                         "EDB-5",
                         "commands.spam-exclusions",
-                        Objects.requireNonNull(this.plugin.getConfig().get("commands.spam-exclusions")).toString(),
+                        cf.getString("commands.spam-exclusions"),
                         "null");
                 return false;
             }
@@ -193,17 +188,14 @@ public class Check {
 
     public boolean edb6() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-global.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("misc.max-joins-per-tick")).toString(), "3")) {
+            if (!Objects.equals(cf.getString("misc.max-joins-per-tick"), "3")) {
                 this.logThis(
                         "EDB-6",
                         "misc.max-joins-per-tick",
-                        Objects.requireNonNull(this.plugin.getConfig().get("misc.max-joins-per-tick")).toString(),
+                        cf.getString("misc.max-joins-per-tick"),
                         "3");
                 return false;
             }
@@ -230,11 +222,11 @@ public class Check {
                 this.log.severe(e.getMessage());
             }
 
-            if (!Objects.equals(Objects.requireNonNull(maxChainedNeighbor), "10000")) {
+            if (!Objects.equals(maxChainedNeighbor, "10000")) {
                 this.logThis(
                         "EDB-7",
                         "max-chained-neighbor-updates",
-                        Objects.requireNonNull(this.plugin.getConfig().get("max-chained-neighbor-updates")).toString(),
+                        maxChainedNeighbor,
                         "10000");
                 return false;
             }
@@ -252,62 +244,59 @@ public class Check {
 
     public boolean edb8() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.arrow")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.arrow"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.arrow",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.arrow")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.arrow"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.ender_pearl")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.ender_pearl",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.ender_pearl")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.ender_pearl"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.experience_orb")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.experience_orb"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.experience_orb",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.experience_orb")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.experience_orb"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.fireball")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.fireball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.fireball",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.fireball")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.fireball"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.small_fireball")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.small_fireball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.small_fireball",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.small_fireball")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.small_fireball"),
                         "8");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.snowball")).toString(), "8")) {
+            if (!Objects.equals(cf.getString("chunks.entity-per-chunk-save-limit.snowball"), "8")) {
                 this.logThis(
                         "EDB-8",
                         "chunks.entity-per-chunk-save-limit.snowball",
-                        Objects.requireNonNull(this.plugin.getConfig().get("chunks.entity-per-chunk-save-limit.snowball")).toString(),
+                        cf.getString("chunks.entity-per-chunk-save-limit.snowball"),
                         "8");
                 return false;
             }
@@ -325,35 +314,32 @@ public class Check {
 
     public boolean edb9() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-global.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-global.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.action")).toString(), "DROP")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action"), "DROP")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.action",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.action")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.action"),
                         "DROP");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval")).toString(), "4.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval"), "4.0")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.interval",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.interval"),
                         "4.0");
                 return false;
             }
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate")).toString(), "5.0")) {
+            if (!Objects.equals(cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate"), "5.0")) {
                 this.logThis(
                         "EDB-9",
                         "packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate",
-                        Objects.requireNonNull(this.plugin.getConfig().get("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate")).toString(),
+                        cf.getString("packet-limiter.overrides.ServerboundPlaceRecipePacket.max-packet-rate"),
                         "5.0");
                 return false;
             }
@@ -369,26 +355,24 @@ public class Check {
         }
     }
 
-    public boolean edb10a() {
+    public boolean edb10() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.enabled")).toString(), "false")) {
-                this.warnThis(
-                        "EDB-10-A",
-                        "environment.treasure-maps.enabled",
-                        Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.enabled")).toString(),
-                        "false");
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
+
+            if (!Objects.equals(cf.getString("environment.nether-ceiling-void-damage-height"), "127")) {
+                this.logThis(
+                        "EDB-10",
+                        "environment.nether-ceiling-void-damage-height",
+                        cf.getString("environment.nether-ceiling-void-damage-height"),
+                        "127");
                 return false;
             }
 
             return true;
         } else {
-            this.warnThis(
-                    "EDB-10-A",
+            this.logThis(
+                    "EDB-10",
                     "software",
                     this.plugin.getServer().getName(),
                     "Paper");
@@ -396,39 +380,51 @@ public class Check {
         }
     }
 
-    public boolean edb10b() {
+    public boolean edb11() {
         if (this.softwareUtil.supportsPaperWorld()) {
-            try {
-                this.plugin.getConfig().load(new File("config/paper-world-defaults.yml"));
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            ConfigurationUtil cf = new ConfigurationUtil(this.plugin, this.player);
+            cf.load("config/paper-world-defaults.yml");
 
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.find-already-discovered.loot-tables")).toString(), "true")) {
-                this.warnThis(
-                        "EDB-10-A",
-                        "environment.treasure-maps.find-already-discovered.loot-tables",
-                        Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.find-already-discovered.loot-tables")).toString(),
-                        "true");
-                return false;
-            }
-
-            if (!Objects.equals(Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.find-already-discovered.villager-trade")).toString(), "true")) {
-                this.warnThis(
-                        "EDB-10-A",
-                        "environment.treasure-maps.find-already-discovered.villager-trade",
-                        Objects.requireNonNull(this.plugin.getConfig().get("environment.treasure-maps.find-already-discovered.villager-trade")).toString(),
+            if (!Objects.equals(cf.getString("anticheat.anti-xray.enabled"), "true")) {
+                this.logThis(
+                        "EDB-11",
+                        "anticheat.anti-xray.enabled",
+                        cf.getString("anticheat.anti-xray.enabled"),
                         "true");
                 return false;
             }
 
             return true;
         } else {
-            this.warnThis(
-                    "EDB-10-B",
+            this.logThis(
+                    "EDB-11",
                     "software",
                     this.plugin.getServer().getName(),
                     "Paper");
+            return false;
+        }
+    }
+
+    public boolean edb12() {
+        if (this.softwareUtil.supportsServerProperties()) {
+            PropertiesUtil sp = new PropertiesUtil("server.properties");
+
+            if (!Objects.equals(sp.getProperty("online-mode"), "true")) {
+                this.logThis(
+                        "EDB-12",
+                        "online-mode",
+                        sp.getProperty("online-mode"),
+                        "true");
+                return false;
+            }
+
+            return true;
+        } else {
+            this.logThis(
+                    "EDB-12",
+                    "software",
+                    this.plugin.getServer().getName(),
+                    "MinecraftServer");
             return false;
         }
     }

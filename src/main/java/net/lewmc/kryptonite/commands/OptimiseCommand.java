@@ -1,8 +1,8 @@
 package net.lewmc.kryptonite.commands;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.KOS;
-import net.lewmc.kryptonite.kos.gui.KosMainGui;
+import net.lewmc.kryptonite.kos.AutoKOS;
+import net.lewmc.kryptonite.kos.gui.KOS_MainGui;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
@@ -38,47 +38,36 @@ public class OptimiseCommand implements CommandExecutor {
 
         if (perm.isOperator(commandSender)) {
             if (commandSender instanceof Player) {
-                KosMainGui gui = new KosMainGui(this.plugin, commandSender);
+                KOS_MainGui gui = new KOS_MainGui(this.plugin, commandSender);
                 gui.show();
             } else {
-                if (args.length == 1) {
-                    if (Objects.equals(args[0].toLowerCase(), "yes")) {
-                        message.Info("Kryptonite will now run it's optimisation system.");
-                        message.Info("You should backup your server before running Kryptonite.");
-                        message.Info("You'll need to restart the server after completion for changes to be made.");
-                        message.Info("");
-                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
-
-                        KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
-                        kos.runDefault(true);
-                    } else if (Objects.equals(args[0].toLowerCase(), "no") && perm.isOperator(commandSender)) {
-                        message.Info("Kryptonite will now run it's optimisation system.");
-                        message.Info("You should backup your server before running Kryptonite.");
-                        message.Info("You'll need to restart the server after completion for changes to be made.");
-                        message.Info("");
-                        message.Info("Using profile '" + this.plugin.getConfig().getString("kos.default-profile") + "'");
-
-                        KOS kos = new KOS(commandSender, this.plugin, this.plugin.getConfig().getString("kos.default-profile"));
-                        kos.runDefault(false);
-                    } else {
-                        message.Error("Unknown command. Use /kos for help.");
-                    }
+                message.Success("KOS is better in-game.");
+                message.Success("You can access more features through our in-game GUI.");
+                message.Info("Starting KOS CLI...");
+                message.Info("");
+                if (args.length == 0) {
+                    message.Warning("Please specify a profile file to use.");
+                    message.Warning("For example: /kos YouHaveTrouble.kos");
+                } else if (args.length == 1) {
+                    message.Warning("Please specify if your server world is pre-generated.");
+                    message.Warning("For example: /kos "+args[0]+" true");
+                    message.Warning("For example: /kos "+args[0]+" false");
                 } else {
-                    message.Info("--- KRYPTONITE OPTIMISATION SYSTEM ---");
-                    message.Info("KOS will use the kos.default-profile value set in Kryptonite.yml");
-                    message.Info("Please ensure this is correct before continuing.");
-                    message.Info("Current profile: " + this.plugin.getConfig().getString("kos.default-profile"));
-                    message.Info("");
-                    message.Info("Have you pregenerated your world and set a vanilla world border?");
-                    message.Info("This will affect which optimisations can be applied.");
-                    message.Info("");
-                    message.Info("To continue enter '/kos yes' if you have pregenerated");
-                    message.Info("or '/kos no' if you have not.");
+                    AutoKOS ak = new AutoKOS(this.plugin, commandSender);
+                    if (Objects.equals(args[1], "true") || Objects.equals(args[1], "yes") || Objects.equals(args[1], "y")) {
+                        ak.run(true, args[0]);
+                    } else if (Objects.equals(args[1], "false") || Objects.equals(args[1], "no") || Objects.equals(args[1], "n")) {
+                        ak.run(false, args[0]);
+                    } else {
+                        message.Warning("Please specify if your server world is pre-generated.");
+                        message.Warning("For example: /kos "+args[0]+" true");
+                        message.Warning("For example: /kos "+args[0]+" false");
+                    }
                 }
             }
         } else {
             message.Error("You do not have the required permissions to run this command.");
-            message.Error("Please visit https://wiki.lewmc.net/index.php/Kryptonite_Commands for more information.");
+            message.Error("Please visit https://wiki.lewmc.net/kr-commands.html for more information.");
         }
         return true;
     }

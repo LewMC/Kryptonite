@@ -1,58 +1,116 @@
 package net.lewmc.kryptonite.kos.config;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.LogUtil;
-import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.command.CommandSender;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * The Bukkit class manages the bukkit.yml configuration file.
+ */
 public class Bukkit {
     private final Kryptonite plugin;
-    private final File file = new File("bukkit.yml");
+    private final CommandSender user;
 
-    public Bukkit(final Kryptonite plugin) {
+    /**
+     * Constructor for the Bukkit class.
+     * @param plugin Kryptonite - Reference to the main plugin class.
+     * @param user CommandSender - The user who sent the command.
+     */
+    public Bukkit(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
-        try {
-            plugin.getConfig().load(this.file);
-        } catch (IOException | InvalidConfigurationException e) {
-            LogUtil log = new LogUtil(plugin);
-            log.severe("Error whilst loading CraftBukkit configuration:");
-            log.severe(e.getMessage());
+        this.user = user;
+    }
+
+    /**
+     * Configuration values supported by this format.
+     */
+    public enum Key {
+        SPAWN_LIMITS_MONSTERS {
+            @Override
+            public String toString() { return "spawn-limits.monsters"; }
+        },
+        SPAWN_LIMITS_ANIMALS {
+            @Override
+            public String toString() { return "spawn-limits.animals"; }
+        },
+        SPAWN_LIMITS_WATER_ANIMALS {
+            @Override
+            public String toString() { return "spawn-limits.water-animals"; }
+        },
+        SPAWN_LIMITS_WATER_AMBIENT {
+            @Override
+            public String toString() { return "spawn-limits.water-ambient"; }
+        },
+        SPAWN_LIMITS_WATER_UNDERGROUND_CREATURE {
+            @Override
+            public String toString() { return "spawn-limits.water-underground-creature"; }
+        },
+        SPAWN_LIMITS_AXOLOTLS {
+            @Override
+            public String toString() { return "spawn-limits.axolotls"; }
+        },
+        SPAWN_LIMITS_AMBIENT {
+            @Override
+            public String toString() { return "spawn-limits.ambient"; }
+        },
+        TICKS_PER_MONSTER_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.monster-spawns"; }
+        },
+        TICKS_PER_ANIMAL_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.animal-spawns"; }
+        },
+        TICKS_PER_WATER_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.water-spawns"; }
+        },
+        TICKS_PER_WATER_AMBIENT_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.water-ambient-spawns"; }
+        },
+        TICKS_PER_WATER_UNDERGROUND_CREATURE_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.water-underground-creature-spawns"; }
+        },
+        TICKS_PER_AXOLOTL_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.axolotl-spawns"; }
+        },
+        TICKS_PER_AMBIENT_SPAWNS {
+            @Override
+            public String toString() { return "ticks-per.ambient-spawns"; }
+        },
+        CHUNK_GC_PERIOD_IN_TICKS {
+            @Override
+            public String toString() { return "chunk-gc.period-in-ticks"; }
         }
     }
 
-    public void spawnLimits(int monsters, int animals, int waterAnimals, int waterAmbient, int waterUndergroundCreature, int axolotls, int ambient) {
-        this.plugin.getConfig().set("spawn-limits.monsters", monsters);
-        this.plugin.getConfig().set("spawn-limits.animals", animals);
-        this.plugin.getConfig().set("spawn-limits.water-animals", waterAnimals);
-        this.plugin.getConfig().set("spawn-limits.water-ambient", waterAmbient);
-        this.plugin.getConfig().set("spawn-limits.water-underground-creature", waterUndergroundCreature);
-        this.plugin.getConfig().set("spawn-limits.axolotls", axolotls);
-        this.plugin.getConfig().set("spawn-limits.ambient", ambient);
+    /**
+     * Sets a requested key to a requested value.
+     * @param key Key - The requested key.
+     * @param value int - The requested value.
+     */
+    public void setInt(Key key, int value) {
+        this.plugin.restartRequired = true;
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("bukkit.yml");
+        cfg.set(key.toString(), value);
+        cfg.save();
+
+        LogUtil log = new LogUtil(this.plugin);
+        log.veboseInfo("KOS>bukkit.yml set '" + key + "' to '" + value + "'");
     }
 
-    public void ticksPer(int monsters, int animals, int waterAnimals, int waterAmbient, int waterUndergroundCreature, int axolotls, int ambient) {
-        this.plugin.getConfig().set("ticks-per.monster-spawns", monsters);
-        this.plugin.getConfig().set("ticks-per.animal-spawns", animals);
-        this.plugin.getConfig().set("ticks-per.water-spawns", waterAnimals);
-        this.plugin.getConfig().set("ticks-per.water-ambient-spawns", waterAmbient);
-        this.plugin.getConfig().set("ticks-per.water-underground-creature-spawns", waterUndergroundCreature);
-        this.plugin.getConfig().set("ticks-per.axolotl-spawns", axolotls);
-        this.plugin.getConfig().set("ticks-per.ambient-spawns", ambient);
-    }
-
-    public void chunkGcPeriodInTicks(int value) {
-        this.plugin.getConfig().set("chunk-gc.period-in-ticks", value);
-    }
-
-    public void save() {
-        try {
-            this.plugin.getConfig().save(this.file);
-        } catch (IOException e) {
-            LogUtil log = new LogUtil(plugin);
-            log.severe("Error whilst saving Bukkit configuration:");
-            log.severe(e.getMessage());
-        }
+    /**
+     * Gets a requested key's value.
+     * @param key Key - The requested key.
+     */
+    public int getInt(Key key) {
+        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
+        cfg.load("bukkit.yml");
+        return cfg.getInt(key.toString());
     }
 }
