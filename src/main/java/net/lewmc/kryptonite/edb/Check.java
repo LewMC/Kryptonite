@@ -32,7 +32,7 @@ public class Check {
                     this.logThis(
                             "EDB-1",
                             "entities.armor-stands.do-collision-entity-lookups",
-                            Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.do-collision-entity-lookups")).toString(),
+                            Objects.requireNonNull(cf.getString("entities.armor-stands.do-collision-entity-lookups")),
                             "false");
 
                     return false;
@@ -40,7 +40,7 @@ public class Check {
                     this.logThis(
                             "EDB-1",
                             "entities.armor-stands.tick",
-                            Objects.requireNonNull(this.plugin.getConfig().get("entities.armor-stands.tick")).toString(),
+                            Objects.requireNonNull(cf.getString("entities.armor-stands.tick")),
                             "false");
 
                     return false;
