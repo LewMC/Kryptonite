@@ -125,7 +125,7 @@ public class AutoKOS {
 
             Spigot spigot = new Spigot(this.plugin, this.user);
 
-            spigot.setInt(Spigot.Key.VIEW_DISTANCE, this.patches.getInt("spigot.view-distance"));
+            spigot.setString(Spigot.Key.VIEW_DISTANCE, this.patches.getString("spigot.view-distance"));
             spigot.setInt(Spigot.Key.MOB_SPAWN_RANGE, this.patches.getInt("spigot.mob-spawn-range"));
             spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_ANIMALS, this.patches.getInt("spigot.entities.activation-range.animals"));
             spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_MONSTERS, this.patches.getInt("spigot.entities.activation-range.monsters"));
@@ -177,29 +177,29 @@ public class AutoKOS {
             pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL, this.patches.getInt("paper.chunks.entity-save-limit.wither-skull"));
 
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, this.patches.getInt("paper.despawn-ranges.ambient.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, this.patches.getInt("paper.despawn-ranges.ambient.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, this.patches.getString("paper.despawn-ranges.ambient.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, this.patches.getString("paper.despawn-ranges.ambient.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, this.patches.getInt("paper.despawn-ranges.axolotl.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, this.patches.getInt("paper.despawn-ranges.axolotl.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, this.patches.getString("paper.despawn-ranges.axolotl.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, this.patches.getString("paper.despawn-ranges.axolotl.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, this.patches.getInt("paper.despawn-ranges.creature.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, this.patches.getInt("paper.despawn-ranges.creature.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.creature.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.creature.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, this.patches.getInt("paper.despawn-ranges.misc.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, this.patches.getInt("paper.despawn-ranges.misc.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, this.patches.getString("paper.despawn-ranges.misc.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, this.patches.getString("paper.despawn-ranges.misc.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, this.patches.getInt("paper.despawn-ranges.monster.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, this.patches.getInt("paper.despawn-ranges.monster.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, this.patches.getString("paper.despawn-ranges.monster.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, this.patches.getString("paper.despawn-ranges.monster.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, this.patches.getInt("paper.despawn-ranges.water.underground-creature.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, this.patches.getInt("paper.despawn-ranges.water.underground-creature.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.water.underground-creature.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.water.underground-creature.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, this.patches.getInt("paper.despawn-ranges.water.ambient.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, this.patches.getInt("paper.despawn-ranges.water.ambient.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, this.patches.getString("paper.despawn-ranges.water.ambient.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, this.patches.getString("paper.despawn-ranges.water.ambient.soft"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, this.patches.getInt("paper.despawn-ranges.water.creature.hard"));
-            pw.setInt(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, this.patches.getInt("paper.despawn-ranges.water.creature.soft"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.water.creature.hard"));
+            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.water.creature.soft"));
 
 
             pw.setBoolean(PaperWorld.Key.PER_PLAYER_MOB_SPAWNS, this.patches.getBoolean("paper.per-player-mob-spawns"));
