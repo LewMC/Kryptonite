@@ -39,6 +39,10 @@ public class AutoKOS {
      * @param profile string - The profile's filename (e.g. YouHaveTrouble.kos)
      */
     public void run(boolean pregeneratedWorld, String profile) {
+        if (!profile.endsWith(".kos")) {
+            profile = profile + ".kos";
+        }
+
         File f = new File(this.plugin.getDataFolder()+"/profiles/"+profile);
         if (f.exists()) {
             this.message.Success("Running the Kryptonite Optimisation System using the '"+profile+"' profile.");
