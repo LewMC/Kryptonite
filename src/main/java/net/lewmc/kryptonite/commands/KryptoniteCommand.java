@@ -2,7 +2,6 @@ package net.lewmc.kryptonite.commands;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.MessageUtil;
-import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,10 +32,16 @@ public class KryptoniteCommand implements CommandExecutor {
         MessageUtil message = new MessageUtil(commandSender);
 
         if (args.length >= 1) {
-            if (Objects.equals(args[0], "run")) {
-                message.Error("This command has moved to /kos.");
+            if (Objects.equals(args[0], "help")) {
+                message.Info("§6-------------- Kryptonite Help --------------");
+                message.Info("/kr - Main command.");
+                message.Info("/kr report - Run a server report.");
+                message.Info("/kos - Run the Kryptonite Optimisation System.");
+                message.Info("/edb check - Check your server for exploits.");
+                message.Info("/edb patch - Patch your server's exploits.");
+                message.Info("§6----------------- Page 1/1 ------------------");
             } else {
-                message.Error("Unknown command. Use /kr for help.");
+                message.Error("Unknown command. Use /kr help for help.");
             }
         } else {
             message.Info("Kryptonite version "+this.plugin.getDescription().getVersion()+ " by LewMC.");
@@ -45,9 +50,7 @@ public class KryptoniteCommand implements CommandExecutor {
             message.Info("");
             message.Info("Feedback: https://github.com/lewmc/Kryptonite");
             message.Info("");
-            message.Info("/kr - Main command.");
-            message.Info("/kos - Kryptonite Optimisation System.");
-            message.Info("/edb - Exploit Database.");
+            message.Info("Help: /kr help");
         }
         return true;
     }
