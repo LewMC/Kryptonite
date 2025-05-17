@@ -18,6 +18,6 @@ Please merge any changes into the `next-update` branch, not the `main` branch.
 It means that:
 - We can check compatability with any other upcoming changes, and allows us to track development in one place.
 - Our snapshot builds are labelled as next-update so that it is clear to users download them that they are still in development, and that any changes being made will work with future versions of Essence.
-- The `main` branch can continue to be used by those who are looking for a tested, stable version of Essence, whilst our `next-update` branch is for development.
+- The `main` branch can continue to be used by those who are looking for a tested, stable version of Kryptonite, whilst our `next-update` branch is for development.
 
 We'll merge `next-update` into `main` when the next update is released, until then - please merge any changes into `next-update`!
