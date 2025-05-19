@@ -111,4 +111,15 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>lewmc</id>
+            <url>https://repo.lewmc.net/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>lewmc</id>
+            <url>https://repo.lewmc.net/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
