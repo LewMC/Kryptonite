@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **Thank you for opening a pull request to Essence.**
+            
+            You've requested to merge something into `main`, please note that if you're adding, removing, or changing a feature on Kryptonite you must merge into `next-update` so that compatability can be checked properly with any other pending changes.
+            
+            We unfortunately do not accept any pull requests into `main`, [for more information please click here](https://github.com/LewMC/Kryptonite/blob/main/CONTRIBUTING.md). Please close and reopen your pull request into `next-update` if this is the case.
+            
+            Thank you!

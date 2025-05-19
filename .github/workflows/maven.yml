@@ -1,33 +1,29 @@
-name: Maven Build
-
+name: Publish project to LewMC Repo
 on:
   push:
-    branches:
-      - "*"
-
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository 📡
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21 🔧
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: 'zulu'
+          java-version: 21
 
-      - name: Build with Maven 🏗️
-        run: mvn -B package --file pom.xml
+      - name: Setup Maven settings.xml
+        run: |
+          mkdir -p $HOME/.m2
+          echo "<settings>
+            <servers>
+              <server>
+                <id>lewmc</id>
+                <username>${{ secrets.MAVEN_NAME }}</username>
+                <password>${{ secrets.MAVEN_SECRET }}</password>
+              </server>
+            </servers>
+          </settings>" > $HOME/.m2/settings.xml
 
-      - name: Extract Version from pom.xml 📄
-        id: extract_version
-        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - name: Upload Plugin jar 📁
-        uses: actions/upload-artifact@v4
-        with:
-          name: kryptonite-${{ env.VERSION }}.jar
-          path: /home/runner/work/Kryptonite/Kryptonite/target/kryptonite-${{ env.VERSION }}.jar
+      - name: Publish to Repository
+        run: mvn deploy

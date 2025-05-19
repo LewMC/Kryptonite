@@ -1,0 +1,19 @@
+on:
+  pull_request:
+    branches-ignore:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **Thank you for opening a pull request to Kryptonite.**
+            
+            Someone will review your request shortly. If you don't hear from us within 5 working days, please feel free to ping Lewis or email dev@lewmc.net
+            
+            Thank you!
