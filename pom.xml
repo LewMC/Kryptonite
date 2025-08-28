@@ -47,6 +47,10 @@
                                     <pattern>com.tcoded.folialib</pattern>
                                     <shadedPattern>net.lewmc.kryptonite.lib.folialib</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>net.lewmc.foundry</pattern>
+                                    <shadedPattern>net.lewmc.kryptonite.lib.foundry</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -78,6 +82,16 @@
             <id>jitpack</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>lewmc</id>
+            <name>LewMC Repository</name>
+            <url>https://repo.lewmc.net/releases</url>
+        </repository>
+        <repository>
+            <id>lewmc-snapshots</id>
+            <name>LewMC Repository</name>
+            <url>https://repo.lewmc.net/snapshots</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -108,6 +122,12 @@
             <groupId>com.github.technicallycoded</groupId>
             <artifactId>FoliaLib</artifactId>
             <version>0.4.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.lewmc</groupId>
+            <artifactId>foundry</artifactId>
+            <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

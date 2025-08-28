@@ -29,7 +29,7 @@ public class KOS_GuiConstants
      * Adds the 'w', 'x', and 'y' (help, alerts, and exit) positions to the selected GUI.
      */
     public void addConstants() {
-        this.gui.addElement(new StaticGuiElement('w',
+        this.gui.addElement(new StaticGuiElement('t',
                 new ItemStack(Material.BOOK),
                 1,
                 click -> {
@@ -43,7 +43,7 @@ public class KOS_GuiConstants
         ));
 
         if (plugin.restartRequired) {
-            this.gui.addElement(new StaticGuiElement('x',
+            this.gui.addElement(new StaticGuiElement('u',
                     new ItemStack(Material.YELLOW_CONCRETE),
                     1,
                     click -> true,
@@ -60,7 +60,7 @@ public class KOS_GuiConstants
             ));
         }
 
-        this.gui.addElement(new StaticGuiElement('y',
+        this.gui.addElement(new StaticGuiElement('v',
                 new ItemStack(Material.OAK_DOOR),
                 1,
                 click -> {

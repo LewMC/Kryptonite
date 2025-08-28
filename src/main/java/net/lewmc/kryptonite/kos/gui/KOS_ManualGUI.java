@@ -50,21 +50,22 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_ServerPropertiesGui spGui = new KOS_ServerPropertiesGui(this.plugin, this.user);
-                        spGui.show();
+                        new KOS_MinecraftGui(this.plugin, this.user).show();
                         return true;
                     },
-                    ChatColor.BLUE + "Server",
-                    ChatColor.AQUA + "Manage the Server configuration."
+                    ChatColor.BLUE + "Minecraft",
+                    ChatColor.AQUA + "Manage Minecraft's configuration."
             ));
         } else {
             this.gui.addElement(new StaticGuiElement('p',
                     new ItemStack(Material.BARRIER),
                     1,
                     click -> true,
-                    ChatColor.DARK_RED + "Server",
-                    ChatColor.RED + "Manage the Server configuration.",
-                    ChatColor.RED + "Your server does not support this."
+                    ChatColor.DARK_RED + "Minecraft",
+                    ChatColor.RED + "Manage Minecraft's configuration.",
+                    ChatColor.RED + "Your server does not support this, but it",
+                    ChatColor.RED + "should. Please contact LewMC for help at",
+                    ChatColor.RED + "lewmc.net/help"
             ));
         }
 

@@ -1,6 +1,7 @@
 package net.lewmc.kryptonite.utils;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
 
 import java.io.File;
@@ -11,11 +12,11 @@ import java.util.Scanner;
 
 public class UpdateUtil {
     private final Kryptonite plugin;
-    private final LogUtil log;
+    private final Logger log;
 
     public UpdateUtil(Kryptonite plugin) {
         this.plugin = plugin;
-        this.log = new LogUtil(plugin);
+        this.log = new Logger(plugin.foundryConfig);
     }
 
     public void VersionCheck() {

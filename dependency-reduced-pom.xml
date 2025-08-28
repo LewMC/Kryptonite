@@ -15,7 +15,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.14.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -40,6 +40,10 @@
                   <pattern>com.tcoded.folialib</pattern>
                   <shadedPattern>net.lewmc.kryptonite.lib.folialib</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>net.lewmc.foundry</pattern>
+                  <shadedPattern>net.lewmc.kryptonite.lib.foundry</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
@@ -63,6 +67,16 @@
     <repository>
       <id>jitpack</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>lewmc</id>
+      <name>LewMC Repository</name>
+      <url>https://repo.lewmc.net/releases</url>
+    </repository>
+    <repository>
+      <id>lewmc-snapshots</id>
+      <name>LewMC Repository</name>
+      <url>https://repo.lewmc.net/snapshots</url>
     </repository>
   </repositories>
   <dependencies>

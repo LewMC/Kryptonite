@@ -1,0 +1,132 @@
+package net.lewmc.kryptonite.utils.config;
+
+import net.lewmc.foundry.Files;
+import net.lewmc.foundry.Logger;
+import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.utils.PropertiesUtil;
+
+import java.io.File;
+import java.util.List;
+
+/**
+ * A generic ConfigItem
+ * @since 2.1.0
+ * @param <T>
+ */
+public abstract class GenericConfigItem<T> {
+    /**
+     * Handles .yaml and .yml files.
+     */
+    protected Files yamlFile;
+
+    /**
+     * Handles .properties files.
+     */
+    protected PropertiesUtil propFile;
+
+    /**
+     * The file the config item is located in.
+     */
+    protected String file;
+
+    /**
+     * The key of the config item within the file.
+     */
+    protected String key;
+
+    /**
+     * The config item's human-readable name.
+     */
+    protected String name;
+
+    /**
+     * The config item's description, for the GUI each String is a new line.
+     */
+    protected List<String> description;
+
+    /**
+     * Reference to the main Kryptonite class
+     */
+    protected Kryptonite plugin;
+
+    /**
+     * The generic config item.
+     * @param file String - The file the config item is located in.
+     * @param key String - The key of the config item within the file.
+     * @param name String - The config item's human-readable name.
+     * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param plugin Kryptonite - Reference to the main Kryptonite class.
+     */
+    public GenericConfigItem(String file, String key, String name, List<String> description, Kryptonite plugin) {
+        this.file = plugin.getServer().getWorldContainer() + File.separator + file;
+        this.key = key;
+        this.name = name;
+        this.description = description;
+        this.plugin = plugin;
+
+        if (file.contains(".properties")) {
+            this.propFile = new PropertiesUtil(file);
+        } else if (file.contains(".yaml") || file.contains(".yml")) {
+            this.yamlFile = new Files(plugin.foundryConfig, plugin);
+            this.yamlFile.loadNoReformat(new File(this.file));
+        } else {
+            new Logger(plugin.foundryConfig).severe("Unable to load file '"+file+"' file extension not supported.");
+            new Logger(plugin.foundryConfig).severe("Expect additional errors.");
+        }
+
+    }
+
+    /**
+     * Should fetch the current value of the config item.
+     * @return T - The config's current value.
+     */
+    public abstract T getCurrentValue();
+
+    /**
+     * Should set the current value of the config item.
+     * @param value T - The config's current value.
+     */
+    public abstract void setCurrentValue(T value);
+
+    /**
+     * Should check if the config value is valid.
+     * @return boolean - Is it valid?
+     */
+    public boolean isValid() {
+        return this.willBeValid(this.getCurrentValue());
+    }
+
+    /**
+     * Should check if the config value will be valid.
+     * @return boolean - Is it valid?
+     */
+    public abstract boolean willBeValid(T value);
+
+    /**
+     * Should check if the config value is ideal.
+     * @return boolean - Is it ideal?
+     */
+    public abstract boolean isIdeal();
+
+    /**
+     * Returns the ideal value in human-readable, string format.
+     * @return String - The ideal value.
+     */
+    public abstract String getIdealValue();
+
+    /**
+     * Returns the config item's name.
+     * @return String - The name.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Returns the config item's description.
+     * @return List of Strings - The description.
+     */
+    public List<String> getDescription() {
+        return this.description;
+    }
+}

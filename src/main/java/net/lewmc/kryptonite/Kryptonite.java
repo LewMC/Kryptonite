@@ -1,12 +1,13 @@
 package net.lewmc.kryptonite;
 
 import com.tcoded.folialib.FoliaLib;
+import net.lewmc.foundry.FoundryConfig;
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.commands.ExploitDBCommand;
 import net.lewmc.kryptonite.commands.KryptoniteCommand;
 import net.lewmc.kryptonite.commands.OptimiseCommand;
 import net.lewmc.kryptonite.event.JoinEvent;
 import net.lewmc.kryptonite.utils.CompatablityUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +19,7 @@ import java.util.Objects;
 
 public final class Kryptonite extends JavaPlugin {
 
-    private final LogUtil log = new LogUtil(this);
+    private Logger log;
     public enum ConfigurationOptions {
         SERVER_PROPERTIES,
         BUKKIT,
@@ -32,9 +33,15 @@ public final class Kryptonite extends JavaPlugin {
     public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
     public boolean restartRequired = false;
     public boolean updatePending = false;
+    public FoundryConfig foundryConfig;
 
     @Override
     public void onEnable() {
+        this.foundryConfig = new FoundryConfig(this);
+        this.foundryConfig.setVerbose(this.getConfig().getBoolean("verbose"));
+        this.foundryConfig.setPluginId("kr");
+        this.log = new Logger(this.foundryConfig);
+        
         this.log.info("");
         this.log.info("█▄▀ █▀█ █▄█ █▀█ ▀█▀ █▀█ █▄ █ █ ▀█▀ █▀▀");
         this.log.info("█ █ █▀▄  █  █▀▀  █  █▄█ █ ▀█ █  █  ██▄");
