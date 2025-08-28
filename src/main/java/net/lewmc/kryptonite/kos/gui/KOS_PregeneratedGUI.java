@@ -15,9 +15,7 @@ import java.io.IOException;
 
 /**
  * KOS Auto GUI
- * @deprecated
  */
-@Deprecated
 public class KOS_PregeneratedGUI {
     private final Kryptonite plugin;
     private final CommandSender user;
