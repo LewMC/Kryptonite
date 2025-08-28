@@ -91,5 +91,100 @@ public class LeafConfig extends ConfigCollection {
                 false,
                 plugin
         ));
+
+        values.put("async.async-entity-tracker.enabled", new BooleanConfigItem(
+                file,
+                "async.async-entity-tracker.enabled",
+                "Async Entity Tracker Enabled",
+                List.of(
+                        "Make entity tracking asynchronous, can improve",
+                        "performance significantly, especially in situations",
+                        "with massive numbers of entities in a small area." +
+                        "If using NPC plugins, enable compat-mode as well."),
+                true,
+                plugin
+        ));
+
+        values.put("async.async-entity-tracker.compat-mode", new BooleanConfigItem(
+                file,
+                "async.async-entity-tracker.compat-mode",
+                "Async Entity Tracker Compat Mode",
+                List.of(
+                        "Enable compatibility mode for plugins like",
+                        "Citizens or other NPC plugins that use real, player",
+                        "type entities. You should enable compat-mode ONLY IF",
+                        "you have installed Citizens or similar real-entity",
+                        "NPC plugins and are experiencing issues."),
+                null,
+                plugin
+        ));
+
+        values.put("async.async-entity-tracker.max-threads", new IntegerConfigItem(
+                file,
+                "async.async-entity-tracker.max-threads",
+                "Async Entity Tracker Max Threads",
+                List.of("Maximum number of threads for the async entity",
+                        "tracker to use. When set to 0, 1/4 of available CPU",
+                        "cores are used. Recommended to set to 1/2 of cores,",
+                        "depending on server load and core count."
+                ),
+                0,
+                100,
+                null,
+                plugin
+        ));
+
+        values.put("async.async-entity-tracker.keepalive", new IntegerConfigItem(
+                file,
+                "async.async-entity-tracker.keepalive",
+                "Async Entity Tracker Keepalive",
+                List.of("Thread keepalive time. Threads with no tasks will",
+                        "be terminated if they remain idle for longer than",
+                        "this duration. Measured in seconds."),
+                1,
+                120,
+                "50-70",
+                plugin
+        ));
+
+        values.put("async.async-entity-tracker.queue-size", new IntegerConfigItem(
+                file,
+                "async.async-entity-tracker.queue-size",
+                "Async Entity Tracker Queue Size",
+                List.of("Maximum size of the queue for pending entity",
+                        "tracking tasks. If set to 0, the queue size is",
+                        "dynamically calculated as max-threads * 384. A limit",
+                        "might prevent excessive memory usage under extreme",
+                        "load but could potentially lead to tasks being",
+                        "dropped or delayed"),
+                0,
+                500,
+                null,
+                plugin
+        ));
+
+        values.put("async.async-target-finding", new BooleanConfigItem(
+                file,
+                "async.async-target-finding",
+                "Async Target Finding",
+                List.of(
+                        "Moves the expensive entity target search",
+                        "calculations (finding nearby entities to attack or",
+                        "interact with) to a background thread"),
+                true,
+                plugin
+        ));
+
+        values.put("async.async-playerdata-save", new BooleanConfigItem(
+                file,
+                "async.async-playerdata-save",
+                "Async Playerdata Save",
+                List.of(
+                        "Make playerdata saving aynchronous. Warning: might",
+                        "cause data loss in some circumstances - use with",
+                        "extreme caution and ensure robust backups!"),
+                false,
+                plugin
+        ));
     }
 }
