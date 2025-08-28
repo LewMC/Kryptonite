@@ -26,12 +26,13 @@ public class StringConfigItem extends GenericConfigItem<String> {
      * @param key String - The key of the config item within the file.
      * @param name String - The config item's human-readable name.
      * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param dependencyIsEnabled Boolean - If the config's dependencies are enabled. If none, set to true.
      * @param allowedValues List of Strings - String list of allowed values.
      * @param idealValues List of Strings - String list of ideal values.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public StringConfigItem(String file, String key, String name, List<String> description, List<String> allowedValues, List<String> idealValues, Kryptonite plugin) {
-        super(file, key, name, description, plugin);
+    public StringConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, List<String> allowedValues, List<String> idealValues, Kryptonite plugin) {
+        super(file, key, name, description, dependencyIsEnabled, plugin);
         this.allowedValues = allowedValues;
         this.idealValues = idealValues;
     }
@@ -75,7 +76,8 @@ public class StringConfigItem extends GenericConfigItem<String> {
      */
     @Override
     public boolean willBeValid(String value) {
-        return this.allowedValues.contains(value);
+        return dependencyIsEnabled && this.allowedValues.contains(value);
+
     }
 
     /**

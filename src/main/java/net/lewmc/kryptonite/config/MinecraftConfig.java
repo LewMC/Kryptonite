@@ -32,6 +32,7 @@ public class MinecraftConfig extends ConfigCollection {
                 List.of(
                         "The cap for the size of a packet before the",
                         "server attempts to compress it."),
+                true,
                 -1,
                 1000,
                 "256",
@@ -47,6 +48,7 @@ public class MinecraftConfig extends ConfigCollection {
                         "to see further without any performance impact",
                         "for the server."
                 ),
+                true,
                 1,
                 50,
                 "5 - 10",
@@ -58,6 +60,7 @@ public class MinecraftConfig extends ConfigCollection {
                 "simulation-distance",
                 "Simulation Distance",
                 List.of("The distance mobs will be simulated."),
+                true,
                 1,
                 50,
                 "5 - "+values.get("view-distance").getValue(),
@@ -71,6 +74,7 @@ public class MinecraftConfig extends ConfigCollection {
                 List.of("Forces the server to write chunks on the main",
                         "thread which impacts performance."
                 ),
+                true,
                 false,
                 plugin
         ));
@@ -84,6 +88,7 @@ public class MinecraftConfig extends ConfigCollection {
                         "climbing on scaffolding. Doesn't actually allow",
                         "players to fly."
                 ),
+                true,
                 null,
                 plugin
         ));

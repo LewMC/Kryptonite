@@ -31,13 +31,14 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
      * @param key String - The key of the config item within the file.
      * @param name String - The config item's human-readable name.
      * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param dependencyIsEnabled Boolean - If the config's dependencies are enabled. If none, set to true.
      * @param minValue Double - The minimum allowed value.
      * @param maxValue Double - The maximum allowed value.
      * @param idealValue String - The ideal value in String format (e.g. "7" or "1-5" meaning 1 to 5)
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public DoubleConfigItem(String file, String key, String name, List<String> description, Double minValue, Double maxValue, String idealValue, Kryptonite plugin) {
-        super(file, key, name, description, plugin);
+    public DoubleConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, Double minValue, Double maxValue, String idealValue, Kryptonite plugin) {
+        super(file, key, name, description, dependencyIsEnabled, plugin);
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.idealValue = idealValue;
@@ -90,7 +91,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
      */
     @Override
     public boolean willBeValid(Double value) {
-        return value >= minValue && value <= maxValue;
+        return dependencyIsEnabled && (value >= minValue && value <= maxValue);
     }
 
     /**

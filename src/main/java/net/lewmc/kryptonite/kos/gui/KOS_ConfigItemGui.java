@@ -92,6 +92,7 @@ public class KOS_ConfigItemGui {
 
     private ItemStack buildDisplayItem(GenericConfigItem<?> config) {
         boolean ideal = config.isIdeal();
+        boolean dependencyIsEnabled = config.dependencyIsEnabled();
 
         Material material;
 
@@ -105,6 +106,7 @@ public class KOS_ConfigItemGui {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = new ArrayList<>();
 
+        String idealValue = config.getIdealValue();
         if (config.isValid()) {
             meta.setDisplayName(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + config.getName());
             lore.add(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + String.valueOf(config.getValue()));
@@ -113,6 +115,7 @@ public class KOS_ConfigItemGui {
                         .map(line -> ((ideal) ? ChatColor.GREEN : ChatColor.RED) + line)
                         .toList());
             }
+            lore.add(ChatColor.WHITE + "Ideal value: " + ((idealValue != null) ? idealValue : "Any"));
         } else {
             meta.setDisplayName(ChatColor.DARK_GRAY + config.getName());
             lore.add(ChatColor.GRAY + String.valueOf(config.getValue()));
@@ -121,10 +124,15 @@ public class KOS_ConfigItemGui {
                         .map(line -> ChatColor.GRAY + line)
                         .toList());
             }
+            if (!config.dependencyIsEnabled()) {
+                lore.add(ChatColor.WHITE + "This feature requires another feature that");
+                lore.add(ChatColor.WHITE + "is currently disabled. Please enable it to");
+                lore.add(ChatColor.WHITE + "setup this item.");
+            } else {
+                lore.add(ChatColor.WHITE + "Invalid value.");
+                lore.add(ChatColor.WHITE + "Ideal value: " + ((idealValue != null) ? idealValue : "Any"));
+            }
         }
-
-        String idealValue = config.getIdealValue();
-        lore.add(ChatColor.WHITE + "Ideal value: " + ((idealValue != null) ? idealValue : "Any"));
 
         meta.setLore(lore);
         item.setItemMeta(meta);

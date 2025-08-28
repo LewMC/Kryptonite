@@ -45,6 +45,11 @@ public abstract class GenericConfigItem<T> {
     protected List<String> description;
 
     /**
+     * If the config's dependencies are enabled. If none, set to true
+     */
+    protected Boolean dependencyIsEnabled;
+
+    /**
      * Reference to the main Kryptonite class
      */
     protected Kryptonite plugin;
@@ -55,13 +60,15 @@ public abstract class GenericConfigItem<T> {
      * @param key String - The key of the config item within the file.
      * @param name String - The config item's human-readable name.
      * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param dependencyIsEnabled Boolean - If the config's dependencies are enabled. If none, set to true.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public GenericConfigItem(String file, String key, String name, List<String> description, Kryptonite plugin) {
+    public GenericConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, Kryptonite plugin) {
         this.file = plugin.getServer().getWorldContainer() + File.separator + file;
         this.key = key;
         this.name = name;
         this.description = description;
+        this.dependencyIsEnabled = dependencyIsEnabled;
         this.plugin = plugin;
 
         if (file.contains(".properties")) {
@@ -73,7 +80,6 @@ public abstract class GenericConfigItem<T> {
             new Logger(plugin.foundryConfig).severe("Unable to load file '"+file+"' file extension not supported.");
             new Logger(plugin.foundryConfig).severe("Expect additional errors.");
         }
-
     }
 
     /**
@@ -128,5 +134,13 @@ public abstract class GenericConfigItem<T> {
      */
     public List<String> getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns if the value's dependencies are enabled.
+     * @return boolean - Are they?
+     */
+    public Boolean dependencyIsEnabled() {
+        return this.dependencyIsEnabled;
     }
 }

@@ -31,13 +31,14 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
      * @param key String - The key of the config item within the file.
      * @param name String - The config item's human-readable name.
      * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param dependencyIsEnabled Boolean - If the config's dependencies are enabled. If none, set to true.
      * @param minValue int - The minimum allowed value.
      * @param maxValue int - The maximum allowed value.
      * @param idealValue String - The ideal value in String format (e.g. "7" or "1-5" meaning 1 to 5)
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public IntegerConfigItem(String file, String key, String name, List<String> description, int minValue, int maxValue, String idealValue, Kryptonite plugin) {
-        super(file, key, name, description, plugin);
+    public IntegerConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, int minValue, int maxValue, String idealValue, Kryptonite plugin) {
+        super(file, key, name, description, dependencyIsEnabled, plugin);
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.idealValue = idealValue;
@@ -90,7 +91,7 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
      */
     @Override
     public boolean willBeValid(Integer value) {
-        return value >= minValue && value <= maxValue;
+        return dependencyIsEnabled && (value >= minValue && value <= maxValue);
     }
 
     /**

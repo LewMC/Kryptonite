@@ -25,7 +25,7 @@ public class LeafConfig extends ConfigCollection {
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
     public LeafConfig(Kryptonite plugin) {
-        String file = File.separator + "config" + File.separator + "leaf-global.yml";
+        String file = "config" + File.separator + "leaf-global.yml";
 
         values.put("async.parallel-world-tracing.enabled", new BooleanConfigItem(
                 file,
@@ -36,6 +36,7 @@ public class LeafConfig extends ConfigCollection {
                         "threads. Experimental feature, potentially unstable",
                         "Only use if you experience specific bottlenecks and",
                         "understand the risks. Learn more at leafmc.one/docs"),
+                true,
                 false,
                 plugin
         ));
@@ -48,6 +49,7 @@ public class LeafConfig extends ConfigCollection {
                         "ticking. Consider setting based on amount of worlds",
                         "in the server."
                 ),
+                (Boolean) values.get("async.parallel-world-tracing.enabled").getValue(),
                 1,
                 100,
                 null,
@@ -62,6 +64,7 @@ public class LeafConfig extends ConfigCollection {
                         "Log stacktraces when containers (like Tile Entities",
                         "or Entities) are created during parallel ticking.",
                         "Useful for debugging potential concurrency issues."),
+                (Boolean) values.get("async.parallel-world-tracing.enabled").getValue(),
                 false,
                 plugin
         ));
@@ -75,6 +78,7 @@ public class LeafConfig extends ConfigCollection {
                         "related to parallel ticking errors.  Might mask",
                         "underlying issues but could prevent crashes in",
                         "unstable experimental phases. Use with caution."),
+                (Boolean) values.get("async.parallel-world-tracing.enabled").getValue(),
                 false,
                 plugin
         ));
@@ -88,6 +92,7 @@ public class LeafConfig extends ConfigCollection {
                         "parallel ticking system. Might be needed for",
                         "compatibility with certain plugins but largely",
                         "negates the performance benefits of parallel ticking."),
+                (Boolean) values.get("async.parallel-world-tracing.enabled").getValue(),
                 false,
                 plugin
         ));
@@ -95,12 +100,13 @@ public class LeafConfig extends ConfigCollection {
         values.put("async.async-entity-tracker.enabled", new BooleanConfigItem(
                 file,
                 "async.async-entity-tracker.enabled",
-                "Async Entity Tracker Enabled",
+                "Async Entity Tracker",
                 List.of(
                         "Make entity tracking asynchronous, can improve",
                         "performance significantly, especially in situations",
                         "with massive numbers of entities in a small area." +
                         "If using NPC plugins, enable compat-mode as well."),
+                true,
                 true,
                 plugin
         ));
@@ -115,6 +121,7 @@ public class LeafConfig extends ConfigCollection {
                         "type entities. You should enable compat-mode ONLY IF",
                         "you have installed Citizens or similar real-entity",
                         "NPC plugins and are experiencing issues."),
+                (Boolean) values.get("async.async-entity-tracker.enabled").getValue(),
                 null,
                 plugin
         ));
@@ -128,6 +135,7 @@ public class LeafConfig extends ConfigCollection {
                         "cores are used. Recommended to set to 1/2 of cores,",
                         "depending on server load and core count."
                 ),
+                (Boolean) values.get("async.async-entity-tracker.enabled").getValue(),
                 0,
                 100,
                 null,
@@ -141,6 +149,7 @@ public class LeafConfig extends ConfigCollection {
                 List.of("Thread keepalive time. Threads with no tasks will",
                         "be terminated if they remain idle for longer than",
                         "this duration. Measured in seconds."),
+                (Boolean) values.get("async.async-entity-tracker.enabled").getValue(),
                 1,
                 120,
                 "50-70",
@@ -157,6 +166,7 @@ public class LeafConfig extends ConfigCollection {
                         "might prevent excessive memory usage under extreme",
                         "load but could potentially lead to tasks being",
                         "dropped or delayed"),
+                (Boolean) values.get("async.async-entity-tracker.enabled").getValue(),
                 0,
                 500,
                 null,
@@ -172,6 +182,7 @@ public class LeafConfig extends ConfigCollection {
                         "calculations (finding nearby entities to attack or",
                         "interact with) to a background thread"),
                 true,
+                true,
                 plugin
         ));
 
@@ -184,6 +195,18 @@ public class LeafConfig extends ConfigCollection {
                         "cause data loss in some circumstances - use with",
                         "extreme caution and ensure robust backups!"),
                 false,
+                true,
+                plugin
+        ));
+
+        values.put("async.async-pathfinding.enabled", new BooleanConfigItem(
+                file,
+                "async.async-pathfinding.enabled",
+                "Async Pathfinding",
+                List.of(
+                        "Make mob pathfinding calculations asynchronous."),
+                true,
+                true,
                 plugin
         ));
     }

@@ -23,11 +23,12 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
      * @param key String - The key of the config item within the file.
      * @param name String - The config item's human-readable name.
      * @param description List of Strings - The config item's description, for the GUI each String is a new line.
+     * @param dependencyIsEnabled Boolean - If the config's dependencies are enabled. If none, set to true.
      * @param idealValue Boolean - String list of ideal values.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public BooleanConfigItem(String file, String key, String name, List<String> description, Boolean idealValue, Kryptonite plugin) {
-        super(file, key, name, description, plugin);
+    public BooleanConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, Boolean idealValue, Kryptonite plugin) {
+        super(file, key, name, description, dependencyIsEnabled, plugin);
         this.idealValue = idealValue;
     }
 
@@ -74,7 +75,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
      */
     @Override
     public boolean willBeValid(Boolean value) {
-        return true;
+        return !this.dependencyIsEnabled;
     }
 
     /**
