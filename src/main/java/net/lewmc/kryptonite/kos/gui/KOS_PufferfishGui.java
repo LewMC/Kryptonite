@@ -5,7 +5,6 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.config.Pufferfish;
-import net.lewmc.kryptonite.kos.config.ServerProperties;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -22,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 public class KOS_PufferfishGui {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final int simulationDistance;
     private InventoryGui gui;
     private Pufferfish pufferfish;
 
@@ -34,7 +32,6 @@ public class KOS_PufferfishGui {
     public KOS_PufferfishGui(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.simulationDistance = (new ServerProperties(plugin).getInt(ServerProperties.Key.SIMULATION_DISTANCE) -1)*16;
 
         this.pufferfish = new Pufferfish(plugin, user);
     }

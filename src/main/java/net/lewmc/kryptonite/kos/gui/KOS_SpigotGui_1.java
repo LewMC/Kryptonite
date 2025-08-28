@@ -4,7 +4,7 @@ import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.ServerProperties;
+import net.lewmc.kryptonite.config.MinecraftConfig;
 import net.lewmc.kryptonite.kos.config.Spigot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -34,7 +34,7 @@ public class KOS_SpigotGui_1 {
     public KOS_SpigotGui_1(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
         this.user = user;
-        this.simulationDistance = (new ServerProperties(plugin).getInt(ServerProperties.Key.SIMULATION_DISTANCE) -1)*16;
+        this.simulationDistance = ((int) new MinecraftConfig(plugin).values.get("simulation-distance").getValue() -1)*16;
 
         this.spigot = new Spigot(plugin, user);
     }
