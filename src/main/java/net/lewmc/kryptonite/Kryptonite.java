@@ -161,6 +161,12 @@ public final class Kryptonite extends JavaPlugin {
             this.SupportedConfigurations.add(ConfigurationOptions.PUFFERFISH);
             supportedConfigs = supportedConfigs + ", Pufferfish";
         }
+
+        File leafConfig = new File("config/leaf-global.yml");
+        if (leafConfig.exists()) {
+            this.SupportedConfigurations.add(ConfigurationOptions.LEAF);
+            supportedConfigs = supportedConfigs + ", Leaf";
+        }
         this.log.info("Supported configurations loaded: "+supportedConfigs+".");
     }
 
