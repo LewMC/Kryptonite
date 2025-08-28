@@ -29,6 +29,22 @@ public class Leaf {
         PARALLEL_WORLD_TRACING_ENABLED {
             @Override
             public String toString() { return "async.parallel-world-tracing.enabled"; }
+        },
+        PARALLEL_WORLD_TRACING_THREADS {
+            @Override
+            public String toString() { return "async.parallel-world-tracing.threads"; }
+        },
+        PARALLEL_WORLD_TRACING_LOG_CONTAINER_CREATION_STACKTRACES {
+            @Override
+            public String toString() { return "async.parallel-world-tracing.log-container-creation-stacktraces"; }
+        },
+        PARALLEL_WORLD_TRACING_DISABLE_HARD_THROW {
+            @Override
+            public String toString() { return "async.parallel-world-tracing.disable-hard-throw"; }
+        },
+        PARALLEL_WORLD_TRACING_RUN_ASYNC_TASKS_SYNC {
+            @Override
+            public String toString() { return "async.parallel-world-tracing.run-async-tasks-sync"; }
         }
     }
 

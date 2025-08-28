@@ -51,6 +51,10 @@ public class KOS_LeafGui {
      */
     private void addElements() {
         this.parallelWorldTracingEnabled('a');
+        this.parallelWorldTracingThreads('b');
+        this.parallelWorldTracingLogContainerCreationStacktraces('c');
+        this.parallelWorldTracingDisableHardThrow('d');
+        this.parallelWorldTracingRunAsyncTasksSync('e');
 
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
@@ -63,7 +67,7 @@ public class KOS_LeafGui {
     private String[] getElements() {
 
         return new String[]{
-                "a        ",
+                "abcdefghi",
                 "         ",
                 "  w x y  "
         };
@@ -93,6 +97,100 @@ public class KOS_LeafGui {
                     ChatColor.YELLOW + "Experimental feature, potentially unsafe.",
                     ChatColor.YELLOW + "Potential performance gain.",
                     ChatColor.YELLOW + "May cause issues with some plugins.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        }
+    }
+
+    private void parallelWorldTracingThreads(char id) {
+        int value = this.leaf.getInt(Leaf.Key.PARALLEL_WORLD_TRACING_THREADS);
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.WHITE_CONCRETE),
+                    1,
+                    click -> this.setInt(Leaf.Key.PARALLEL_WORLD_TRACING_THREADS, click, value, false),
+                    ChatColor.WHITE + "Parallel World Tracing Threads",
+                    ChatColor.GRAY + String.valueOf(value),
+                    ChatColor.GRAY + "Consider setting to the amount of worlds you have.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+    }
+
+    private void parallelWorldTracingLogContainerCreationStacktraces(char id) {
+        boolean value = this.leaf.getBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_LOG_CONTAINER_CREATION_STACKTRACES);
+        if (value) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_LOG_CONTAINER_CREATION_STACKTRACES, false); return true; },
+                    ChatColor.DARK_RED + "Parallel World Tracing Log Container Creation Stacktraces",
+                    ChatColor.RED + "true",
+                    ChatColor.RED + "Useful for debugging concurrency issues.",
+                    ChatColor.RED + "May cause console spam.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_LOG_CONTAINER_CREATION_STACKTRACES, true); return true; },
+                    ChatColor.DARK_GREEN + "Parallel World Tracing Log Container Creation Stacktraces",
+                    ChatColor.GREEN + "false",
+                    ChatColor.GREEN + "Useful for debugging concurrency issues.",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        }
+    }
+
+    private void parallelWorldTracingDisableHardThrow(char id) {
+        boolean value = this.leaf.getBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_DISABLE_HARD_THROW);
+        if (value) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_DISABLE_HARD_THROW, false); return true; },
+                    ChatColor.DARK_RED + "Parallel World Tracing Disable Hard Throw",
+                    ChatColor.RED + "true",
+                    ChatColor.RED + "Could prevent crashes in unstable experimental phases.",
+                    ChatColor.RED + "Use with caution.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_DISABLE_HARD_THROW, true); return true; },
+                    ChatColor.DARK_GREEN + "Parallel World Tracing Disable Hard Throw",
+                    ChatColor.GREEN + "false",
+                    ChatColor.GREEN + "Could prevent crashes in unstable experimental phases.",
+                    ChatColor.GREEN + "Ideal value.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        }
+    }
+
+    private void parallelWorldTracingRunAsyncTasksSync(char id) {
+        boolean value = this.leaf.getBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_RUN_ASYNC_TASKS_SYNC);
+        if (value) {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.RED_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_RUN_ASYNC_TASKS_SYNC, false); return true; },
+                    ChatColor.DARK_RED + "Parallel World Tracing Disable Hard Throw",
+                    ChatColor.RED + "true",
+                    ChatColor.RED + "Might be needed for compatibility with certain plugins.",
+                    ChatColor.RED + "Impact to performance.",
+                    ChatColor.BLUE + "Click to toggle true/false."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement(id,
+                    new ItemStack(Material.LIME_CONCRETE),
+                    1,
+                    click -> { this.leaf.setBoolean(Leaf.Key.PARALLEL_WORLD_TRACING_RUN_ASYNC_TASKS_SYNC, true); return true; },
+                    ChatColor.DARK_GREEN + "Parallel World Tracing Disable Hard Throw",
+                    ChatColor.GREEN + "false",
+                    ChatColor.GREEN + "Might be needed for compatibility with certain plugins.",
+                    ChatColor.GREEN + "Ideal value.",
                     ChatColor.BLUE + "Click to toggle true/false."
             ));
         }
