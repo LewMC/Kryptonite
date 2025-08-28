@@ -6,4 +6,5 @@ net.lewmc.kryptonite.event
 net.lewmc.kryptonite.kos
 net.lewmc.kryptonite.kos.config
 net.lewmc.kryptonite.kos.gui
+net.lewmc.kryptonite.report
 net.lewmc.kryptonite.utils
