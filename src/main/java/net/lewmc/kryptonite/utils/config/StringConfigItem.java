@@ -46,6 +46,7 @@ public class StringConfigItem extends GenericConfigItem<String> {
         if (this.file.contains(".properties")) {
             return propFile.getProperty(key);
         } else if (this.file.contains(".yml") || file.contains(".yaml")) {
+            this.loadFile();
             String value = yamlFile.getString(key);
             yamlFile.close();
             return value;
@@ -64,6 +65,7 @@ public class StringConfigItem extends GenericConfigItem<String> {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, value);
         } else if (file.contains(".yml") || file.contains(".yaml")) {
+            this.loadFile();
             yamlFile.set(this.key, value);
             yamlFile.save();
         }

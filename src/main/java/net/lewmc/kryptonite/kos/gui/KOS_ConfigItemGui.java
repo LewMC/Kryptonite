@@ -199,7 +199,7 @@ public class KOS_ConfigItemGui {
      * @return String[] - The position of the elements.
      */
     private String[] getElements() {
-        if (this.config != null) {
+        if (this.config != null && this.config.values != null) {
             int size = this.config.values.size();
             int rows = (int) Math.ceil(size / 9.0);
 

@@ -61,6 +61,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
                 return 0.0;
             }
         } else if (this.file.contains(".yml") || file.contains(".yaml")) {
+            this.loadFile();
             Double value = yamlFile.getDouble(key);
             yamlFile.close();
             return value;
@@ -79,6 +80,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
+            this.loadFile();
             yamlFile.set(this.key, value);
             yamlFile.save();
         }

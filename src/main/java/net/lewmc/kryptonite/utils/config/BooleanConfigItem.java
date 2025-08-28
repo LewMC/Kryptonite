@@ -1,9 +1,7 @@
 package net.lewmc.kryptonite.utils.config;
 
-import net.lewmc.foundry.Files;
 import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 import java.util.List;
 
@@ -39,13 +37,11 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
     @Override
     public Boolean getValue() {
         if (this.file.contains(".properties")) {
-            PropertiesUtil p = new PropertiesUtil(this.file);
-            return Boolean.parseBoolean(p.getProperty(key));
+            return Boolean.parseBoolean(propFile.getProperty(key));
         } else if (this.file.contains(".yml") || file.contains(".yaml")) {
-            Files f = new Files(this.plugin.foundryConfig, this.plugin);
-            f.load(this.file);
-            boolean value = f.getBoolean(key);
-            f.close();
+            this.loadFile();
+            Boolean value = yamlFile.getBoolean(key);
+            yamlFile.close();
             return value;
         } else {
             new Logger(this.plugin.foundryConfig).severe("Unable to load file: '"+this.file+"' extension not supported.");
@@ -62,7 +58,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
-            yamlFile.load(this.file);
+            this.loadFile();
             yamlFile.set(this.key, value);
             yamlFile.save();
         }
@@ -75,7 +71,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
      */
     @Override
     public boolean willBeValid(Boolean value) {
-        return !this.dependencyIsEnabled;
+        return this.dependencyIsEnabled;
     }
 
     /**

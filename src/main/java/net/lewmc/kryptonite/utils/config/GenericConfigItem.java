@@ -64,18 +64,23 @@ public abstract class GenericConfigItem<T> {
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
     public GenericConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, Kryptonite plugin) {
-        this.file = plugin.getServer().getWorldContainer() + File.separator + file;
+        this.file = file;
         this.key = key;
         this.name = name;
         this.description = description;
         this.dependencyIsEnabled = dependencyIsEnabled;
         this.plugin = plugin;
+    }
 
+    /**
+     * Loads the file.
+     */
+    public void loadFile() {
         if (file.contains(".properties")) {
-            this.propFile = new PropertiesUtil(file);
+            this.propFile = new PropertiesUtil(plugin.getServer().getWorldContainer() + File.separator + file);
         } else if (file.contains(".yaml") || file.contains(".yml")) {
             this.yamlFile = new Files(plugin.foundryConfig, plugin);
-            this.yamlFile.loadNoReformat(new File(this.file));
+            this.yamlFile.loadNoReformat(new File(this.plugin.getDataFolder(),"/../../"+file).getAbsoluteFile());
         } else {
             new Logger(plugin.foundryConfig).severe("Unable to load file '"+file+"' file extension not supported.");
             new Logger(plugin.foundryConfig).severe("Expect additional errors.");

@@ -10,5 +10,5 @@ public abstract class ConfigCollection {
     /**
      * Holds configuration data for the relevant file.
      */
-    public HashMap<String, GenericConfigItem> values;
+    public HashMap<String, GenericConfigItem> values = new HashMap<>();
 }

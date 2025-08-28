@@ -61,7 +61,8 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
                 return 0;
             }
         } else if (this.file.contains(".yml") || file.contains(".yaml")) {
-            int value = yamlFile.getInt(key);
+            this.loadFile();
+            Integer value = yamlFile.getInt(key);
             yamlFile.close();
             return value;
         } else {
@@ -79,6 +80,7 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
+            this.loadFile();
             yamlFile.set(this.key, value);
             yamlFile.save();
         }
