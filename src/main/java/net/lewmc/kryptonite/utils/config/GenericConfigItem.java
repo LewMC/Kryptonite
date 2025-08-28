@@ -80,20 +80,20 @@ public abstract class GenericConfigItem<T> {
      * Should fetch the current value of the config item.
      * @return T - The config's current value.
      */
-    public abstract T getCurrentValue();
+    public abstract T getValue();
 
     /**
-     * Should set the current value of the config item.
+     * Should set the value of the config item.
      * @param value T - The config's current value.
      */
-    public abstract void setCurrentValue(T value);
+    public abstract void setValue(T value);
 
     /**
      * Should check if the config value is valid.
      * @return boolean - Is it valid?
      */
     public boolean isValid() {
-        return this.willBeValid(this.getCurrentValue());
+        return this.willBeValid(this.getValue());
     }
 
     /**

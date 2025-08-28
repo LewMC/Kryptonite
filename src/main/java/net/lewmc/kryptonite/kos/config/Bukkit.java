@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The Bukkit class manages the bukkit.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class Bukkit {
     private final Kryptonite plugin;
     private final CommandSender user;

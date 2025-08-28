@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The PaperWorld class manages the paper-world-defaults.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class PaperWorld {
     private final Kryptonite plugin;
     private final CommandSender user;

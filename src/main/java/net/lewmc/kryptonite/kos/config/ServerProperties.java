@@ -6,7 +6,9 @@ import net.lewmc.kryptonite.utils.PropertiesUtil;
 
 /**
  * The ServerProperties class manages the server.properties configuration file.
+ * @deprecated
  */
+@Deprecated
 public class ServerProperties {
     private final PropertiesUtil util;
     private final Kryptonite plugin;

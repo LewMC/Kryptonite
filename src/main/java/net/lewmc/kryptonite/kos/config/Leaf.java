@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The leaf class manages the leaf.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class Leaf {
     private final Kryptonite plugin;
     private final CommandSender user;

@@ -46,7 +46,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Metrics {
 
     private final Plugin plugin;

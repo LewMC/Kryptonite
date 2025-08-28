@@ -6,7 +6,6 @@ import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.config.Pufferfish;
 import net.lewmc.kryptonite.kos.config.ServerProperties;
-import net.lewmc.kryptonite.kos.config.Spigot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -17,7 +16,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Pufferfish GUI
+ * @deprecated
  */
+@Deprecated
 public class KOS_PufferfishGui {
     private final Kryptonite plugin;
     private final CommandSender user;

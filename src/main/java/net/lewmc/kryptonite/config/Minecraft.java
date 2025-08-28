@@ -60,7 +60,7 @@ public class Minecraft extends ConfigCollection {
                 List.of("The distance mobs will be simulated."),
                 1,
                 50,
-                "5 - "+values.get("view-distance").getCurrentValue(),
+                "5 - "+values.get("view-distance").getValue(),
                 plugin
         ));
 

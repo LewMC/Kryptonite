@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The Purpur class manages the purpur.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class Purpur {
     private final Kryptonite plugin;
     private final CommandSender user;

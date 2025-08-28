@@ -15,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Leaf GUI
+ * @deprecated
  */
+@Deprecated
 public class KOS_LeafGui {
     private final Kryptonite plugin;
     private final CommandSender user;

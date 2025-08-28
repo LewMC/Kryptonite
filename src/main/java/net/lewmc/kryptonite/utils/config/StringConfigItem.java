@@ -41,7 +41,7 @@ public class StringConfigItem extends GenericConfigItem<String> {
      * @return String - The config's current value.
      */
     @Override
-    public String getCurrentValue() {
+    public String getValue() {
         if (this.file.contains(".properties")) {
             return propFile.getProperty(key);
         } else if (this.file.contains(".yml") || file.contains(".yaml")) {
@@ -59,7 +59,7 @@ public class StringConfigItem extends GenericConfigItem<String> {
      * @param value Integer - The config's current value.
      */
     @Override
-    public void setCurrentValue(String value) {
+    public void setValue(String value) {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, value);
         } else if (file.contains(".yml") || file.contains(".yaml")) {
@@ -85,7 +85,7 @@ public class StringConfigItem extends GenericConfigItem<String> {
     @Override
     public boolean isIdeal() {
         if (idealValues == null) { return true; }
-        return idealValues.contains(this.getCurrentValue());
+        return idealValues.contains(this.getValue());
     }
 
     /**

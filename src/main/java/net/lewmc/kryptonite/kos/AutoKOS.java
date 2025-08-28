@@ -2,6 +2,7 @@ package net.lewmc.kryptonite.kos;
 
 import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.config.Minecraft;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
@@ -82,15 +83,16 @@ public class AutoKOS {
         if (this.softwareUtil.supportsMinecraft()) {
             this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
-            ServerProperties properties = new ServerProperties(this.plugin);
+            Minecraft m = new Minecraft(this.plugin);
 
-            properties.set(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD, this.patches.getString("server.network-compression-threshold"));
-            properties.set(ServerProperties.Key.SIMULATION_DISTANCE, this.patches.getString("server.distance.simulation"));
-            properties.set(ServerProperties.Key.VIEW_DISTANCE, this.patches.getString("server.distance.view"));
-            properties.set(ServerProperties.Key.SYNC_CHUNK_WRITES, this.patches.getString("server.sync-chunk-writes"));
+            m.values.get("network-compression-threshold").setValue(this.patches.getInt("server.network-compression-threshold"));
+            m.values.get("simulation-distance").setValue(this.patches.getInt("server.distance.simulation"));
+            m.values.get("view-distance").setValue(this.patches.getInt("server.distance.view"));
+            m.values.get("sync-chunk-writes").setValue(this.patches.getBoolean("server.sync-chunk-writes"));
+            m.values.get("allow-flight").setValue(this.patches.getBoolean("server.allow-flight"));
         } else {
-            this.log.info("[KOS] 2/6 - Server does not support Server Properties, skipping...");
-            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
+            this.log.info("[KOS] 1/6 - Server does not support Server Properties, skipping...");
+            this.log.warn("[KOS] 1/6 - This shouldn't happen, please contact LewMC for help at lewmc.net/help");
         }
     }
 

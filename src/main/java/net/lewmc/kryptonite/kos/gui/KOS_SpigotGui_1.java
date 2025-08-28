@@ -16,7 +16,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Spigot GUI (Page 1/2)
+ * @deprecated
  */
+@Deprecated
 public class KOS_SpigotGui_1 {
     private final Kryptonite plugin;
     private final CommandSender user;

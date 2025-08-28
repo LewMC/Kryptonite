@@ -48,7 +48,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
      * @return Double - The config's current value.
      */
     @Override
-    public Double getCurrentValue() {
+    public Double getValue() {
         if (this.file.contains(".properties")) {
             try {
                 return Double.parseDouble(propFile.getProperty(key));
@@ -74,7 +74,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
      * @param value Double - The config's current value.
      */
     @Override
-    public void setCurrentValue(Double value) {
+    public void setValue(Double value) {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
@@ -100,7 +100,7 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
     @Override
     public boolean isIdeal() {
         if (idealValue == null) { return true; }
-        Double current = this.getCurrentValue();
+        Double current = this.getValue();
         if (idealValue.contains("-")) {
             String[] parts = idealValue.split("-");
             double minIdeal = Double.parseDouble(parts[0]);

@@ -36,7 +36,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
      * @return Boolean - The config's current value.
      */
     @Override
-    public Boolean getCurrentValue() {
+    public Boolean getValue() {
         if (this.file.contains(".properties")) {
             PropertiesUtil p = new PropertiesUtil(this.file);
             return Boolean.parseBoolean(p.getProperty(key));
@@ -57,7 +57,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
      * @param value Boolean - The config's current value.
      */
     @Override
-    public void setCurrentValue(Boolean value) {
+    public void setValue(Boolean value) {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
@@ -84,7 +84,7 @@ public class BooleanConfigItem extends GenericConfigItem<Boolean> {
     @Override
     public boolean isIdeal() {
         if (idealValue == null) { return true; }
-        return getCurrentValue().equals(idealValue);
+        return getValue().equals(idealValue);
     }
 
     /**

@@ -48,7 +48,7 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
      * @return int - The config's current value.
      */
     @Override
-    public Integer getCurrentValue() {
+    public Integer getValue() {
         if (this.file.contains(".properties")) {
             try {
                 return Integer.parseInt(propFile.getProperty(key));
@@ -74,7 +74,7 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
      * @param value Integer - The config's current value.
      */
     @Override
-    public void setCurrentValue(Integer value) {
+    public void setValue(Integer value) {
         if (this.file.contains(".properties")) {
             propFile.setProperty(this.key, String.valueOf(value));
         } else if (file.contains(".yml") || file.contains(".yaml")) {
@@ -100,7 +100,7 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
     @Override
     public boolean isIdeal() {
         if (idealValue == null) { return true; }
-        int current = this.getCurrentValue();
+        int current = this.getValue();
         if (idealValue.contains("-")) {
             String[] parts = idealValue.split("-");
             int minIdeal = Integer.parseInt(parts[0].trim());
