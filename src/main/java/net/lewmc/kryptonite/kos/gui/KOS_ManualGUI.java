@@ -210,6 +210,30 @@ public class KOS_ManualGUI {
             ));
         }
 
+        if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.LEAF)) {
+            this.gui.addElement(new StaticGuiElement('g',
+                    new ItemStack(Material.OAK_LEAVES),
+                    1,
+                    click -> {
+                        click.getGui().close();
+                        KOS_LeafGui leafGui = new KOS_LeafGui(this.plugin, this.user);
+                        leafGui.show();
+                        return true;
+                    },
+                    ChatColor.BLUE + "Leaf",
+                    ChatColor.AQUA + "Manage the Leaf configuration."
+            ));
+        } else {
+            this.gui.addElement(new StaticGuiElement('f',
+                    new ItemStack(Material.BARRIER),
+                    1,
+                    click -> true,
+                    ChatColor.DARK_RED + "Leaf",
+                    ChatColor.RED + "Manage the Leaf configuration.",
+                    ChatColor.RED + "Your server does not support this."
+            ));
+        }
+
         KOS_GuiConstants consts = new KOS_GuiConstants(this.plugin, this.gui);
         consts.addConstants();
     }
