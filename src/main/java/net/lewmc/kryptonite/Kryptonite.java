@@ -21,7 +21,7 @@ public final class Kryptonite extends JavaPlugin {
 
     private Logger log;
     public enum ConfigurationOptions {
-        SERVER_PROPERTIES,
+        MINECRAFT,
         BUKKIT,
         SPIGOT,
         PAPER_WORLD,
@@ -129,7 +129,7 @@ public final class Kryptonite extends JavaPlugin {
 
         File serverProperties = new File("server.properties");
         if (serverProperties.exists()) {
-            this.SupportedConfigurations.add(ConfigurationOptions.SERVER_PROPERTIES);
+            this.SupportedConfigurations.add(ConfigurationOptions.MINECRAFT);
             supportedConfigs = supportedConfigs + "Server Properties";
         }
 

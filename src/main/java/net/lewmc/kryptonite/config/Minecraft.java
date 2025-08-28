@@ -2,6 +2,7 @@ package net.lewmc.kryptonite.config;
 
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
+import net.lewmc.kryptonite.utils.config.ConfigCollection;
 import net.lewmc.kryptonite.utils.config.GenericConfigItem;
 import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
 
@@ -11,7 +12,7 @@ import java.util.*;
  * Configuration data for server.properties
  * @since 2.1.0
  */
-public class Minecraft {
+public class Minecraft extends ConfigCollection {
     /**
      * Holds configuration data for the server.properties file.
      */

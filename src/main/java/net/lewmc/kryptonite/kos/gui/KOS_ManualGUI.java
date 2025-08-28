@@ -44,13 +44,13 @@ public class KOS_ManualGUI {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SERVER_PROPERTIES)) {
+        if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.MINECRAFT)) {
             this.gui.addElement(new StaticGuiElement('p',
                     new ItemStack(Material.COMMAND_BLOCK_MINECART),
                     1,
                     click -> {
                         click.getGui().close();
-                        new KOS_MinecraftGui(this.plugin, this.user).show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.MINECRAFT).show();
                         return true;
                     },
                     ChatColor.BLUE + "Minecraft",
@@ -212,7 +212,7 @@ public class KOS_ManualGUI {
         }
 
         if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.LEAF)) {
-            this.gui.addElement(new StaticGuiElement('g',
+            this.gui.addElement(new StaticGuiElement('l',
                     new ItemStack(Material.OAK_LEAVES),
                     1,
                     click -> {
@@ -225,7 +225,7 @@ public class KOS_ManualGUI {
                     ChatColor.AQUA + "Manage the Leaf configuration."
             ));
         } else {
-            this.gui.addElement(new StaticGuiElement('f',
+            this.gui.addElement(new StaticGuiElement('l',
                     new ItemStack(Material.BARRIER),
                     1,
                     click -> true,
@@ -247,7 +247,7 @@ public class KOS_ManualGUI {
 
         return new String[]{
                 " p b s g ",
-                "  o u f  ",
+                " o u f l ",
                 "  w x y  "
         };
     }

@@ -1,9 +1,9 @@
 package net.lewmc.kryptonite.kos;
 
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class AutoKOS {
     private final Kryptonite plugin;
-    private final LogUtil log;
+    private final Logger log;
     private final SoftwareUtil softwareUtil;
     private final MessageUtil message;
     private final CommandSender user;
@@ -27,7 +27,7 @@ public class AutoKOS {
      */
     public AutoKOS(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
-        this.log = new LogUtil(plugin);
+        this.log = new Logger(plugin.foundryConfig);
         this.softwareUtil = new SoftwareUtil(plugin);
         this.message = new MessageUtil(user);
         this.user = user;
@@ -79,7 +79,7 @@ public class AutoKOS {
     }
 
     private void runVanilla() {
-        if (this.softwareUtil.supportsServerProperties()) {
+        if (this.softwareUtil.supportsMinecraft()) {
             this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
             ServerProperties properties = new ServerProperties(this.plugin);

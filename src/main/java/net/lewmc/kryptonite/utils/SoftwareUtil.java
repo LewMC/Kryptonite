@@ -11,8 +11,8 @@ public class SoftwareUtil {
         this.plugin = plugin;
     }
 
-    public boolean supportsServerProperties() {
-        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SERVER_PROPERTIES);
+    public boolean supportsMinecraft() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.MINECRAFT);
     }
 
     public boolean supportsCraftBukkit() {
