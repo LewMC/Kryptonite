@@ -171,7 +171,6 @@ paper:
       creative: 20
   redstone-implementation: ALTERNATE_CURRENT
   hoppers:
-    disable-move-event: true
     ignore-occluding-blocks: true
   optimise-explosions: true
   find-already-discovered-loot-tables: true

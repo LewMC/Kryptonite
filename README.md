@@ -1,8 +1,9 @@
 ![Kryptonite](https://cdn.modrinth.com/data/cached_images/858d70fa091faac26ddc7b3abafcf83acafd1c5b.png)
 
 - 💾 **Download Kryptonite** - https://lewmc.net/plugin/kryptonite
-- 🔧 **View the JavaDocs** - https://lewmc.github.io/Kryptonite
 - ⭐ Enjoying Kryptonite? We'd love to hear your feedback on Spigot. Leave us a review [here](https://www.spigotmc.org/resources/kryptonite.116844/).
+
+[Maven Repository](https://repo.lewmc.net) - [Documentation](https://wiki.lewmc.net/kryptonite.html) - [JavaDocs](https://lewmc.github.io/kryptonite) - [Code Analysis](https://sonarcloud.io/project/overview?id=LewMC_Kryptonite)
 
 ## Creating a local copy.
 
