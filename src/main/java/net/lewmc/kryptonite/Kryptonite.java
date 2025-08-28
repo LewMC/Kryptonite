@@ -26,7 +26,8 @@ public final class Kryptonite extends JavaPlugin {
         PAPER_WORLD,
         PAPER_GLOBAL,
         PURPUR,
-        PUFFERFISH
+        PUFFERFISH,
+        LEAF
     }
     public List<ConfigurationOptions> SupportedConfigurations = new ArrayList<>();
     public boolean restartRequired = false;

@@ -11,18 +11,18 @@ public class MessageUtil {
     }
 
     public void Success(String message) {
-        this.cs.sendMessage(ChatColor.DARK_GREEN+"[Kryptonite] "+ChatColor.GREEN+message);
+        this.cs.sendMessage(ChatColor.DARK_GREEN+"[KR] "+ChatColor.GREEN+message);
     }
 
     public void Info(String message) {
-        this.cs.sendMessage(ChatColor.BLUE+"[Kryptonite] "+ChatColor.RESET+message);
+        this.cs.sendMessage(ChatColor.BLUE+"[KR] "+ChatColor.RESET+message);
     }
 
     public void Warning(String message) {
-        this.cs.sendMessage(ChatColor.GOLD+"[Kryptonite] "+ChatColor.YELLOW+message);
+        this.cs.sendMessage(ChatColor.GOLD+"[KR] "+ChatColor.YELLOW+message);
     }
 
     public void Error(String message) {
-        this.cs.sendMessage(ChatColor.DARK_RED+"[Kryptonite] "+ChatColor.RED+message);
+        this.cs.sendMessage(ChatColor.DARK_RED+"[KR] "+ChatColor.RED+message);
     }
 }

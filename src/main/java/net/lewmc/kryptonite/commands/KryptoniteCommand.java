@@ -1,8 +1,8 @@
 package net.lewmc.kryptonite.commands;
 
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.report.Report;
 import net.lewmc.kryptonite.utils.MessageUtil;
-import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,10 +33,45 @@ public class KryptoniteCommand implements CommandExecutor {
         MessageUtil message = new MessageUtil(commandSender);
 
         if (args.length >= 1) {
-            if (Objects.equals(args[0], "run")) {
-                message.Error("This command has moved to /kos.");
+            if (Objects.equals(args[0], "help")) {
+                message.Info("-------------- Kryptonite Help --------------");
+                message.Info("/kr - Main command.");
+                message.Info("/kr report - Run a server report");
+                message.Info("/kos - Run the Kryptonite Optimisation System");
+                message.Info("/edb check - Check your server for exploits");
+                message.Info("/edb patch - Patch your server's exploits");
+                message.Info("----------------- Page 1/1 ------------------");
+            } else if (Objects.equals(args[0], "report")) {
+                if (this.plugin.updatePending) {
+                    message.Warning("A new version of Kryptonite is available.");
+                    message.Warning("Please update Kryptonite to use reports.");
+                    message.Warning("You can download the new update from lewmc.net");
+                } else {
+                    if (args.length >= 2) {
+                        if (Objects.equals(args[1], "run")) {
+                            Report report = new Report();
+                            report.runReport(plugin, commandSender);
+                        } else {
+                            message.Error("Unknown option.");
+                            message.Info("Reports check your server for issues and analyses the results.");
+                            message.Info("This requires us to send some information about your server");
+                            message.Info("to our servers so that we can display it to you.");
+                            message.Info("The server must be able to access the internet.");
+                            message.Info("More information: .");
+                            message.Info("");
+                            message.Info("To run a report type /kr report run");
+                        }
+                    } else {
+                        message.Info("Reports check your server for issues and analyses the results.");
+                        message.Info("This requires us to send some information about your server");
+                        message.Info("to our servers so that we can display it to you.");
+                        message.Info("The server must be able to access the internet.");
+                        message.Info("");
+                        message.Info("To run a report type /kr report run");
+                    }
+                }
             } else {
-                message.Error("Unknown command. Use /kr for help.");
+                message.Error("Unknown command. Use /kr help for help.");
             }
         } else {
             message.Info("Kryptonite version "+this.plugin.getDescription().getVersion()+ " by LewMC.");
@@ -45,9 +80,7 @@ public class KryptoniteCommand implements CommandExecutor {
             message.Info("");
             message.Info("Feedback: https://github.com/lewmc/Kryptonite");
             message.Info("");
-            message.Info("/kr - Main command.");
-            message.Info("/kos - Kryptonite Optimisation System.");
-            message.Info("/edb - Exploit Database.");
+            message.Info("Help: /kr help");
         }
         return true;
     }
