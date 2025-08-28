@@ -4,7 +4,7 @@ main: net.lewmc.kryptonite.Kryptonite
 author: LewMC
 description: The Kryptonite of lag.
 website: https://lewmc.net
-api-version: '1.20'
+api-version: '1.21'
 load: POSTWORLD
 commands:
   kryptonite:
@@ -18,5 +18,5 @@ commands:
   edb:
     description: Exploit Database
     usage: /<command>
-    aliases: ['exploit']
+    aliases: ['exploit','exploitdb']
 folia-supported: true

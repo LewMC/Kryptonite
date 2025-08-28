@@ -15,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Paper World GUI (Page 4/5)
+ * @deprecated
  */
+@Deprecated
 public class KOS_PaperWorld_4 {
     private final Kryptonite plugin;
     private final CommandSender user;

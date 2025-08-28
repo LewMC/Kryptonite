@@ -1,9 +1,10 @@
 package net.lewmc.kryptonite.kos;
 
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.config.MinecraftConfig;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
@@ -15,7 +16,7 @@ import java.io.File;
  */
 public class AutoKOS {
     private final Kryptonite plugin;
-    private final LogUtil log;
+    private final Logger log;
     private final SoftwareUtil softwareUtil;
     private final MessageUtil message;
     private final CommandSender user;
@@ -27,7 +28,7 @@ public class AutoKOS {
      */
     public AutoKOS(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
-        this.log = new LogUtil(plugin);
+        this.log = new Logger(plugin.foundryConfig);
         this.softwareUtil = new SoftwareUtil(plugin);
         this.message = new MessageUtil(user);
         this.user = user;
@@ -79,18 +80,19 @@ public class AutoKOS {
     }
 
     private void runVanilla() {
-        if (this.softwareUtil.supportsServerProperties()) {
+        if (this.softwareUtil.supportsMinecraft()) {
             this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
-            ServerProperties properties = new ServerProperties(this.plugin);
+            MinecraftConfig m = new MinecraftConfig(this.plugin);
 
-            properties.set(ServerProperties.Key.NETWORK_COMPRESSION_THRESHOLD, this.patches.getString("server.network-compression-threshold"));
-            properties.set(ServerProperties.Key.SIMULATION_DISTANCE, this.patches.getString("server.distance.simulation"));
-            properties.set(ServerProperties.Key.VIEW_DISTANCE, this.patches.getString("server.distance.view"));
-            properties.set(ServerProperties.Key.SYNC_CHUNK_WRITES, this.patches.getString("server.sync-chunk-writes"));
+            m.values.get("network-compression-threshold").setValue(this.patches.getInt("server.network-compression-threshold"));
+            m.values.get("simulation-distance").setValue(this.patches.getInt("server.distance.simulation"));
+            m.values.get("view-distance").setValue(this.patches.getInt("server.distance.view"));
+            m.values.get("sync-chunk-writes").setValue(this.patches.getBoolean("server.sync-chunk-writes"));
+            m.values.get("allow-flight").setValue(this.patches.getBoolean("server.allow-flight"));
         } else {
-            this.log.info("[KOS] 2/6 - Server does not support Server Properties, skipping...");
-            this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
+            this.log.info("[KOS] 1/6 - Server does not support Server Properties, skipping...");
+            this.log.warn("[KOS] 1/6 - This shouldn't happen, please contact LewMC for help at lewmc.net/help");
         }
     }
 

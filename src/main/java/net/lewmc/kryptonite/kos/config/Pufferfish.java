@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The Pufferfish class manages the pufferfish.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class Pufferfish {
     private final Kryptonite plugin;
     private final CommandSender user;

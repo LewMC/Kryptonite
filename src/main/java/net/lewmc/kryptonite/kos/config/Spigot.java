@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 
 /**
  * The Spigot class manages the spigot.yml configuration file.
+ * @deprecated
  */
+@Deprecated
 public class Spigot {
     private final Kryptonite plugin;
     private final CommandSender user;

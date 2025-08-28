@@ -1,29 +1,20 @@
 package net.lewmc.kryptonite.edb;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.edb.gui.EDB_MainGui;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.checkerframework.checker.units.qual.C;
-
-import java.io.File;
-import java.io.IOException;
 
 public class Patch {
     private final Kryptonite plugin;
     private final SoftwareUtil softwareUtil;
-    private final LogUtil log;
     private final Check check;
     private final CommandSender user;
 
     public Patch(Kryptonite plugin, CommandSender sender) {
         this.plugin = plugin;
         this.softwareUtil = new SoftwareUtil(plugin);
-        this.log = new LogUtil(plugin);
         this.check = new Check(plugin, sender);
         this.user = sender;
     }
@@ -228,7 +219,7 @@ public class Patch {
     }
 
     public boolean edb12() {
-        if (softwareUtil.supportsServerProperties()) {
+        if (softwareUtil.supportsMinecraft()) {
             PropertiesUtil propertiesUtil = new PropertiesUtil("server.properties");
             propertiesUtil.setProperty("online-mode", "true");
 

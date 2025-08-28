@@ -20,7 +20,7 @@ public class Report {
     }
 
     private void runKOSReport() {
-        if (this.softwareUtil.supportsServerProperties()) {
+        if (this.softwareUtil.supportsMinecraft()) {
             message.Info("Reporting [1/7] Gathering server configuration.");
         } else {
             message.Info("Reporting [1/7] Server not supported, skipping...");

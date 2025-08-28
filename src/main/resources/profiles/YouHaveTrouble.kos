@@ -19,6 +19,7 @@ server:
     view: 8
     simulation: 4
   sync-chunk-writes: false
+  allow-flight: true
 
 # CraftBukkit Settings
 craftbukkit:

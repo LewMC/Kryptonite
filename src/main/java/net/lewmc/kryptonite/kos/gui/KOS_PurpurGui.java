@@ -15,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Purpur GUI
+ * @deprecated
  */
+@Deprecated
 public class KOS_PurpurGui {
     private final Kryptonite plugin;
     private final CommandSender user;

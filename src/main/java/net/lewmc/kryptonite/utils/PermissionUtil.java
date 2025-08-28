@@ -6,6 +6,10 @@ import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class PermissionUtil {
     public boolean isOperator(CommandSender commandSender) {
         if (commandSender instanceof Player) {

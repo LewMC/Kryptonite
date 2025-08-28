@@ -4,7 +4,6 @@ import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.ServerProperties;
 import net.lewmc.kryptonite.kos.config.Spigot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * KOS Spigot GUI (Page 2/2)
+ * @deprecated
  */
+@Deprecated
 public class KOS_SpigotGui_2 {
     private final Kryptonite plugin;
     private final CommandSender user;

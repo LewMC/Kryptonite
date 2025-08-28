@@ -13,11 +13,11 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Objects;
-
 /**
  * KOS Bukkit GUI
+ * @deprecated
  */
+@Deprecated
 public class KOS_BukkitGui {
     private final Kryptonite plugin;
     private final CommandSender user;

@@ -14,10 +14,13 @@ import java.nio.file.StandardOpenOption;
 
 /**
  * LogUtil manages logging of information.
+ * @deprecated
  */
+@Deprecated
 public class LogUtil {
     private final Kryptonite plugin;
 
+    @Deprecated
     private enum Type {
         LOG_INFO {
             @Override public String toString() { return "INFO"; }
@@ -33,7 +36,9 @@ public class LogUtil {
     /**
      * Constructor for the LogUtil class.
      * @param plugin Kryptonite - Reference to the main plugin class.
+     * @deprecated
      */
+    @Deprecated
     public LogUtil(Kryptonite plugin) {
         this.plugin = plugin;
     }
@@ -41,7 +46,9 @@ public class LogUtil {
     /**
      * Logs informational messages if verbose mode is on.
      * @param message String - The message to log.
+     * @deprecated
      */
+    @Deprecated
     public void veboseInfo(String message) {
         message = "[Kryptonite] " + message;
 
@@ -55,7 +62,9 @@ public class LogUtil {
     /**
      * Logs informational messages.
      * @param message String - The message to log.
+     * @deprecated
      */
+    @Deprecated
     public void info(String message) {
         message = "[Kryptonite] " + message;
 
@@ -65,7 +74,9 @@ public class LogUtil {
     /**
      * Logs warning messages.
      * @param message String - The message to log.
+     * @deprecated
      */
+    @Deprecated
     public void warn(String message) {
         message = "[Kryptonite] " + message;
 
@@ -75,7 +86,9 @@ public class LogUtil {
     /**
      * Logs severe messages.
      * @param message String - The message to log.
+     * @deprecated
      */
+    @Deprecated
     public void severe(String message) {
         message = "[Kryptonite] " + message;
 
@@ -86,7 +99,9 @@ public class LogUtil {
      * Logs informational messages.
      * @param type Type - The type of message to log.
      * @param message String - The message to log.
+     * @deprecated
      */
+    @Deprecated
     private void logToFile(Type type, final String message) {
         if (this.plugin.getConfig().getBoolean("logfile")) {
             FoliaLib foliaLib = new FoliaLib(this.plugin);
