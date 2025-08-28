@@ -2,7 +2,7 @@ package net.lewmc.kryptonite.kos;
 
 import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.config.Minecraft;
+import net.lewmc.kryptonite.config.MinecraftConfig;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
@@ -83,7 +83,7 @@ public class AutoKOS {
         if (this.softwareUtil.supportsMinecraft()) {
             this.log.info("[KOS] 1/6 - Running Vanilla optimisations");
 
-            Minecraft m = new Minecraft(this.plugin);
+            MinecraftConfig m = new MinecraftConfig(this.plugin);
 
             m.values.get("network-compression-threshold").setValue(this.patches.getInt("server.network-compression-threshold"));
             m.values.get("simulation-distance").setValue(this.patches.getInt("server.distance.simulation"));

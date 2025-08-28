@@ -12,7 +12,7 @@ import java.util.*;
  * Configuration data for server.properties
  * @since 2.1.0
  */
-public class Minecraft extends ConfigCollection {
+public class MinecraftConfig extends ConfigCollection {
     /**
      * Holds configuration data for the server.properties file.
      */
@@ -22,7 +22,7 @@ public class Minecraft extends ConfigCollection {
      * Constructs the server.properties data.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public Minecraft(Kryptonite plugin) {
+    public MinecraftConfig(Kryptonite plugin) {
         String file = "server.properties";
 
         values.put("network-compression-threshold", new IntegerConfigItem(
@@ -42,10 +42,10 @@ public class Minecraft extends ConfigCollection {
                 file,
                 "view-distance",
                 "View Distance",
-                List.of("The distance players can see. Using client",
-                        "mods such a Distant Horizons or Bobby allow",
-                        "players to see further without any",
-                        "performance hits for the server."
+                List.of("The distance players can see. Using client mods",
+                        "such as Distant Horizons or Bobby allow players",
+                        "to see further without any performance impact",
+                        "for the server."
                 ),
                 1,
                 50,
@@ -79,10 +79,10 @@ public class Minecraft extends ConfigCollection {
                 file,
                 "allow-flight",
                 "Allow Flight",
-                List.of("This prevents players from getting kicked by",
-                        "the server for 'flying' while riding a horse",
-                        "or climbing on scaffolding. Doesn't actually",
-                        "allow players to fly."
+                List.of("This prevents players from getting kicked by the",
+                        "server for 'flying' while riding a horse or",
+                        "climbing on scaffolding. Doesn't actually allow",
+                        "players to fly."
                 ),
                 null,
                 plugin

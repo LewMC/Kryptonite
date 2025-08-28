@@ -217,8 +217,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_LeafGui leafGui = new KOS_LeafGui(this.plugin, this.user);
-                        leafGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.LEAF).show();
                         return true;
                     },
                     ChatColor.BLUE + "Leaf",

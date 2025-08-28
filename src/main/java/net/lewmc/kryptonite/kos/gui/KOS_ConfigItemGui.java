@@ -4,11 +4,9 @@ import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.config.Minecraft;
-import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
-import net.lewmc.kryptonite.utils.config.ConfigCollection;
-import net.lewmc.kryptonite.utils.config.GenericConfigItem;
-import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
+import net.lewmc.kryptonite.config.LeafConfig;
+import net.lewmc.kryptonite.config.MinecraftConfig;
+import net.lewmc.kryptonite.utils.config.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -42,7 +40,9 @@ public class KOS_ConfigItemGui {
         this.user = user;
 
         if (type == Kryptonite.ConfigurationOptions.MINECRAFT) {
-            this.config = new Minecraft(plugin);
+            this.config = new MinecraftConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.LEAF) {
+            this.config = new LeafConfig(plugin);
         } else {
             this.config = null;
         }
@@ -107,7 +107,7 @@ public class KOS_ConfigItemGui {
 
         if (config.isValid()) {
             meta.setDisplayName(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + config.getName());
-            lore.add(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + String.valueOf(config.getCurrentValue()));
+            lore.add(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + String.valueOf(config.getValue()));
             if (config.getDescription() != null) {
                 lore.addAll(config.getDescription().stream()
                         .map(line -> ((ideal) ? ChatColor.GREEN : ChatColor.RED) + line)
@@ -115,7 +115,7 @@ public class KOS_ConfigItemGui {
             }
         } else {
             meta.setDisplayName(ChatColor.DARK_GRAY + config.getName());
-            lore.add(ChatColor.GRAY + String.valueOf(config.getCurrentValue()));
+            lore.add(ChatColor.GRAY + String.valueOf(config.getValue()));
             if (config.getDescription() != null) {
                 lore.addAll(config.getDescription().stream()
                         .map(line -> ChatColor.GRAY + line)
@@ -136,19 +136,51 @@ public class KOS_ConfigItemGui {
         click.getGui().close();
 
         if (config instanceof BooleanConfigItem boolItem) {
-            boolItem.setCurrentValue(!boolItem.getCurrentValue());
-        } else if (config instanceof IntegerConfigItem intItem) {
-            int current = intItem.getCurrentValue();
-            if (click.getType() == ClickType.RIGHT) {
-                intItem.setCurrentValue(current + 1);
-            } else if (click.getType() == ClickType.SHIFT_RIGHT) {
-                intItem.setCurrentValue(current + 10);
-            } else if (click.getType() == ClickType.LEFT && current != 0) {
-                intItem.setCurrentValue(current - 1);
-            } else if (click.getType() == ClickType.SHIFT_LEFT && current >= 10) {
-                intItem.setCurrentValue(current - 10);
+            if (boolItem.willBeValid(!boolItem.getValue())) {
+                boolItem.setValue(!boolItem.getValue());
             }
+        } else if (config instanceof IntegerConfigItem intItem) {
+            int current = intItem.getValue();
+            if (click.getType() == ClickType.RIGHT) {
+                if (intItem.willBeValid(intItem.getValue() + 1)) {
+                    intItem.setValue(current + 1);
+                }
+            } else if (click.getType() == ClickType.SHIFT_RIGHT) {
+                if (intItem.willBeValid(intItem.getValue() + 10)) {
+                    intItem.setValue(current + 10);
+                }
+            } else if (click.getType() == ClickType.LEFT) {
+                if (intItem.willBeValid(intItem.getValue() - 1)) {
+                    intItem.setValue(current - 1);
+                }
+            } else if (click.getType() == ClickType.SHIFT_LEFT) {
+                if (intItem.willBeValid(intItem.getValue() - 10)) {
+                    intItem.setValue(current - 10);
+                }
+            }
+        } else if (config instanceof DoubleConfigItem doubleItem) {
+            Double current = doubleItem.getValue();
+            if (click.getType() == ClickType.RIGHT) {
+                if (doubleItem.willBeValid(doubleItem.getValue() + 1.0)) {
+                    doubleItem.setValue(current + 1.0);
+                }
+            } else if (click.getType() == ClickType.SHIFT_RIGHT) {
+                if (doubleItem.willBeValid(doubleItem.getValue() + 10.0)) {
+                    doubleItem.setValue(current + 10.0);
+                }
+            } else if (click.getType() == ClickType.LEFT) {
+                if (doubleItem.willBeValid(doubleItem.getValue() - 1.0)) {
+                    doubleItem.setValue(current - 1.0);
+                }
+            } else if (click.getType() == ClickType.SHIFT_LEFT) {
+                if (doubleItem.willBeValid(doubleItem.getValue() - 10.0)) {
+                    doubleItem.setValue(current - 10.0);
+                }
+            }
+        } else if (config instanceof StringConfigItem stringItem) {
+            // TODO: Implement strings.
         }
+
         this.show();
     }
 
