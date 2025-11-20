@@ -51,6 +51,10 @@
                                     <pattern>net.lewmc.foundry</pattern>
                                     <shadedPattern>net.lewmc.kryptonite.lib.foundry</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>net.lewmc.kryptonite.lib.bstats</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>

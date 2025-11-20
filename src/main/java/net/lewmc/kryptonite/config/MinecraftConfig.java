@@ -3,7 +3,6 @@ package net.lewmc.kryptonite.config;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
 import net.lewmc.kryptonite.utils.config.ConfigCollection;
-import net.lewmc.kryptonite.utils.config.GenericConfigItem;
 import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
 
 import java.util.*;
@@ -13,11 +12,6 @@ import java.util.*;
  * @since 2.1.0
  */
 public class MinecraftConfig extends ConfigCollection {
-    /**
-     * Holds configuration data for the server.properties file.
-     */
-    public HashMap<String, GenericConfigItem> values = new HashMap<>();
-
     /**
      * Constructs the server.properties data.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.

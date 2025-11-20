@@ -12,11 +12,11 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -52,8 +52,7 @@ public class KOS_ConfigItemGui {
      * Shows the KOS Server Properties GUI
      */
     public void show() {
-        InventoryHolder holder = this.user.getServer().getPlayer(this.user.getName());
-        this.gui = new InventoryGui(this.plugin, holder, "KOS - Server Configuration", this.getElements());
+        this.gui = new InventoryGui(this.plugin, (Player) this.user, "KOS - Server Configuration", this.getElements());
         this.addElements();
 
         this.gui.build();
@@ -69,6 +68,7 @@ public class KOS_ConfigItemGui {
             for (Map.Entry<String, GenericConfigItem> entry : this.config.values.entrySet()) {
                 GenericConfigItem<?> config = entry.getValue();
                 char id = (char) ('a' + index);
+                plugin.getLogger().info("Adding config element: id=" + id + " index=" + index + " name=" + config.getName());
 
                 ItemStack display = buildDisplayItem(config);
 
@@ -91,13 +91,10 @@ public class KOS_ConfigItemGui {
     }
 
     private ItemStack buildDisplayItem(GenericConfigItem<?> config) {
-        boolean ideal = config.isIdeal();
-        boolean dependencyIsEnabled = config.dependencyIsEnabled();
-
         Material material;
 
         if (config.isValid()) {
-            material = (ideal) ? Material.LIME_CONCRETE : Material.RED_CONCRETE;
+            material = (config.isIdeal()) ? Material.LIME_CONCRETE : Material.RED_CONCRETE;
         } else {
             material = Material.BLACK_CONCRETE;
         }
@@ -108,11 +105,11 @@ public class KOS_ConfigItemGui {
 
         String idealValue = config.getIdealValue();
         if (config.isValid()) {
-            meta.setDisplayName(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + config.getName());
-            lore.add(((ideal) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + String.valueOf(config.getValue()));
+            meta.setDisplayName(((config.isIdeal()) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + config.getName());
+            lore.add(((config.isIdeal()) ? ChatColor.DARK_GREEN : ChatColor.DARK_RED) + String.valueOf(config.getValue()));
             if (config.getDescription() != null) {
                 lore.addAll(config.getDescription().stream()
-                        .map(line -> ((ideal) ? ChatColor.GREEN : ChatColor.RED) + line)
+                        .map(line -> ((config.isIdeal()) ? ChatColor.GREEN : ChatColor.RED) + line)
                         .toList());
             }
             lore.add(ChatColor.WHITE + "Ideal value: " + ((idealValue != null) ? idealValue : "Any"));
@@ -200,8 +197,7 @@ public class KOS_ConfigItemGui {
      */
     private String[] getElements() {
         if (this.config != null && this.config.values != null) {
-            int size = this.config.values.size();
-            int rows = (int) Math.ceil(size / 9.0);
+            int rows = (int) Math.ceil(this.config.values.size() / 9.0);
 
             // +1 row for the constant footer row
             String[] layout = new String[rows + 1];
@@ -209,7 +205,7 @@ public class KOS_ConfigItemGui {
             int index = 0;
             for (int r = 0; r < rows; r++) {
                 StringBuilder row = new StringBuilder("         ");
-                for (int c = 0; c < 9 && index < size; c++) {
+                for (int c = 0; c < 9 && index < this.config.values.size(); c++) {
                     char id = (char) ('a' + index);
                     row.setCharAt(c, id);
                     index++;
@@ -218,9 +214,14 @@ public class KOS_ConfigItemGui {
             }
 
             layout[rows] = "  t u v  ";
+            this.plugin.getLogger().info(Arrays.toString(layout));
+            for (int r = 0; r < layout.length; r++) {
+                plugin.getLogger().info("Layout row " + r + ": '" + layout[r] + "'");
+            }
 
             return layout;
         } else {
+            this.plugin.getLogger().severe("Unable to return elements: config is null.");
             return new String[] {"","","  t u v  "};
         }
     }

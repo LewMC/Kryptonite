@@ -5,7 +5,6 @@ import net.lewmc.kryptonite.utils.config.*;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,11 +12,6 @@ import java.util.List;
  * @since 2.1.0
  */
 public class LeafConfig extends ConfigCollection {
-    /**
-     * Holds configuration data for the leaf-global.yml file.
-     */
-    public HashMap<String, GenericConfigItem> values = new HashMap<>();
-
     /**
      * Constructs the leaf-global.yml data.
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
@@ -281,5 +275,7 @@ public class LeafConfig extends ConfigCollection {
                 true,
                 plugin
         ));
+
+        plugin.getLogger().info("LeafConfig values size = " + values.size());
     }
 }
