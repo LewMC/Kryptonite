@@ -19,9 +19,9 @@ public class MinecraftConfig extends ConfigCollection {
     public MinecraftConfig(Kryptonite plugin) {
         String file = "server.properties";
 
-        values.put("network-compression-threshold", new IntegerConfigItem(
+        values.put(Key.NETWORK_COMPRESSION_THRESHOLD.toString(), new IntegerConfigItem(
                 file,
-                "network-compression-threshold",
+                Key.NETWORK_COMPRESSION_THRESHOLD.toString(),
                 "Network Compression Threshold",
                 List.of(
                         "The cap for the size of a packet before the",
@@ -33,9 +33,9 @@ public class MinecraftConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("view-distance", new IntegerConfigItem(
+        values.put(Key.VIEW_DISTANCE.toString(), new IntegerConfigItem(
                 file,
-                "view-distance",
+                Key.VIEW_DISTANCE.toString(),
                 "View Distance",
                 List.of("The distance players can see. Using client mods",
                         "such as Distant Horizons or Bobby allow players",
@@ -49,9 +49,9 @@ public class MinecraftConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("simulation-distance", new IntegerConfigItem(
+        values.put(Key.SIMULATION_DISTANCE.toString(), new IntegerConfigItem(
                 file,
-                "simulation-distance",
+                Key.SIMULATION_DISTANCE.toString(),
                 "Simulation Distance",
                 List.of("The distance mobs will be simulated."),
                 true,
@@ -61,9 +61,9 @@ public class MinecraftConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("sync-chunk-writes", new BooleanConfigItem(
+        values.put(Key.SYNC_CHUNK_WRITES.toString(), new BooleanConfigItem(
                 file,
-                "sync-chunk-writes",
+                Key.SYNC_CHUNK_WRITES.toString(),
                 "Sync Chunk Writes",
                 List.of("Forces the server to write chunks on the main",
                         "thread which impacts performance."
@@ -73,9 +73,9 @@ public class MinecraftConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("allow-flight", new BooleanConfigItem(
+        values.put(Key.ALLOW_FLIGHT.toString(), new BooleanConfigItem(
                 file,
-                "allow-flight",
+                Key.ALLOW_FLIGHT.toString(),
                 "Allow Flight",
                 List.of("This prevents players from getting kicked by the",
                         "server for 'flying' while riding a horse or",
@@ -86,5 +86,31 @@ public class MinecraftConfig extends ConfigCollection {
                 null,
                 plugin
         ));
+    }
+
+    /**
+     * Configuration values supported by this format.
+     */
+    public enum Key {
+        NETWORK_COMPRESSION_THRESHOLD {
+            @Override
+            public String toString() { return "network-compression-threshold";}
+        },
+        VIEW_DISTANCE {
+            @Override
+            public String toString() { return "view-distance";}
+        },
+        SIMULATION_DISTANCE {
+            @Override
+            public String toString() { return "simulation-distance";}
+        },
+        SYNC_CHUNK_WRITES {
+            @Override
+            public String toString() { return "sync-chunk-writes";}
+        },
+        ALLOW_FLIGHT {
+            @Override
+            public String toString() { return "allow-flight";}
+        }
     }
 }

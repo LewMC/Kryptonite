@@ -38,7 +38,7 @@ public class KOS_PaperWorld_3 {
         this.paperWorld = new PaperWorld(plugin, user);
 
         SoftwareUtil sw = new SoftwareUtil(this.plugin);
-        this.dabEnabled = sw.dabEnabled(this.user);
+        this.dabEnabled = sw.dabEnabled();
 
         this.isAltItemDespawnRateEnabled = this.paperWorld.getBoolean(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_ENABLED);
     }

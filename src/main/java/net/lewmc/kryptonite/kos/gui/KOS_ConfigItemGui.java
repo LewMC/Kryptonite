@@ -4,8 +4,7 @@ import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.config.LeafConfig;
-import net.lewmc.kryptonite.config.MinecraftConfig;
+import net.lewmc.kryptonite.config.*;
 import net.lewmc.kryptonite.utils.config.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,7 +25,8 @@ import java.util.Map;
 public class KOS_ConfigItemGui {
     private final Kryptonite plugin;
     private final CommandSender user;
-    private final ConfigCollection config;
+    private final Kryptonite.ConfigurationOptions type;
+    private ConfigCollection config;
     private InventoryGui gui;
 
     /**
@@ -38,20 +38,29 @@ public class KOS_ConfigItemGui {
     public KOS_ConfigItemGui(Kryptonite plugin, CommandSender user, Kryptonite.ConfigurationOptions type) {
         this.plugin = plugin;
         this.user = user;
-
-        if (type == Kryptonite.ConfigurationOptions.MINECRAFT) {
-            this.config = new MinecraftConfig(plugin);
-        } else if (type == Kryptonite.ConfigurationOptions.LEAF) {
-            this.config = new LeafConfig(plugin);
-        } else {
-            this.config = null;
-        }
+        this.type = type;
     }
 
     /**
      * Shows the KOS Server Properties GUI
      */
     public void show() {
+        if (type == Kryptonite.ConfigurationOptions.MINECRAFT) {
+            this.config = new MinecraftConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.BUKKIT) {
+            this.config = new BukkitConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.SPIGOT) {
+            this.config = new SpigotConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.PURPUR) {
+            this.config = new PurpurConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.PUFFERFISH) {
+            this.config = new PufferfishConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.LEAF) {
+            this.config = new LeafConfig(plugin);
+        } else {
+            this.config = null;
+        }
+
         this.gui = new InventoryGui(this.plugin, (Player) this.user, "KOS - Server Configuration", this.getElements());
         this.addElements();
 

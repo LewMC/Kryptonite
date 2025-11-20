@@ -1,6 +1,6 @@
 package net.lewmc.kryptonite.utils.config;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Configuration data template for config files.
@@ -10,5 +10,5 @@ public abstract class ConfigCollection {
     /**
      * Holds configuration data for the relevant file.
      */
-    public HashMap<String, GenericConfigItem> values = new HashMap<>();
+    public LinkedHashMap<String, GenericConfigItem> values = new LinkedHashMap<>();
 }

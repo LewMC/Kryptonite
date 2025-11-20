@@ -75,8 +75,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_BukkitGui bGui = new KOS_BukkitGui(this.plugin, this.user);
-                        bGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.BUKKIT).show();
                         return true;
                     },
                     ChatColor.BLUE + "Bukkit",
@@ -99,8 +98,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_SpigotGui_1 spigGui = new KOS_SpigotGui_1(this.plugin, this.user);
-                        spigGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.SPIGOT).show();
                         return true;
                     },
                     ChatColor.BLUE + "Spigot",
@@ -145,8 +143,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PaperWorld_1 paperWorldGui = new KOS_PaperWorld_1(this.plugin, this.user);
-                        paperWorldGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PAPER_WORLD).show();
                         return true;
                     },
                     ChatColor.BLUE + "Paper World",
@@ -169,8 +166,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PurpurGui purpurGui = new KOS_PurpurGui(this.plugin, this.user);
-                        purpurGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PURPUR).show();
                         return true;
                     },
                     ChatColor.BLUE + "Purpur",
@@ -193,8 +189,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PufferfishGui pufferfishGui = new KOS_PufferfishGui(this.plugin, this.user);
-                        pufferfishGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PUFFERFISH).show();
                         return true;
                     },
                     ChatColor.BLUE + "Pufferfish",

@@ -2,11 +2,16 @@ package net.lewmc.kryptonite.kos;
 
 import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
+import net.lewmc.kryptonite.config.BukkitConfig;
 import net.lewmc.kryptonite.config.MinecraftConfig;
+import net.lewmc.kryptonite.config.PufferfishConfig;
+import net.lewmc.kryptonite.config.PurpurConfig;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
+import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
+import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -85,11 +90,11 @@ public class AutoKOS {
 
             MinecraftConfig m = new MinecraftConfig(this.plugin);
 
-            m.values.get("network-compression-threshold").setValue(this.patches.getInt("server.network-compression-threshold"));
-            m.values.get("simulation-distance").setValue(this.patches.getInt("server.distance.simulation"));
-            m.values.get("view-distance").setValue(this.patches.getInt("server.distance.view"));
-            m.values.get("sync-chunk-writes").setValue(this.patches.getBoolean("server.sync-chunk-writes"));
-            m.values.get("allow-flight").setValue(this.patches.getBoolean("server.allow-flight"));
+            ((IntegerConfigItem)m.values.get(MinecraftConfig.Key.NETWORK_COMPRESSION_THRESHOLD.toString())).setValue(this.patches.getInt("server.network-compression-threshold"));
+            ((IntegerConfigItem)m.values.get(MinecraftConfig.Key.SIMULATION_DISTANCE.toString())).setValue(this.patches.getInt("server.distance.simulation"));
+            ((IntegerConfigItem)m.values.get(MinecraftConfig.Key.VIEW_DISTANCE.toString())).setValue(this.patches.getInt("server.distance.view"));
+            ((BooleanConfigItem)m.values.get(MinecraftConfig.Key.SYNC_CHUNK_WRITES.toString())).setValue(this.patches.getBoolean("server.sync-chunk-writes"));
+            ((BooleanConfigItem)m.values.get(MinecraftConfig.Key.ALLOW_FLIGHT.toString())).setValue(this.patches.getBoolean("server.allow-flight"));
         } else {
             this.log.info("[KOS] 1/6 - Server does not support Server Properties, skipping...");
             this.log.warn("[KOS] 1/6 - This shouldn't happen, please contact LewMC for help at lewmc.net/help");
@@ -100,25 +105,24 @@ public class AutoKOS {
         if (this.softwareUtil.supportsCraftBukkit()) {
             this.log.info("[KOS] 2/6 - Running CraftBukkit optimisations");
 
-            Bukkit bukkit = new Bukkit(this.plugin, user);
+            BukkitConfig bukkit = new BukkitConfig(this.plugin);
 
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_MONSTERS, this.patches.getInt("craftbukkit.spawn-limits.monsters"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_ANIMALS, this.patches.getInt("craftbukkit.spawn-limits.animals"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_WATER_ANIMALS, this.patches.getInt("craftbukkit.spawn-limits.water.animals"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_WATER_AMBIENT, this.patches.getInt("craftbukkit.spawn-limits.water.ambient"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_WATER_UNDERGROUND_CREATURE, this.patches.getInt("craftbukkit.spawn-limits.water.underground.creature"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_AXOLOTLS, this.patches.getInt("craftbukkit.spawn-limits.axolotls"));
-            bukkit.setInt(Bukkit.Key.SPAWN_LIMITS_AMBIENT, this.patches.getInt("craftbukkit.spawn-limits.ambient"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_MONSTERS.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.monsters"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_ANIMALS.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.animals"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_WATER_AMBIENT.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.water.ambient"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_WATER_UNDERGROUND_CREATURE.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.water.underground.creature"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_AXOLOTLS.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.axolotls"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.SPAWN_LIMITS_AMBIENT.toString())).setValue(this.patches.getInt("craftbukkit.spawn-limits.ambient"));
 
-            bukkit.setInt(Bukkit.Key.TICKS_PER_MONSTER_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.monsters"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_ANIMAL_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.animals"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_WATER_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.water.animals"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_WATER_AMBIENT_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.water.ambient"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_WATER_UNDERGROUND_CREATURE_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.water.underground-creature"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_AXOLOTL_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.axolotls"));
-            bukkit.setInt(Bukkit.Key.TICKS_PER_AMBIENT_SPAWNS, this.patches.getInt("craftbukkit.ticks-per.ambient"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_MONSTER_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.monsters"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_ANIMAL_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.animals"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_WATER_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.water.animals"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_WATER_AMBIENT_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.water.ambient"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_WATER_UNDERGROUND_CREATURE_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.water.underground-creature"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_AXOLOTL_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.axolotls"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.TICKS_PER_AMBIENT_SPAWNS.toString())).setValue(this.patches.getInt("craftbukkit.ticks-per.ambient"));
 
-            bukkit.setInt(Bukkit.Key.CHUNK_GC_PERIOD_IN_TICKS, this.patches.getInt("craftbukkit.chunk-gc-period-in-ticks"));
+            ((IntegerConfigItem)bukkit.values.get(BukkitConfig.Key.CHUNK_GC_PERIOD_IN_TICKS.toString())).setValue(this.patches.getInt("craftbukkit.chunk-gc-period-in-ticks"));
         } else {
             this.log.info("[KOS] 2/6 - Server does not support CraftBukkit configurations, skipping...");
             this.log.warn("[KOS] 2/6 - This shouldn't happen, please open an issue at github.com/lewmc/kryptonite");
@@ -295,37 +299,36 @@ public class AutoKOS {
         if (this.softwareUtil.supportsPurpur()) {
             this.log.info("[KOS] 5/6 - Running Purpur optimisations");
 
-            Purpur purpur = new Purpur(this.plugin, this.user);
+            PurpurConfig purpur = new PurpurConfig(this.plugin);
             if (this.plugin.getConfig().getBoolean("kos.using-tcpshield")) {
                 this.log.info("[KOS] 5/6 - You're using TCPShield, disabling use-alternative-keepalive.");
-                purpur.setBoolean(Purpur.Key.USE_ALTERNATE_KEEPALIVE, false);
+                ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.USE_ALTERNATE_KEEPALIVE.toString())).setValue(false);
             } else {
-                purpur.setBoolean(Purpur.Key.USE_ALTERNATE_KEEPALIVE, this.patches.getBoolean("purpur.use-alternative-keepalive"));
+                ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.USE_ALTERNATE_KEEPALIVE.toString())).setValue(this.patches.getBoolean("purpur.use-alternative-keepalive"));
             }
 
-            purpur.setBoolean(Purpur.Key.ZOMBIE_AGGRESSIVE_TOWARDS_VILLAGER_WHEN_LAGGING, this.patches.getBoolean("purpur.entities.zombie.aggressive-towards-villager-when-lagging"));
-            purpur.setBoolean(Purpur.Key.ENTITIES_CAN_USE_PORTALS, this.patches.getBoolean("purpur.entities.all.can-use-portals"));
-            purpur.setBoolean(Purpur.Key.VILLAGER_IS_LOBOTOMIZED, this.patches.getBoolean("purpur.entities.villager.lobotomized"));
-            purpur.setInt(Purpur.Key.VILLAGER_SEARCH_RADIUS_ACQUIRE_POI, this.patches.getInt("purpur.entities.villager.search-radius.acquire-poi"));
-            purpur.setInt(Purpur.Key.VILLAGER_SEARCH_RADIUS_NEAREST_BED_SENSOR, this.patches.getInt("purpur.entities.villager.search-radius.nearest-bed-sensor"));
+            ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.ZOMBIE_AGGRESSIVE_TOWARDS_VILLAGER_WHEN_LAGGING.toString())).setValue(this.patches.getBoolean("purpur.entities.zombie.aggressive-towards-villager-when-lagging"));
+            ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.ENTITIES_CAN_USE_PORTALS.toString())).setValue(this.patches.getBoolean("purpur.entities.all.can-use-portals"));
+            ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.VILLAGER_IS_LOBOTOMIZED.toString())).setValue(this.patches.getBoolean("purpur.entities.villager.lobotomized"));
+            ((IntegerConfigItem)purpur.values.get(PurpurConfig.Key.VILLAGER_SEARCH_RADIUS_ACQUIRE_POI.toString())).setValue(this.patches.getInt("purpur.entities.villager.search-radius.acquire-poi"));
+            ((IntegerConfigItem)purpur.values.get(PurpurConfig.Key.VILLAGER_SEARCH_RADIUS_NEAREST_BED_SENSOR.toString())).setValue(this.patches.getInt("purpur.entities.villager.search-radius.nearest-bed-sensor"));
 
             if (pregeneratedWorld) {
                 this.log.info("[KOS][4/6] World is pregenerated, enabling dolphin treasure searching...");
-                purpur.setBoolean(Purpur.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING, false);
+                ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING.toString())).setValue(false);
             } else {
                 if (this.plugin.getConfig().getBoolean("kos.override-pregenerated-world-protections")) {
-                    purpur.setBoolean(Purpur.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING, false);
+                    ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING.toString())).setValue(false);
                     this.log.warn("[KOS][4/6] override-pregenerated-world-protections is TRUE, enabling dolphin treasure searching. This may cause lag.");
                 } else {
-                    purpur.setBoolean(Purpur.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING, true);
+                    ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.DOLPHIN_DISABLE_TREASURE_SEARCHING.toString())).setValue(true);
                     this.log.info("[KOS][4/6] World not pregenerated, disabling dolphin treasure searching...");
                     this.message.Warning("Dolphin treasure searching has been disabled, please pre-generate your world to re-enable this.");
                 }
             }
 
-            purpur.setBoolean(Purpur.Key.TELEPORT_IF_OUTSIDE_BORDER, this.patches.getBoolean("purpur.teleport-if-outside-worldborder"));
-            purpur.setInt(Purpur.Key.LAGGING_THRESHOLD, this.patches.getInt("purpur.lagging-tps-threshold"));
-
+            ((BooleanConfigItem)purpur.values.get(PurpurConfig.Key.TELEPORT_IF_OUTSIDE_BORDER.toString())).setValue(this.patches.getBoolean("purpur.teleport-if-outside-worldborder"));
+            ((IntegerConfigItem)purpur.values.get(PurpurConfig.Key.LAGGING_THRESHOLD.toString())).setValue(this.patches.getInt("purpur.lagging-tps-threshold"));
         } else {
             this.log.info("[KOS] 5/6 - Server does not support Purpur configurations, skipping...");
         }
@@ -334,16 +337,16 @@ public class AutoKOS {
     private void runPufferfish() {
         if (this.softwareUtil.supportsPufferfish()) {
             this.log.info("[KOS] 6/6 - Running Pufferfish optimisations");
-            Pufferfish pufferfish = new Pufferfish(this.plugin, this.user);
+            PufferfishConfig pufferfish = new PufferfishConfig(this.plugin);
 
-            pufferfish.setInt(Pufferfish.Key.MAX_LOADS_PER_PROJECTILE, this.patches.getInt("pufferfish.max-loads-per-projectile"));
-            pufferfish.setBoolean(Pufferfish.Key.DAB_ENABLED, this.patches.getBoolean("pufferfish.entities.dynamic-activation-of-brain.enabled"));
-            pufferfish.setInt(Pufferfish.Key.DAB_MAX_TICK_FREQ, this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.max-tick-freq"));
-            pufferfish.setInt(Pufferfish.Key.DAB_ACTIVATION_DIST_MOD, this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.activation-distance-modifier"));
-            pufferfish.setBoolean(Pufferfish.Key.ENABLE_ASYNC_MOB_SPAWNING, this.patches.getBoolean("pufferfish.entities.async-mob-spawning"));
-            pufferfish.setBoolean(Pufferfish.Key.ENABLE_SUFFOCATION_OPTIMIZATION, this.patches.getBoolean("pufferfish.entities.suffocation-optimisation"));
-            pufferfish.setBoolean(Pufferfish.Key.INACTIVE_GOAL_SELECTOR_THROTTLE, this.patches.getBoolean("pufferfish.entities.inactive-goal-selector-throttle"));
-            pufferfish.setBoolean(Pufferfish.Key.DISABLE_METHOD_PROFILER, this.patches.getBoolean("pufferfish.disable-method-profiler"));
+            ((IntegerConfigItem)pufferfish.values.get(PufferfishConfig.Key.MAX_LOADS_PER_PROJECTILE.toString())).setValue(this.patches.getInt("pufferfish.max-loads-per-projectile"));
+            ((BooleanConfigItem)pufferfish.values.get(PufferfishConfig.Key.DAB_ENABLED.toString())).setValue(this.patches.getBoolean("pufferfish.entities.dynamic-activation-of-brain.enabled"));
+            ((IntegerConfigItem)pufferfish.values.get(PufferfishConfig.Key.DAB_MAX_TICK_FREQ.toString())).setValue(this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.max-tick-freq"));
+            ((IntegerConfigItem)pufferfish.values.get(PufferfishConfig.Key.DAB_ACTIVATION_DIST_MOD.toString())).setValue(this.patches.getInt("pufferfish.entities.dynamic-activation-of-brain.activation-distance-modifier"));
+            ((BooleanConfigItem)pufferfish.values.get(PufferfishConfig.Key.ENABLE_ASYNC_MOB_SPAWNING.toString())).setValue(this.patches.getBoolean("pufferfish.entities.async-mob-spawning"));
+            ((BooleanConfigItem)pufferfish.values.get(PufferfishConfig.Key.ENABLE_SUFFOCATION_OPTIMIZATION.toString())).setValue(this.patches.getBoolean("pufferfish.entities.suffocation-optimisation"));
+            ((BooleanConfigItem)pufferfish.values.get(PufferfishConfig.Key.INACTIVE_GOAL_SELECTOR_THROTTLE.toString())).setValue(this.patches.getBoolean("pufferfish.entities.inactive-goal-selector-throttle"));
+            ((BooleanConfigItem)pufferfish.values.get(PufferfishConfig.Key.DISABLE_METHOD_PROFILER.toString())).setValue(this.patches.getBoolean("pufferfish.disable-method-profiler"));
         } else {
             this.log.info("[KOS] 6/6 - Server does not support Pufferfish configurations, skipping...");
         }

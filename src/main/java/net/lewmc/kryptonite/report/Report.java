@@ -1,20 +1,17 @@
 package net.lewmc.kryptonite.report;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.Bukkit;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
 
 public class Report {
     private Kryptonite plugin;
-    private CommandSender user;
     private MessageUtil message;
     private SoftwareUtil softwareUtil;
 
     public void runReport(Kryptonite plugin, CommandSender user) {
         this.plugin = plugin;
-        this.user = user;
         this.message = new MessageUtil(user);
         this.softwareUtil = new SoftwareUtil(this.plugin);
     }
@@ -28,10 +25,10 @@ public class Report {
 
         if (this.softwareUtil.supportsCraftBukkit()) {
             message.Info("Reporting [2/7] Gathering Bukkit configuration.");
-            Bukkit bukkit = new Bukkit(this.plugin, this.user);
-            for (Bukkit.Key item : Bukkit.Key.values()) {
+            //Bukkit bukkit = new Bukkit(this.plugin, this.user);
+            //for (Bukkit.Key item : Bukkit.Key.values()) {
 
-            }
+            //}
         } else {
             message.Info("Reporting [2/7] Bukkit not supported, skipping...");
         }

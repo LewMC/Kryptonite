@@ -4,7 +4,6 @@ import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.utils.config.*;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -254,7 +253,7 @@ public class LeafConfig extends ConfigCollection {
                         "is full (only relevant if queue-size is > 0) and a",
                         "new task is submitted"),
                 (Boolean) values.get("async.async-pathfinding.enabled").getValue(),
-                Arrays.asList("FLUSH_ALL", "CALLER_RUNS"),
+                List.of("FLUSH_ALL", "CALLER_RUNS"),
                 List.of("CALLER_RUNS"),
                 plugin
         ));
@@ -275,7 +274,5 @@ public class LeafConfig extends ConfigCollection {
                 true,
                 plugin
         ));
-
-        plugin.getLogger().info("LeafConfig values size = " + values.size());
     }
 }

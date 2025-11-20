@@ -13,6 +13,17 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+
+
+
+/*
+ * tick-rates - don't change with DAB
+ * https://shop.layten.net/how-to-optimize-your-minecraft-server/
+ */
+
+
+
+
 /**
  * KOS Paper World GUI (Page 1/5)
  * @deprecated
