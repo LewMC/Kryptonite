@@ -9,6 +9,7 @@ import net.lewmc.kryptonite.commands.OptimiseCommand;
 import net.lewmc.kryptonite.event.JoinEvent;
 import net.lewmc.kryptonite.utils.CompatablityUtil;
 import net.lewmc.kryptonite.utils.UpdateUtil;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
