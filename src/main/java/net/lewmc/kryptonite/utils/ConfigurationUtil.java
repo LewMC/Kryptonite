@@ -1,5 +1,6 @@
 package net.lewmc.kryptonite.utils;
 
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -12,7 +13,7 @@ import java.io.IOException;
  */
 public class ConfigurationUtil {
     private final MessageUtil message;
-    private final LogUtil log;
+    private final Logger log;
     private YamlConfiguration config;
     private String path;
 
@@ -23,7 +24,7 @@ public class ConfigurationUtil {
      */
     public ConfigurationUtil(Kryptonite plugin, CommandSender user) {
         this.message = new MessageUtil(user);
-        this.log = new LogUtil(plugin);
+        this.log = new Logger(plugin.foundryConfig);
     }
 
     /**

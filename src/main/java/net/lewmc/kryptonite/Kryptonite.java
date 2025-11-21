@@ -53,8 +53,7 @@ public final class Kryptonite extends JavaPlugin {
         this.log.info("Beginning startup...");
         this.log.info("");
 
-        int pluginId = 21962;
-        new Metrics(this, pluginId);
+        new Metrics(this, 21962);
 
         this.initFilesystem();
         this.loadCommands();
@@ -110,8 +109,7 @@ public final class Kryptonite extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        FoliaLib foliaLib = new FoliaLib(this);
-        foliaLib.getScheduler().cancelAllTasks();
+        new FoliaLib(this).getScheduler().cancelAllTasks();
     }
 
     /**
@@ -179,8 +177,7 @@ public final class Kryptonite extends JavaPlugin {
     }
 
     private void detectBadPlugins() {
-        CompatablityUtil compat = new CompatablityUtil(this);
-        List<String> badPlugins = new java.util.ArrayList<>(compat.badPlugins());
+        List<String> badPlugins = new java.util.ArrayList<>(new CompatablityUtil(this).badPlugins());
 
         for (String badPlugin : badPlugins) {
             this.log.severe("");

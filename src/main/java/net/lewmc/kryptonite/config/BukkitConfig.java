@@ -18,9 +18,9 @@ public class BukkitConfig extends ConfigCollection {
     public BukkitConfig(Kryptonite plugin) {
         String file = "bukkit.yml";
 
-        values.put("spawn-limits.monsters", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_MONSTERS.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.monsters",
+                Key.SPAWN_LIMITS_MONSTERS.toString(),
                 "Spawn Limit (Monsters)",
                         List.of(
                         "A limit for how many mobs should spawn in the world.",
@@ -33,9 +33,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("spawn-limits.animals", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_ANIMALS.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.animals",
+                Key.SPAWN_LIMITS_ANIMALS.toString(),
                 "Spawn Limit (Animals)",
                         List.of(
                         "A limit for how many animals should spawn in the",
@@ -48,9 +48,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("spawn-limits.water-animals", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_WATER_ANIMALS.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.water-animals",
+                Key.SPAWN_LIMITS_WATER_ANIMALS.toString(),
                 "Spawn Limit (Water Animals)",
                         List.of(
                         "A limit for how many water animals should spawn in",
@@ -63,9 +63,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("spawn-limits.water-ambient", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_WATER_AMBIENT.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.water-ambient",
+                Key.SPAWN_LIMITS_WATER_AMBIENT.toString(),
                 "Spawn Limit (Water Ambient)",
                         List.of(
                         "A limit for how many water ambient should spawn in",
@@ -78,9 +78,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("spawn-limits.water-underground-creature", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_WATER_UNDERGROUND_CREATURE.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.water-underground-creature",
+                Key.SPAWN_LIMITS_WATER_UNDERGROUND_CREATURE.toString(),
                 "Spawn Limit (Water Underground Creature)",
                         List.of(
                         "A limit for how many water underground creatures",
@@ -94,9 +94,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("spawn-limits.axolotls", new IntegerConfigItem(
+        values.put(Key.SPAWN_LIMITS_AXOLOTLS.toString(), new IntegerConfigItem(
                 file,
-                "spawn-limits.axolotls",
+                Key.SPAWN_LIMITS_AXOLOTLS.toString(),
                 "Spawn Limit (Axolotls)",
                         List.of(
                         "A limit for how many axolotls should spawn in the",
@@ -109,9 +109,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.monster-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_MONSTER_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.monster-spawns",
+                Key.TICKS_PER_MONSTER_SPAWNS.toString(),
                 "Ticks Per Monster Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -124,9 +124,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.animal-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_ANIMAL_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.animal-spawns",
+                Key.TICKS_PER_ANIMAL_SPAWNS.toString(),
                 "Ticks Per Animal Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -139,9 +139,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.water-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_WATER_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.water-spawns",
+                Key.TICKS_PER_WATER_SPAWNS.toString(),
                 "Ticks Per Water Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -155,9 +155,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.water-ambient-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_WATER_AMBIENT_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.water-ambient-spawns",
+                Key.TICKS_PER_WATER_AMBIENT_SPAWNS.toString(),
                 "Ticks Per Water Ambient Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -171,9 +171,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.axolotl-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_AXOLOTL_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.axolotl-spawns",
+                Key.TICKS_PER_AXOLOTL_SPAWNS.toString(),
                 "Ticks Per Axolotl Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -186,9 +186,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("ticks-per.ambient-spawns", new IntegerConfigItem(
+        values.put(Key.TICKS_PER_AMBIENT_SPAWNS.toString(), new IntegerConfigItem(
                 file,
-                "ticks-per.ambient-spawns",
+                Key.TICKS_PER_AMBIENT_SPAWNS.toString(),
                 "Ticks Per Ambient Spawns",
                         List.of(
                         "How often (in ticks) the server attempts to spawn",
@@ -202,9 +202,9 @@ public class BukkitConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("chunk-gc.period-in-ticks", new IntegerConfigItem(
+        values.put(Key.CHUNK_GC_PERIOD_IN_TICKS.toString(), new IntegerConfigItem(
                 file,
-                "chunk-gc.period-in-ticks",
+                Key.CHUNK_GC_PERIOD_IN_TICKS.toString(),
                 "Chunk GC Period in Ticks",
                         List.of(
                         "The ticks between each chunk garbage collection",

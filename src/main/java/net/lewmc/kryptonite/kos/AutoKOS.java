@@ -2,16 +2,14 @@ package net.lewmc.kryptonite.kos;
 
 import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.config.BukkitConfig;
-import net.lewmc.kryptonite.config.MinecraftConfig;
-import net.lewmc.kryptonite.config.PufferfishConfig;
-import net.lewmc.kryptonite.config.PurpurConfig;
+import net.lewmc.kryptonite.config.*;
 import net.lewmc.kryptonite.kos.config.*;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
 import net.lewmc.kryptonite.utils.MessageUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
 import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
+import net.lewmc.kryptonite.utils.config.StringConfigItem;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -133,26 +131,26 @@ public class AutoKOS {
         if (this.softwareUtil.supportsSpigot()) {
             this.log.info("[KOS] 3/6 - Running Spigot optimisations");
 
-            Spigot spigot = new Spigot(this.plugin, this.user);
+            SpigotConfig spigot = new SpigotConfig(this.plugin);
 
-            spigot.setString(Spigot.Key.VIEW_DISTANCE, this.patches.getString("spigot.view-distance"));
-            spigot.setInt(Spigot.Key.MOB_SPAWN_RANGE, this.patches.getInt("spigot.mob-spawn-range"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_ANIMALS, this.patches.getInt("spigot.entities.activation-range.animals"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_MONSTERS, this.patches.getInt("spigot.entities.activation-range.monsters"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_RAIDERS, this.patches.getInt("spigot.entities.activation-range.raiders"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_MISC, this.patches.getInt("spigot.entities.activation-range.misc"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_WATER, this.patches.getInt("spigot.entities.activation-range.water"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_VILLAGERS, this.patches.getInt("spigot.entities.activation-range.villagers"));
-            spigot.setInt(Spigot.Key.ENTITY_ACTIVATION_RANGE_FLYING_MONSTERS, this.patches.getInt("spigot.entities.activation-range.flying"));
-            spigot.setInt(Spigot.Key.ENTITY_TRACKING_RANGE_PLAYERS, this.patches.getInt("spigot.entities.tracking-range.players"));
-            spigot.setInt(Spigot.Key.ENTITY_TRACKING_RANGE_ANIMALS, this.patches.getInt("spigot.entities.tracking-range.animals"));
-            spigot.setInt(Spigot.Key.ENTITY_TRACKING_RANGE_MONSTERS, this.patches.getInt("spigot.entities.tracking-range.monsters"));
-            spigot.setInt(Spigot.Key.ENTITY_TRACKING_RANGE_MISC, this.patches.getInt("spigot.entities.tracking-range.misc"));
-            spigot.setInt(Spigot.Key.ENTITY_TRACKING_RANGE_OTHER, this.patches.getInt("spigot.entities.tracking-range.other"));
-            spigot.setBoolean(Spigot.Key.TICK_INACTIVE_VILLAGERS, this.patches.getBoolean("spigot.entities.tick-inactive-villagers"));
-            spigot.setBoolean(Spigot.Key.NERF_SPAWNER_MOBS, this.patches.getBoolean("spigot.entities.spawner-mobs-nerfed"));
-            spigot.setInt(Spigot.Key.TICKS_PER_HOPPER_TRANSFER, this.patches.getInt("spigot.hopper.transfer"));
-            spigot.setInt(Spigot.Key.TICKS_PER_HOPPER_CHECK, this.patches.getInt("spigot.hopper.check"));
+            ((StringConfigItem)spigot.values.get(SpigotConfig.Key.VIEW_DISTANCE.toString())).setValue(this.patches.getString("spigot.view-distance"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.MOB_SPAWN_RANGE.toString())).setValue(this.patches.getInt("spigot.mob-spawn-range"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_ANIMALS.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.animals"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_MONSTERS.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.monsters"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_RAIDERS.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.raiders"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_MISC.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.misc"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_WATER.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.water"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_VILLAGERS.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.villagers"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_ACTIVATION_RANGE_FLYING_MONSTERS.toString())).setValue(this.patches.getInt("spigot.entities.activation-range.flying"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_TRACKING_RANGE_PLAYERS.toString())).setValue(this.patches.getInt("spigot.entities.tracking-range.players"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_TRACKING_RANGE_ANIMALS.toString())).setValue(this.patches.getInt("spigot.entities.tracking-range.animals"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_TRACKING_RANGE_MONSTERS.toString())).setValue(this.patches.getInt("spigot.entities.tracking-range.monsters"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_TRACKING_RANGE_MISC.toString())).setValue(this.patches.getInt("spigot.entities.tracking-range.misc"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.ENTITY_TRACKING_RANGE_OTHER.toString())).setValue(this.patches.getInt("spigot.entities.tracking-range.other"));
+            ((BooleanConfigItem)spigot.values.get(SpigotConfig.Key.TICK_INACTIVE_VILLAGERS.toString())).setValue(this.patches.getBoolean("spigot.entities.tick-inactive-villagers"));
+            ((BooleanConfigItem)spigot.values.get(SpigotConfig.Key.NERF_SPAWNER_MOBS.toString())).setValue(this.patches.getBoolean("spigot.entities.spawner-mobs-nerfed"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.TICKS_PER_HOPPER_TRANSFER.toString())).setValue(this.patches.getInt("spigot.hopper.transfer"));
+            ((IntegerConfigItem)spigot.values.get(SpigotConfig.Key.TICKS_PER_HOPPER_CHECK.toString())).setValue(this.patches.getInt("spigot.hopper.check"));
         } else {
             log.info("[KOS] 3/6 - Server does not support Spigot configurations, skipping...");
         }

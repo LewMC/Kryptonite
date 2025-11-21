@@ -64,10 +64,6 @@ public abstract class GenericConfigItem<T> {
      * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
     public GenericConfigItem(String file, String key, String name, List<String> description, Boolean dependencyIsEnabled, Kryptonite plugin) {
-        new Logger(plugin.foundryConfig).info("--------- "+name+" ---------");
-        new Logger(plugin.foundryConfig).info("key: '"+key);
-        new Logger(plugin.foundryConfig).info("description: '"+description);
-        new Logger(plugin.foundryConfig).info("dependencyIsEnabled: '"+dependencyIsEnabled);
         this.file = file;
         this.key = key;
         this.name = name;

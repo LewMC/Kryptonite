@@ -2,10 +2,10 @@ package net.lewmc.kryptonite.kos.gui;
 
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.AutoKOS;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -50,7 +50,7 @@ public class KOS_AutoGUI {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        LogUtil log = new LogUtil(this.plugin);
+        Logger log = new Logger(this.plugin.foundryConfig);
 
         File folder = new File(this.plugin.getDataFolder(), "profiles");
 
