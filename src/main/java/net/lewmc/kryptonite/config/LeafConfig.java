@@ -18,9 +18,9 @@ public class LeafConfig extends ConfigCollection {
     public LeafConfig(Kryptonite plugin) {
         String file = "config" + File.separator + "leaf-global.yml";
 
-        values.put("async.parallel-world-ticking.enabled", new BooleanConfigItem(
+        values.put(Key.ASYNC_PARALLEL_WORLD_TICKING_ENABLED.toString(), new BooleanConfigItem(
                 file,
-                "async.parallel-world-ticking.enabled",
+                Key.ASYNC_PARALLEL_WORLD_TICKING_ENABLED.toString(),
                 "Parallel World Tracing",
                         List.of(
                         "Parallel processing different worlds in separate",
@@ -32,9 +32,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.parallel-world-ticking.threads", new IntegerConfigItem(
+        values.put(Key.ASYNC_PARALLEL_WORLD_TICKING_THREADS.toString(), new IntegerConfigItem(
                 file,
-                "async.parallel-world-ticking.threads",
+                Key.ASYNC_PARALLEL_WORLD_TICKING_THREADS.toString(),
                 "Parallel World Tracing Threads",
                 List.of("Number of threads dedicated to parallel world",
                         "ticking. Consider setting based on amount of worlds",
@@ -47,9 +47,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.parallel-world-ticking.log-container-creation-stacktraces", new BooleanConfigItem(
+        values.put(Key.ASYNC_PARALLEL_WORLD_TICKING_LOG_CONTAINER_CREATION_STACKTRACES.toString(), new BooleanConfigItem(
                 file,
-                "async.parallel-world-ticking.log-container-creation-stacktraces",
+                Key.ASYNC_PARALLEL_WORLD_TICKING_LOG_CONTAINER_CREATION_STACKTRACES.toString(),
                 "Parallel World Tracing Log Container Creation Stacktraces",
                 List.of(
                         "Log stacktraces when containers (like Tile Entities",
@@ -60,9 +60,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.parallel-world-ticking.disable-hard-throw", new BooleanConfigItem(
+        values.put(Key.ASYNC_PARALLEL_WORLD_TICKING_DISABLE_HARD_THROW.toString(), new BooleanConfigItem(
                 file,
-                "async.parallel-world-ticking.disable-hard-throw",
+                Key.ASYNC_PARALLEL_WORLD_TICKING_DISABLE_HARD_THROW.toString(),
                 "Parallel World Tracing Disable Hard Throw",
                 List.of(
                         "Disable hard throws (which usually stop the server)",
@@ -74,9 +74,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.parallel-world-ticking.run-async-tasks-sync", new BooleanConfigItem(
+        values.put(Key.ASYNC_PARALLEL_WORLD_TICKING_RUN_ASYNC_TASKS_SYNC.toString(), new BooleanConfigItem(
                 file,
-                "async.parallel-world-ticking.run-async-tasks-sync",
+                Key.ASYNC_PARALLEL_WORLD_TICKING_RUN_ASYNC_TASKS_SYNC.toString(),
                 "Parallel World Tracing Run Async Tasks Sync",
                 List.of(
                         "Run asynchronous tasks synchronously within the",
@@ -88,9 +88,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-entity-tracker.enabled", new BooleanConfigItem(
+        values.put(Key.ASYNC_ENTITY_TRACKER_ENABLED.toString(), new BooleanConfigItem(
                 file,
-                "async.async-entity-tracker.enabled",
+                Key.ASYNC_ENTITY_TRACKER_ENABLED.toString(),
                 "Async Entity Tracker",
                 List.of(
                         "Make entity tracking asynchronous, can improve",
@@ -102,9 +102,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-entity-tracker.compat-mode", new BooleanConfigItem(
+        values.put(Key.ASYNC_ENTITY_TRACKER_COMPAT_MODE.toString(), new BooleanConfigItem(
                 file,
-                "async.async-entity-tracker.compat-mode",
+                Key.ASYNC_ENTITY_TRACKER_COMPAT_MODE.toString(),
                 "Async Entity Tracker Compat Mode",
                 List.of(
                         "Enable compatibility mode for plugins like",
@@ -117,9 +117,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-entity-tracker.max-threads", new IntegerConfigItem(
+        values.put(Key.ASYNC_ENTITY_TRACKER_MAX_THREADS.toString(), new IntegerConfigItem(
                 file,
-                "async.async-entity-tracker.max-threads",
+                Key.ASYNC_ENTITY_TRACKER_MAX_THREADS.toString(),
                 "Async Entity Tracker Max Threads",
                 List.of("Maximum number of threads for the async entity",
                         "tracker to use. When set to 0, 1/4 of available",
@@ -133,9 +133,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-entity-tracker.keepalive", new IntegerConfigItem(
+        values.put(Key.ASYNC_ENTITY_TRACKER_KEEPALIVE.toString(), new IntegerConfigItem(
                 file,
-                "async.async-entity-tracker.keepalive",
+                Key.ASYNC_ENTITY_TRACKER_KEEPALIVE.toString(),
                 "Async Entity Tracker Keepalive",
                 List.of("Thread keepalive time. Threads with no tasks",
                         "will be terminated if they remain idle for",
@@ -147,9 +147,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-entity-tracker.queue-size", new IntegerConfigItem(
+        values.put(Key.ASYNC_ENTITY_TRACKER_QUEUE_SIZE.toString(), new IntegerConfigItem(
                 file,
-                "async.async-entity-tracker.queue-size",
+                Key.ASYNC_ENTITY_TRACKER_QUEUE_SIZE.toString(),
                 "Async Entity Tracker Queue Size",
                 List.of("Maximum size of the queue for pending entity",
                         "tracking tasks. If set to 0, the queue size is",
@@ -164,9 +164,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-target-finding", new BooleanConfigItem(
+        values.put(Key.ASYNC_TARGET_FINDING.toString(), new BooleanConfigItem(
                 file,
-                "async.async-target-finding",
+                Key.ASYNC_TARGET_FINDING.toString(),
                 "Async Target Finding",
                 List.of(
                         "Moves the expensive entity target search",
@@ -177,9 +177,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-playerdata-save", new BooleanConfigItem(
+        values.put(Key.ASYNC_PLAYERDATA_SAVE.toString(), new BooleanConfigItem(
                 file,
-                "async.async-playerdata-save",
+                Key.ASYNC_PLAYERDATA_SAVE.toString(),
                 "Async Playerdata Save",
                 List.of(
                         "Make playerdata saving aynchronous. Warning: might",
@@ -190,9 +190,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-pathfinding.enabled", new BooleanConfigItem(
+        values.put(Key.ASYNC_PATHFINDING_ENABLED.toString(), new BooleanConfigItem(
                 file,
-                "async.async-pathfinding.enabled",
+                Key.ASYNC_PATHFINDING_ENABLED.toString(),
                 "Async Pathfinding",
                 List.of(
                         "Make mob pathfinding calculations asynchronous."),
@@ -201,9 +201,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-pathfinding.max-threads", new IntegerConfigItem(
+        values.put(Key.ASYNC_PATHFINDING_MAX_THREADS.toString(), new IntegerConfigItem(
                 file,
-                "async.async-pathfinding.max-threads",
+                Key.ASYNC_PATHFINDING_MAX_THREADS.toString(),
                 "Async Pathfinding Max Threads",
                 List.of("Maximum number of threads for async entity",
                         "pathfinding to use. When set to 0, 1/4 of available",
@@ -217,9 +217,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-pathfinding.keepalive", new IntegerConfigItem(
+        values.put(Key.ASYNC_PATHFINDING_KEEPALIVE.toString(), new IntegerConfigItem(
                 file,
-                "async.async-pathfinding.keepalive",
+                Key.ASYNC_PATHFINDING_KEEPALIVE.toString(),
                 "Async Pathfinding Keepalive",
                 List.of("Thread keepalive time. Threads with no tasks",
                         "will be terminated if they remain idle for",
@@ -231,9 +231,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-pathfinding.queue-size", new IntegerConfigItem(
+        values.put(Key.ASYNC_PATHFINDING_QUEUE_SIZE.toString(), new IntegerConfigItem(
                 file,
-                "async.async-pathfinding.queue-size",
+                Key.ASYNC_PATHFINDING_QUEUE_SIZE.toString(),
                 "Async Entity Tracker Queue Size",
                 List.of("Maximum size of the queue for pending",
                         "pathfinding tasks. If set to 0, the queue size",
@@ -245,9 +245,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-pathfinding.reject-policy", new StringConfigItem(
+        values.put(Key.ASYNC_PATHFINDING_REJECT_POLICY.toString(), new StringConfigItem(
                 file,
-                "async.async-pathfinding.reject-policy",
+                Key.ASYNC_PATHFINDING_REJECT_POLICY.toString(),
                 "Async Entity Tracker Queue Size",
                 List.of("The policy to use when the pathfinding task queue",
                         "is full (only relevant if queue-size is > 0) and a",
@@ -258,9 +258,9 @@ public class LeafConfig extends ConfigCollection {
                 plugin
         ));
 
-        values.put("async.async-mob-spawning.enabled", new BooleanConfigItem(
+        values.put(Key.ASYNC_MOB_SPAWNING_ENABLED.toString(), new BooleanConfigItem(
                 file,
-                "async.async-mob-spawning.enabled",
+                Key.ASYNC_MOB_SPAWNING_ENABLED.toString(),
                 "Async Pathfinding",
                 List.of(
                         "Whether asynchronous mob spawning calculations should",
@@ -274,5 +274,83 @@ public class LeafConfig extends ConfigCollection {
                 true,
                 plugin
         ));
+    }
+
+    /**
+     * Configuration values supported by this format.
+     */
+    public enum Key {
+        ASYNC_PARALLEL_WORLD_TICKING_ENABLED {
+            @Override
+            public String toString() { return "async.parallel-world-ticking.enabled"; }
+        },
+        ASYNC_PARALLEL_WORLD_TICKING_THREADS {
+            @Override
+            public String toString() { return "async.parallel-world-ticking.threads"; }
+        },
+        ASYNC_PARALLEL_WORLD_TICKING_LOG_CONTAINER_CREATION_STACKTRACES {
+            @Override
+            public String toString() { return "async.parallel-world-ticking.log-container-creation-stacktraces"; }
+        },
+        ASYNC_PARALLEL_WORLD_TICKING_DISABLE_HARD_THROW {
+            @Override
+            public String toString() { return "async.parallel-world-ticking.disable-hard-throw"; }
+        },
+        ASYNC_PARALLEL_WORLD_TICKING_RUN_ASYNC_TASKS_SYNC {
+            @Override
+            public String toString() { return "async.parallel-world-ticking.run-async-tasks-sync"; }
+        },
+        ASYNC_ENTITY_TRACKER_ENABLED {
+            @Override
+            public String toString() { return "async.async-entity-tracker.enabled"; }
+        },
+        ASYNC_ENTITY_TRACKER_COMPAT_MODE {
+            @Override
+            public String toString() { return "async.async-entity-tracker.compat-mode"; }
+        },
+        ASYNC_ENTITY_TRACKER_MAX_THREADS {
+            @Override
+            public String toString() { return "async.async-entity-tracker.max-threads"; }
+        },
+        ASYNC_ENTITY_TRACKER_KEEPALIVE {
+            @Override
+            public String toString() { return "async.async-entity-tracker.keepalive"; }
+        },
+        ASYNC_ENTITY_TRACKER_QUEUE_SIZE {
+            @Override
+            public String toString() { return "async.async-entity-tracker.queue-size"; }
+        },
+        ASYNC_TARGET_FINDING {
+            @Override
+            public String toString() { return "async.async-target-finding"; }
+        },
+        ASYNC_PLAYERDATA_SAVE {
+            @Override
+            public String toString() { return "async.async-playerdata-save"; }
+        },
+        ASYNC_PATHFINDING_ENABLED {
+            @Override
+            public String toString() { return "async.async-pathfinding.enabled"; }
+        },
+        ASYNC_PATHFINDING_MAX_THREADS {
+            @Override
+            public String toString() { return "async.async-pathfinding.max-threads"; }
+        },
+        ASYNC_PATHFINDING_KEEPALIVE {
+            @Override
+            public String toString() { return "async.async-pathfinding.keepalive"; }
+        },
+        ASYNC_PATHFINDING_QUEUE_SIZE {
+            @Override
+            public String toString() { return "async.async-pathfinding.queue-size"; }
+        },
+        ASYNC_PATHFINDING_REJECT_POLICY {
+            @Override
+            public String toString() { return "async.async-pathfinding.reject-policy"; }
+        },
+        ASYNC_MOB_SPAWNING_ENABLED {
+            @Override
+            public String toString() { return "async.async-mob-spawning.enabled"; }
+        }
     }
 }
