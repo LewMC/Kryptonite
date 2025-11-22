@@ -51,6 +51,8 @@ public class KOS_ConfigItemGui {
             this.config = new BukkitConfig(plugin);
         } else if (type == Kryptonite.ConfigurationOptions.SPIGOT) {
             this.config = new SpigotConfig(plugin);
+        } else if (type == Kryptonite.ConfigurationOptions.PAPER_WORLD) {
+            this.config = new PaperWorldConfig(plugin);
         } else if (type == Kryptonite.ConfigurationOptions.PURPUR) {
             this.config = new PurpurConfig(plugin);
         } else if (type == Kryptonite.ConfigurationOptions.PUFFERFISH) {

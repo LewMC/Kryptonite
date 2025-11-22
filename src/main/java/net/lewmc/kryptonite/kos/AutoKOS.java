@@ -160,134 +160,130 @@ public class AutoKOS {
         if (this.softwareUtil.supportsPaperWorld()) {
             this.log.info("[KOS] 4/6 - Running Paper optimisations");
 
-            PaperWorld pw = new PaperWorld(this.plugin, this.user);
+            PaperWorldConfig pw = new PaperWorldConfig(this.plugin);
 
-            pw.setInt(PaperWorld.Key.DELAY_CHUNK_UNLOADS_BY, this.patches.getInt("paper.chunks.delay-unloads"));
-            pw.setInt(PaperWorld.Key.MAX_AUTOSAVE_CHUNKS_PER_TICK, this.patches.getInt("paper.chunks.max-autosave-per-tick"));
-            pw.setBoolean(PaperWorld.Key.PREVENT_MOVING_INTO_UNLOADED_CHUNKS, this.patches.getBoolean("paper.chunks.prevent-moving-into-unloaded"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.DELAY_CHUNK_UNLOADS_BY.toString())).setValue(this.patches.getInt("paper.chunks.delay-unloads"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.MAX_AUTOSAVE_CHUNKS_PER_TICK.toString())).setValue(this.patches.getInt("paper.chunks.max-autosave-per-tick"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.PREVENT_MOVING_INTO_UNLOADED_CHUNKS.toString())).setValue(this.patches.getBoolean("paper.chunks.prevent-moving-into-unloaded"));
 
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_AREA_EFFECT_CLOUD, this.patches.getInt("paper.chunks.entity-save-limit.area-effect-cloud"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ARROW, this.patches.getInt("paper.chunks.entity-save-limit.arrow"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_DRAGON_FIREBALL, this.patches.getInt("paper.chunks.entity-save-limit.dragon-fireball"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EGG, this.patches.getInt("paper.chunks.entity-save-limit.egg"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ENDER_PEARL, this.patches.getInt("paper.chunks.entity-save-limit.ender-pearl"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_BOTTLE, this.patches.getInt("paper.chunks.entity-save-limit.experience-bottle"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB, this.patches.getInt("paper.chunks.entity-save-limit.experience-orb"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER, this.patches.getInt("paper.chunks.entity-save-limit.eye-of-ender"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL, this.patches.getInt("paper.chunks.entity-save-limit.fireball"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT, this.patches.getInt("paper.chunks.entity-save-limit.llama-spit"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION, this.patches.getInt("paper.chunks.entity-save-limit.potion"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET, this.patches.getInt("paper.chunks.entity-save-limit.shulker-bullet"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL, this.patches.getInt("paper.chunks.entity-save-limit.small-fireball"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL, this.patches.getInt("paper.chunks.entity-save-limit.snowball"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW, this.patches.getInt("paper.chunks.entity-save-limit.spectral-arrow"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT, this.patches.getInt("paper.chunks.entity-save-limit.trident"));
-            pw.setInt(PaperWorld.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL, this.patches.getInt("paper.chunks.entity-save-limit.wither-skull"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_AREA_EFFECT_CLOUD.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.area-effect-cloud"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ARROW.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.arrow"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_DRAGON_FIREBALL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.dragon-fireball"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EGG.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.egg"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ENDER_PEARL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.ender-pearl"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_BOTTLE.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.experience-bottle"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.experience-orb"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.eye-of-ender"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.fireball"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.llama-spit"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.potion"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.shulker-bullet"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.small-fireball"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.snowball"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.spectral-arrow"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.trident"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL.toString())).setValue(this.patches.getInt("paper.chunks.entity-save-limit.wither-skull"));
 
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.ambient.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.ambient.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_HARD, this.patches.getString("paper.despawn-ranges.ambient.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AMBIENT_SOFT, this.patches.getString("paper.despawn-ranges.ambient.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.axolotl.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.axolotl.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_HARD, this.patches.getString("paper.despawn-ranges.axolotl.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_AXOLOTLS_SOFT, this.patches.getString("paper.despawn-ranges.axolotl.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.creature.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.creature.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.creature.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.creature.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_MISC_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.misc.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.misc.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_HARD, this.patches.getString("paper.despawn-ranges.misc.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MISC_SOFT, this.patches.getString("paper.despawn-ranges.misc.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.monster.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.monster.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_HARD, this.patches.getString("paper.despawn-ranges.monster.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_MONSTER_SOFT, this.patches.getString("paper.despawn-ranges.monster.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.underground-creature.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.underground-creature.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.water.underground-creature.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_UNDERGROUND_WATER_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.water.underground-creature.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.ambient.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.ambient.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_HARD, this.patches.getString("paper.despawn-ranges.water.ambient.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_AMBIENT_SOFT, this.patches.getString("paper.despawn-ranges.water.ambient.soft"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.creature.hard"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT.toString())).setValue(this.patches.getString("paper.despawn-ranges.water.creature.soft"));
 
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_HARD, this.patches.getString("paper.despawn-ranges.water.creature.hard"));
-            pw.setString(PaperWorld.Key.ENTITY_DESPAWN_RANGES_WATER_CREATURE_SOFT, this.patches.getString("paper.despawn-ranges.water.creature.soft"));
-
-
-            pw.setBoolean(PaperWorld.Key.PER_PLAYER_MOB_SPAWNS, this.patches.getBoolean("paper.per-player-mob-spawns"));
-            pw.setInt(PaperWorld.Key.MAX_ENTITY_COLLISIONS, this.patches.getInt("paper.max-entity-collisions"));
-            pw.setBoolean(PaperWorld.Key.UPDATE_PATHFINDING_ON_BLOCK_UPDATE, this.patches.getBoolean("paper.update-pathfinding-on-block-update"));
-            pw.setBoolean(PaperWorld.Key.FIX_CLIMBING_BYPASSING_CRAMMING_RULE, this.patches.getBoolean("paper.fix-climbing-bypass-cramming-rule"));
-            pw.setBoolean(PaperWorld.Key.ARMOR_STANDS_TICK, this.patches.getBoolean("paper.armor-stands.tick"));
-            pw.setBoolean(PaperWorld.Key.ARMOR_STANDS_DO_COLLISION_ENTITY_LOOKUPS, this.patches.getBoolean("paper.armor-stands.do-collision-entity-lookups"));
-            pw.setBoolean(PaperWorld.Key.NERFED_SPAWNER_MOBS_SHOULD_JUMP, this.patches.getBoolean("paper.nerfed-spawner-mobs-can-jump"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.PER_PLAYER_MOB_SPAWNS.toString())).setValue(this.patches.getBoolean("paper.per-player-mob-spawns"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.MAX_ENTITY_COLLISIONS.toString())).setValue(this.patches.getInt("paper.max-entity-collisions"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.UPDATE_PATHFINDING_ON_BLOCK_UPDATE.toString())).setValue(this.patches.getBoolean("paper.update-pathfinding-on-block-update"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.FIX_CLIMBING_BYPASSING_CRAMMING_RULE.toString())).setValue(this.patches.getBoolean("paper.fix-climbing-bypass-cramming-rule"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.ARMOR_STANDS_TICK.toString())).setValue(this.patches.getBoolean("paper.armor-stands.tick"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.ARMOR_STANDS_DO_COLLISION_ENTITY_LOOKUPS.toString())).setValue(this.patches.getBoolean("paper.armor-stands.do-collision-entity-lookups"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.NERFED_SPAWNER_MOBS_SHOULD_JUMP.toString())).setValue(this.patches.getBoolean("paper.nerfed-spawner-mobs-can-jump"));
 
             if (!this.softwareUtil.supportsPufferfish()) {
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_VALIDATES_NEARBY_POI, this.patches.getInt("paper.tick-rates.villager.behaviour.nearby-poi"));
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_ACQUIRE_POI, this.patches.getInt("paper.tick-rates.villager.behaviour.acquire-poi"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_VALIDATES_NEARBY_POI.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.behaviour.nearby-poi"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_ACQUIRE_POI.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.behaviour.acquire-poi"));
 
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_SENSOR_SECONDARY_POI, this.patches.getInt("paper.tick-rates.villager.sensor.secondary-poi"));
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_SENSOR_NEAREST_BED, this.patches.getInt("paper.tick-rates.villager.sensor.nearest-bed"));
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_SENSOR_VILLAGER_BABIES, this.patches.getInt("paper.tick-rates.villager.sensor.villager-babies"));
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_SENSOR_PLAYER, this.patches.getInt("paper.tick-rates.villager.sensor.player"));
-                pw.setInt(PaperWorld.Key.TICK_RATE_VILLAGER_SENSOR_NEAREST_LIVING_ENTITY, this.patches.getInt("paper.tick-rates.villager.sensor.nearest-living-entity"));
-
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_SENSOR_SECONDARY_POI.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.sensor.secondary-poi"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_SENSOR_NEAREST_BED.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.sensor.nearest-bed"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_SENSOR_VILLAGER_BABIES.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.sensor.villager-babies"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_SENSOR_PLAYER.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.sensor.player"));
+                ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_VILLAGER_SENSOR_NEAREST_LIVING_ENTITY.toString())).setValue(this.patches.getInt("paper.tick-rates.villager.sensor.nearest-living-entity"));
             } else {
                 this.log.info("[KOS][4/6] You're running Pufferfish, skipping some steps due to incompatibility...");
             }
 
-            pw.setBoolean(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_ENABLED, this.patches.getBoolean("paper.optimised-despawn.enabled"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_ENABLED.toString())).setValue(this.patches.getBoolean("paper.optimised-despawn.enabled"));
 
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_COBBLESTONE, this.patches.getInt("paper.optimised-despawn.cobblestone"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_NETHERRACK, this.patches.getInt("paper.optimised-despawn.netherrack"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SAND, this.patches.getInt("paper.optimised-despawn.sand"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_RED_SAND, this.patches.getInt("paper.optimised-despawn.red-sand"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_GRAVEL, this.patches.getInt("paper.optimised-despawn.gravel"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DIRT, this.patches.getInt("paper.optimised-despawn.dirt"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SHORT_GRASS, this.patches.getInt("paper.optimised-despawn.short-grass"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_PUMPKIN, this.patches.getInt("paper.optimised-despawn.pumpkin"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_MELON_SLICE, this.patches.getInt("paper.optimised-despawn.melon-slice"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_KELP, this.patches.getInt("paper.optimised-despawn.kelp"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_BAMBOO, this.patches.getInt("paper.optimised-despawn.bamboo"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SUGAR_CANE, this.patches.getInt("paper.optimised-despawn.sugar-cane"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_TWISTING_VINES, this.patches.getInt("paper.optimised-despawn.twisting-vines"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_WEEPING_VINES, this.patches.getInt("paper.optimised-despawn.weeping-vines"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_OAK_LEAVES, this.patches.getInt("paper.optimised-despawn.oak-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SPRUCE_LEAVES, this.patches.getInt("paper.optimised-despawn.spruce-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_BIRCH_LEAVES, this.patches.getInt("paper.optimised-despawn.birch-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_JUNGLE_LEAVES, this.patches.getInt("paper.optimised-despawn.jungle-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_ACACIA_LEAVES, this.patches.getInt("paper.optimised-despawn.acacia-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DARK_OAK_LEAVES, this.patches.getInt("paper.optimised-despawn.dark-oak-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_MANGROVE_LEAVES, this.patches.getInt("paper.optimised-despawn.mangrove-leaves"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_CACTUS, this.patches.getInt("paper.optimised-despawn.cactus"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_DIORITE, this.patches.getInt("paper.optimised-despawn.diorite"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_GRANITE, this.patches.getInt("paper.optimised-despawn.granite"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_ANDESITE, this.patches.getInt("paper.optimised-despawn.andesite"));
-            pw.setInt(PaperWorld.Key.ALT_ITEM_DESPAWN_RATE_SCAFFOLDING, this.patches.getInt("paper.optimised-despawn.scaffolding"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_COBBLESTONE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.cobblestone"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_NETHERRACK.toString())).setValue(this.patches.getInt("paper.optimised-despawn.netherrack"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_SAND.toString())).setValue(this.patches.getInt("paper.optimised-despawn.sand"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_RED_SAND.toString())).setValue(this.patches.getInt("paper.optimised-despawn.red-sand"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_GRAVEL.toString())).setValue(this.patches.getInt("paper.optimised-despawn.gravel"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_DIRT.toString())).setValue(this.patches.getInt("paper.optimised-despawn.dirt"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_SHORT_GRASS.toString())).setValue(this.patches.getInt("paper.optimised-despawn.short-grass"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_PUMPKIN.toString())).setValue(this.patches.getInt("paper.optimised-despawn.pumpkin"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_MELON_SLICE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.melon-slice"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_KELP.toString())).setValue(this.patches.getInt("paper.optimised-despawn.kelp"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_BAMBOO.toString())).setValue(this.patches.getInt("paper.optimised-despawn.bamboo"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_SUGAR_CANE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.sugar-cane"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_TWISTING_VINES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.twisting-vines"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_WEEPING_VINES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.weeping-vines"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_OAK_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.oak-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_SPRUCE_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.spruce-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_BIRCH_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.birch-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_JUNGLE_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.jungle-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_ACACIA_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.acacia-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_DARK_OAK_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.dark-oak-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_MANGROVE_LEAVES.toString())).setValue(this.patches.getInt("paper.optimised-despawn.mangrove-leaves"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_CACTUS.toString())).setValue(this.patches.getInt("paper.optimised-despawn.cactus"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_DIORITE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.diorite"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_GRANITE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.granite"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_ANDESITE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.andesite"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ALT_ITEM_DESPAWN_RATE_SCAFFOLDING.toString())).setValue(this.patches.getInt("paper.optimised-despawn.scaffolding"));
 
-
-            pw.setString(PaperWorld.Key.REDSTONE_IMPLEMENTATION, this.patches.getString("paper.redstone-implementation"));
-            pw.setBoolean(PaperWorld.Key.HOPPER_DISABLE_MOVE_EVENT, this.patches.getBoolean("paper.hoppers.disable-move-event"));
-            pw.setBoolean(PaperWorld.Key.HOPPER_IGNORE_OCCLUDING_BLOCKS, this.patches.getBoolean("paper.hoppers.ignore-occluding-blocks"));
-            pw.setInt(PaperWorld.Key.TICK_RATE_MOB_SPAWNER, this.patches.getInt("paper.tick-rates.mob-spawner"));
-            pw.setBoolean(PaperWorld.Key.OPTIMIZE_EXPLOSIONS, this.patches.getBoolean("paper.optimise-explosions"));
+            ((StringConfigItem)pw.values.get(PaperWorldConfig.Key.REDSTONE_IMPLEMENTATION.toString())).setValue(this.patches.getString("paper.redstone-implementation"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.HOPPER_DISABLE_MOVE_EVENT.toString())).setValue(this.patches.getBoolean("paper.hoppers.disable-move-event"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.HOPPER_IGNORE_OCCLUDING_BLOCKS.toString())).setValue(this.patches.getBoolean("paper.hoppers.ignore-occluding-blocks"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_MOB_SPAWNER.toString())).setValue(this.patches.getInt("paper.tick-rates.mob-spawner"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.OPTIMIZE_EXPLOSIONS.toString())).setValue(this.patches.getBoolean("paper.optimise-explosions"));
 
             if (pregeneratedWorld) {
                 this.log.info("[KOS][4/6] World is pregenerated, enabling treasure maps...");
-                pw.setBoolean(PaperWorld.Key.TREASURE_MAPS_ENABLED, true);
+                ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.TREASURE_MAPS_ENABLED.toString())).setValue(true);
             } else {
                 if (this.plugin.getConfig().getBoolean("kos.override-pregenerated-world-protections")) {
-                    pw.setBoolean(PaperWorld.Key.TREASURE_MAPS_ENABLED, true);
+                    ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.TREASURE_MAPS_ENABLED.toString())).setValue(true);
                     this.log.warn("[KOS][4/6] override-pregenerated-world-protections is TRUE, enabling treasure maps. This may cause lag.");
                 } else {
-                    pw.setBoolean(PaperWorld.Key.TREASURE_MAPS_ENABLED, false);
+                    ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.TREASURE_MAPS_ENABLED.toString())).setValue(false);
                     this.log.info("[KOS][4/6] World not pregenerated, disabling treasure maps...");
                     this.message.Warning("Treasure maps have been disabled, please pre-generate your world to re-enable them.");
                 }
             }
 
-            pw.setBoolean(PaperWorld.Key.TREASURE_MAPS_FIND_ALREADY_DISCOVERED_LOOT_TABLES, this.patches.getBoolean("paper.find-already-discovered-loot-tables"));
-            pw.setBoolean(PaperWorld.Key.TREASURE_MAPS_FIND_ALREADY_DISCOVERED_VILLAGER_TRADE, this.patches.getBoolean("paper.find-already-discovered-villager-trade"));
-            pw.setInt(PaperWorld.Key.TICK_RATE_GRASS_SPREAD, this.patches.getInt("paper.tick-rates.grass-spread"));
-            pw.setInt(PaperWorld.Key.TICK_RATE_CONTAINER_UPDATE, this.patches.getInt("paper.tick-rates.container-update"));
-            pw.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_NON_PLAYER, this.patches.getInt("paper.optimised-despawn.arrow.non-player"));
-            pw.setInt(PaperWorld.Key.ARROW_DESPAWN_RATE_CREATIVE, this.patches.getInt("paper.optimised-despawn.arrow.creative"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.TREASURE_MAPS_FIND_ALREADY_DISCOVERED_LOOT_TABLES.toString())).setValue(this.patches.getBoolean("paper.find-already-discovered-loot-tables"));
+            ((BooleanConfigItem)pw.values.get(PaperWorldConfig.Key.TREASURE_MAPS_FIND_ALREADY_DISCOVERED_VILLAGER_TRADE.toString())).setValue(this.patches.getBoolean("paper.find-already-discovered-villager-trade"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_GRASS_SPREAD.toString())).setValue(this.patches.getInt("paper.tick-rates.grass-spread"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.TICK_RATE_CONTAINER_UPDATE.toString())).setValue(this.patches.getInt("paper.tick-rates.container-update"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ARROW_DESPAWN_RATE_NON_PLAYER.toString())).setValue(this.patches.getInt("paper.optimised-despawn.arrow.non-player"));
+            ((IntegerConfigItem)pw.values.get(PaperWorldConfig.Key.ARROW_DESPAWN_RATE_CREATIVE.toString())).setValue(this.patches.getInt("paper.optimised-despawn.arrow.creative"));
         } else {
             log.info("[KOS] 4/6 - Server does not support Paper World configurations, skipping...");
         }

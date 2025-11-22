@@ -102,16 +102,31 @@ public class DoubleConfigItem extends GenericConfigItem<Double> {
      */
     @Override
     public boolean isIdeal() {
-        if (idealValue == null) { return true; }
-        Double current = this.getValue();
-        if (idealValue.contains("-")) {
-            String[] parts = idealValue.split("-");
-            double minIdeal = Double.parseDouble(parts[0]);
-            double maxIdeal = Double.parseDouble(parts[1]);
-            return current >= minIdeal && current <= maxIdeal;
-        } else {
-            return current == Double.parseDouble(idealValue);
+        if (idealValue == null) {
+            return true;
         }
+
+        double current = this.getValue();
+        String trimmed = idealValue.trim();
+
+        if (trimmed.contains("-")) {
+            String[] parts = trimmed.split("-");
+            double minIdeal = Double.parseDouble(parts[0].trim());
+            double maxIdeal = Double.parseDouble(parts[1].trim());
+            return current >= minIdeal && current <= maxIdeal;
+        }
+
+        if (trimmed.startsWith(">")) {
+            double threshold = Double.parseDouble(trimmed.substring(1).trim());
+            return current > threshold;
+        }
+
+        if (trimmed.startsWith("<")) {
+            double threshold = Double.parseDouble(trimmed.substring(1).trim());
+            return current < threshold;
+        }
+
+        return current == Double.parseDouble(trimmed);
     }
 
     /**

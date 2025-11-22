@@ -102,17 +102,33 @@ public class IntegerConfigItem extends GenericConfigItem<Integer> {
      */
     @Override
     public boolean isIdeal() {
-        if (idealValue == null) { return true; }
+        if (idealValue == null) {
+            return true;
+        }
+
         int current = this.getValue();
-        if (idealValue.contains("-")) {
-            String[] parts = idealValue.split("-");
+        String trimmed = idealValue.trim();
+
+        if (trimmed.contains("-")) {
+            String[] parts = trimmed.split("-");
             int minIdeal = Integer.parseInt(parts[0].trim());
             int maxIdeal = Integer.parseInt(parts[1].trim());
             return current >= minIdeal && current <= maxIdeal;
-        } else {
-            return current == Integer.parseInt(idealValue);
         }
+
+        if (trimmed.startsWith(">")) {
+            int threshold = Integer.parseInt(trimmed.substring(1).trim());
+            return current > threshold;
+        }
+
+        if (trimmed.startsWith("<")) {
+            int threshold = Integer.parseInt(trimmed.substring(1).trim());
+            return current < threshold;
+        }
+
+        return current == Integer.parseInt(trimmed);
     }
+
 
     /**
      * Returns the ideal value in human-readable, string format.
