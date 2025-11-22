@@ -1,9 +1,8 @@
 package net.lewmc.kryptonite.edb;
 
+import net.lewmc.foundry.Logger;
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.ServerProperties;
 import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
 import net.lewmc.kryptonite.utils.PropertiesUtil;
 import net.lewmc.kryptonite.utils.SoftwareUtil;
 import org.bukkit.command.CommandSender;
@@ -12,14 +11,14 @@ import java.util.Objects;
 public class Check {
     private final Kryptonite plugin;
     private final SoftwareUtil softwareUtil;
-    private final LogUtil log;
+    private final Logger log;
     private final CommandSender player;
 
     public Check(Kryptonite plugin, CommandSender player) {
         this.player = player;
         this.plugin = plugin;
         this.softwareUtil = new SoftwareUtil(plugin);
-        this.log = new LogUtil(plugin);
+        this.log = new Logger(plugin.foundryConfig);
     }
 
     public boolean edb1() {
@@ -406,7 +405,7 @@ public class Check {
     }
 
     public boolean edb12() {
-        if (this.softwareUtil.supportsServerProperties()) {
+        if (this.softwareUtil.supportsMinecraft()) {
             PropertiesUtil sp = new PropertiesUtil("server.properties");
 
             if (!Objects.equals(sp.getProperty("online-mode"), "true")) {
@@ -431,9 +430,5 @@ public class Check {
 
     public void logThis(String id, String value, String current, String expected) {
         this.log.warn("[" + id + "][FAIL] '" + value + "' is '" + current + "' - expected '" + expected + "'");
-    }
-
-    public void warnThis(String id, String value, String current, String expected) {
-        this.log.warn("[" + id + "][WARN] '" + value + "' is '" + current + "' - expected '" + expected + "'");
     }
 }

@@ -1,8 +1,8 @@
 package net.lewmc.kryptonite.utils;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.kos.config.Pufferfish;
-import org.bukkit.command.CommandSender;
+import net.lewmc.kryptonite.config.PufferfishConfig;
+import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
 
 public class SoftwareUtil {
     private final Kryptonite plugin;
@@ -11,8 +11,8 @@ public class SoftwareUtil {
         this.plugin = plugin;
     }
 
-    public boolean supportsServerProperties() {
-        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SERVER_PROPERTIES);
+    public boolean supportsMinecraft() {
+        return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.MINECRAFT);
     }
 
     public boolean supportsCraftBukkit() {
@@ -35,10 +35,9 @@ public class SoftwareUtil {
         return this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.PUFFERFISH);
     }
 
-    public boolean dabEnabled(CommandSender cs) {
+    public boolean dabEnabled() {
         if (this.supportsPufferfish()) {
-            Pufferfish pf = new Pufferfish(this.plugin, cs);
-            return pf.getBoolean(Pufferfish.Key.DAB_ENABLED);
+            return ((BooleanConfigItem)new PufferfishConfig(this.plugin).values.get(PufferfishConfig.Key.DAB_ENABLED.toString())).getValue();
         } else {
             return false;
         }

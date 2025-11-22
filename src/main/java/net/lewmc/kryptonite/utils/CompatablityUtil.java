@@ -26,7 +26,13 @@ public class CompatablityUtil {
                     p.getName().equalsIgnoreCase("PluginManager") ||
                     p.getName().equalsIgnoreCase("AutoPluginLoader") ||
                     p.getName().equalsIgnoreCase("PlugMan") ||
-                    p.getName().equalsIgnoreCase("PlugManX")
+                    p.getName().equalsIgnoreCase("PlugManX") ||
+                    p.getName().equalsIgnoreCase("WildStacker") ||
+                    p.getName().equalsIgnoreCase("FarmLimiter") ||
+                    p.getName().equalsIgnoreCase("ChunkSpawnerLimiter") ||
+                    p.getName().equalsIgnoreCase("AntiLagX") ||
+                    p.getName().equalsIgnoreCase("WildTools") ||
+                    p.getName().equalsIgnoreCase("AutoClear")
             ) {
                 badPlugins.add(p.getName());
             }

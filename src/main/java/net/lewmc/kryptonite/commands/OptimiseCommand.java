@@ -1,10 +1,10 @@
 package net.lewmc.kryptonite.commands;
 
+import net.lewmc.foundry.Permissions;
 import net.lewmc.kryptonite.Kryptonite;
 import net.lewmc.kryptonite.kos.AutoKOS;
 import net.lewmc.kryptonite.kos.gui.KOS_MainGui;
 import net.lewmc.kryptonite.utils.MessageUtil;
-import net.lewmc.kryptonite.utils.PermissionUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,9 +34,8 @@ public class OptimiseCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         MessageUtil message = new MessageUtil(commandSender);
-        PermissionUtil perm = new PermissionUtil();
 
-        if (perm.isOperator(commandSender)) {
+        if (new Permissions(commandSender).isOp()) {
             if (commandSender instanceof Player) {
                 KOS_MainGui gui = new KOS_MainGui(this.plugin, commandSender);
                 gui.show();

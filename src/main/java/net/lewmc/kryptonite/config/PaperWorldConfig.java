@@ -1,27 +1,297 @@
-package net.lewmc.kryptonite.kos.config;
+package net.lewmc.kryptonite.config;
 
 import net.lewmc.kryptonite.Kryptonite;
-import net.lewmc.kryptonite.utils.ConfigurationUtil;
-import net.lewmc.kryptonite.utils.LogUtil;
-import org.bukkit.command.CommandSender;
+import net.lewmc.kryptonite.utils.config.BooleanConfigItem;
+import net.lewmc.kryptonite.utils.config.ConfigCollection;
+import net.lewmc.kryptonite.utils.config.IntegerConfigItem;
+import net.lewmc.kryptonite.utils.config.StringConfigItem;
+
+import java.util.List;
 
 /**
- * The PaperWorld class manages the paper-world-defaults.yml configuration file.
- * @deprecated
+ * Configuration data for config/paper-world-defaults.yml
+ * @since 2.1.0
  */
-@Deprecated
-public class PaperWorld {
-    private final Kryptonite plugin;
-    private final CommandSender user;
-
+public class PaperWorldConfig extends ConfigCollection {
     /**
-     * Constructor for the PaperWorld class.
-     * @param plugin Kryptonite - Reference to the main plugin class.
-     * @param user CommandSender - The user who sent the command.
+     * Constructs the config/paper-world-defaults data.
+     * @param plugin Kryptonite - Reference to the main Kryptonite class.
      */
-    public PaperWorld(Kryptonite plugin, CommandSender user) {
-        this.plugin = plugin;
-        this.user = user;
+    public PaperWorldConfig(Kryptonite plugin) {
+        String file = "config/paper-world-defaults";
+
+        values.put(Key.DELAY_CHUNK_UNLOADS_BY.toString(), new StringConfigItem(
+                file,
+                Key.DELAY_CHUNK_UNLOADS_BY.toString(),
+                "Delay Chunk Unloads By",
+                List.of("Delays chunk unloads by the specified time.",
+                        "Recommended value: 'default' (click to lowest)"),
+                true,
+                List.of("default","1s","2s","3s","4s","5s","6s","7s","8s","9s","10s","11s","12s","13s","14s","15s","16s","17s","18s","19s","20s","21s","22s","23s","24s","25s","26s","27s","28s","29s","30s","1m","5m","10m","30m","1h","3h","6h","12h","1d"),
+                List.of("default"),
+                plugin
+        ));
+
+        values.put(Key.MAX_AUTOSAVE_CHUNKS_PER_TICK.toString(), new IntegerConfigItem(
+                file,
+                Key.MAX_AUTOSAVE_CHUNKS_PER_TICK.toString(),
+                "Max Autosave Chunks Per Tick",
+                List.of("The maximum number of chunks the auto-save system",
+                        "will save in a single tick."),
+                true,
+                0,
+                100,
+                "24",
+                plugin
+        ));
+
+        values.put(Key.PREVENT_MOVING_INTO_UNLOADED_CHUNKS.toString(), new BooleanConfigItem(
+                file,
+                Key.PREVENT_MOVING_INTO_UNLOADED_CHUNKS.toString(),
+                "Prevent Moving into Unloaded Chunks",
+                List.of("Sets whether the server will prevent players from",
+                        "moving into unloaded chunks or not. Can reduce",
+                        "server lag, but players may stutter when travelling,",
+                        "especially at high speeds."),
+                true,
+                true,
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_AREA_EFFECT_CLOUD.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_AREA_EFFECT_CLOUD.toString(),
+                "Entity Per Chunk Save Limit (Area Effect Cloud)",
+                List.of("Limits the number of area effect cloud entities that",
+                        "will be saved and loaded per chunk. A value of -1 ",
+                        "disables the limit."),
+                true,
+                0,
+                255,
+                "<12",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ARROW.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ARROW.toString(),
+                "Entity Per Chunk Save Limit (Arrow)",
+                List.of("Limits the number of arrows that will be saved and",
+                        "loaded per chunk. A value of -1 disables the limit."),
+                true,
+                -1,
+                256,
+                "16-20",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_DRAGON_FIREBALL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_DRAGON_FIREBALL.toString(),
+                "Entity Per Chunk Save Limit (Dragon Fireball)",
+                List.of("Limits the number of dragon fireball entities that",
+                        "will be saved and loaded per chunk. A value of -1 ",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "3-5",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EGG.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EGG.toString(),
+                "Entity Per Chunk Save Limit (Egg)",
+                List.of("Limits the number of eggs that will be saved and",
+                        "loaded per chunk. A value of -1 disables the limit."),
+                true,
+                -1,
+                256,
+                "8-20",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ENDER_PEARL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_ENDER_PEARL.toString(),
+                "Entity Per Chunk Save Limit (Ender Pearl)",
+                List.of("Limits the number of ender pearls that will be",
+                        "saved and loaded per chunk. A value of -1 disables",
+                        "the limit."),
+                true,
+                -1,
+                256,
+                "8-20",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_BOTTLE.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_BOTTLE.toString(),
+                "Entity Per Chunk Save Limit (Experience Bottle)",
+                List.of("Limits the number of experience bottles that will be",
+                        "saved and loaded per chunk. A value of -1 disables",
+                        "the limit."),
+                true,
+                -1,
+                256,
+                "3-5",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EXPERIENCE_ORB.toString(),
+                "Entity Per Chunk Save Limit (Experience Orb)",
+                List.of("Limits the number of experience orbs that will be",
+                        "saved and loaded per chunk. A value of -1 disables",
+                        "the limit."),
+                true,
+                -1,
+                256,
+                "16-50",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_EYE_OF_ENDER.toString(),
+                "Entity Per Chunk Save Limit (Eye of Ender)",
+                List.of("Limits the number of eyes of ender that will be",
+                        "saved and loaded per chunk. A value of -1 disables",
+                        "the limit."),
+                true,
+                -1,
+                256,
+                "8-20",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_FIREBALL.toString(),
+                "Entity Per Chunk Save Limit (Fireball)",
+                List.of("Limits the number of fireballs that will be saved and",
+                        "loaded per chunk. A value of -1 disables the limit."),
+                true,
+                -1,
+                256,
+                "8-10",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_LLAMA_SPIT.toString(),
+                "Entity Per Chunk Save Limit (Llama Spit)",
+                List.of("Limits the number of llama spit entities that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "3-5",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_POTION.toString(),
+                "Entity Per Chunk Save Limit (Splash Potion)",
+                List.of("Limits the number of splash potion clouds that",
+                        "will be saved and loaded per chunk. A value of",
+                        "-1 disables the limit."),
+                true,
+                -1,
+                256,
+                "8-10",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET.toString(),
+                "Entity Per Chunk Save Limit (Shulker Bullet)",
+                List.of("Limits the number of shulker bullets that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "8",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SMALL_FIREBALL.toString(),
+                "Entity Per Chunk Save Limit (Small Fireball)",
+                List.of("Limits the number of small fireballs that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "8",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SNOWBALL.toString(),
+                "Entity Per Chunk Save Limit (Snowball)",
+                List.of("Limits the number of snowball entities that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "8-20",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_SPECTRAL_ARROW.toString(),
+                "Entity Per Chunk Save Limit (Spectral Arrow)",
+                List.of("Limits the number of spectral arrows that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "5-16",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_TRIDENT.toString(),
+                "Entity Per Chunk Save Limit (Trident)",
+                List.of("Limits the number of trident entities that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "10-16",
+                plugin
+        ));
+
+        values.put(Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL.toString(), new IntegerConfigItem(
+                file,
+                Key.ENTITY_PER_CHUNK_SAVE_LIMIT_WITHER_SKULL.toString(),
+                "Entity Per Chunk Save Limit (Wither Skull)",
+                List.of("Limits the number of wither skulls that will",
+                        "be saved and loaded per chunk. A value of -1",
+                        "disables the limit."),
+                true,
+                -1,
+                256,
+                "72",
+                plugin
+        ));
     }
 
     /**
@@ -68,7 +338,7 @@ public class PaperWorld {
             @Override public String toString() { return "chunks.entity-per-chunk-save-limit.llama_spit"; }
         },
         ENTITY_PER_CHUNK_SAVE_LIMIT_POTION {
-            @Override public String toString() { return "chunks.entity-per-chunk-save-limit.potion"; }
+            @Override public String toString() { return "chunks.entity-per-chunk-save-limit.splash_potion"; }
         },
         ENTITY_PER_CHUNK_SAVE_LIMIT_SHULKER_BULLET {
             @Override public String toString() { return "chunks.entity-per-chunk-save-limit.shulker_bullet"; }
@@ -298,93 +568,5 @@ public class PaperWorld {
         NERFED_SPAWNER_MOBS_SHOULD_JUMP {
             @Override public String toString() { return "spawner-nerfed-mobs-should-jump"; }
         }
-    }
-
-    /**
-     * Sets a requested key to a requested value.
-     * @param key Key - The requested key.
-     * @param value int - The requested value.
-     */
-    public void setInt(Key key, int value) {
-        this.plugin.restartRequired = true;
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        cfg.set(key.toString(), value);
-        cfg.save();
-
-        LogUtil log = new LogUtil(this.plugin);
-        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
-    }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
-    public int getInt(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        return cfg.getInt(key.toString());
-    }
-
-    /**
-     * Sets a requested key to a requested value.
-     * @param key Key - The requested key.
-     * @param value int - The requested value.
-     */
-    public void setBoolean(Key key, boolean value) {
-        this.plugin.restartRequired = true;
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        cfg.set(key.toString(), value);
-        cfg.save();
-
-        LogUtil log = new LogUtil(this.plugin);
-        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
-    }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
-    public boolean getBoolean(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        return cfg.getBoolean(key.toString());
-    }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
-    public Object getObject(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        return cfg.get(key.toString());
-    }
-
-    /**
-     * Gets a requested key's value.
-     * @param key Key - The requested key.
-     */
-    public String getString(Key key) {
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        return cfg.getString(key.toString());
-    }
-
-    /**
-     * Sets a requested key to a requested value.
-     * @param key Key - The requested key.
-     * @param value int - The requested value.
-     */
-    public void setString(Key key, String value) {
-        this.plugin.restartRequired = true;
-        ConfigurationUtil cfg = new ConfigurationUtil(this.plugin, this.user);
-        cfg.load("config/paper-world-defaults.yml");
-        cfg.set(key.toString(), value);
-        cfg.save();
-
-        LogUtil log = new LogUtil(this.plugin);
-        log.veboseInfo("KOS>config/paper-world-defaults.yml set '" + key + "' to '" + value + "'");
     }
 }

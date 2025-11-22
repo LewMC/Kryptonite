@@ -44,27 +44,28 @@ public class KOS_ManualGUI {
      * Adds pre-programmed elements to the GUI
      */
     private void addElements() {
-        if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.SERVER_PROPERTIES)) {
+        if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.MINECRAFT)) {
             this.gui.addElement(new StaticGuiElement('p',
                     new ItemStack(Material.COMMAND_BLOCK_MINECART),
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_ServerPropertiesGui spGui = new KOS_ServerPropertiesGui(this.plugin, this.user);
-                        spGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.MINECRAFT).show();
                         return true;
                     },
-                    ChatColor.BLUE + "Server",
-                    ChatColor.AQUA + "Manage the Server configuration."
+                    ChatColor.BLUE + "Minecraft",
+                    ChatColor.AQUA + "Manage Minecraft's configuration."
             ));
         } else {
             this.gui.addElement(new StaticGuiElement('p',
                     new ItemStack(Material.BARRIER),
                     1,
                     click -> true,
-                    ChatColor.DARK_RED + "Server",
-                    ChatColor.RED + "Manage the Server configuration.",
-                    ChatColor.RED + "Your server does not support this."
+                    ChatColor.DARK_RED + "Minecraft",
+                    ChatColor.RED + "Manage Minecraft's configuration.",
+                    ChatColor.RED + "Your server does not support this, but it",
+                    ChatColor.RED + "should. Please contact LewMC for help at",
+                    ChatColor.RED + "lewmc.net/help"
             ));
         }
 
@@ -74,8 +75,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_BukkitGui bGui = new KOS_BukkitGui(this.plugin, this.user);
-                        bGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.BUKKIT).show();
                         return true;
                     },
                     ChatColor.BLUE + "Bukkit",
@@ -98,8 +98,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_SpigotGui_1 spigGui = new KOS_SpigotGui_1(this.plugin, this.user);
-                        spigGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.SPIGOT).show();
                         return true;
                     },
                     ChatColor.BLUE + "Spigot",
@@ -144,8 +143,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PaperWorld_1 paperWorldGui = new KOS_PaperWorld_1(this.plugin, this.user);
-                        paperWorldGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PAPER_WORLD).show();
                         return true;
                     },
                     ChatColor.BLUE + "Paper World",
@@ -168,8 +166,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PurpurGui purpurGui = new KOS_PurpurGui(this.plugin, this.user);
-                        purpurGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PURPUR).show();
                         return true;
                     },
                     ChatColor.BLUE + "Purpur",
@@ -192,8 +189,7 @@ public class KOS_ManualGUI {
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_PufferfishGui pufferfishGui = new KOS_PufferfishGui(this.plugin, this.user);
-                        pufferfishGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.PUFFERFISH).show();
                         return true;
                     },
                     ChatColor.BLUE + "Pufferfish",
@@ -211,20 +207,19 @@ public class KOS_ManualGUI {
         }
 
         if (this.plugin.SupportedConfigurations.contains(Kryptonite.ConfigurationOptions.LEAF)) {
-            this.gui.addElement(new StaticGuiElement('g',
+            this.gui.addElement(new StaticGuiElement('l',
                     new ItemStack(Material.OAK_LEAVES),
                     1,
                     click -> {
                         click.getGui().close();
-                        KOS_LeafGui leafGui = new KOS_LeafGui(this.plugin, this.user);
-                        leafGui.show();
+                        new KOS_ConfigItemGui(this.plugin, this.user, Kryptonite.ConfigurationOptions.LEAF).show();
                         return true;
                     },
                     ChatColor.BLUE + "Leaf",
                     ChatColor.AQUA + "Manage the Leaf configuration."
             ));
         } else {
-            this.gui.addElement(new StaticGuiElement('f',
+            this.gui.addElement(new StaticGuiElement('l',
                     new ItemStack(Material.BARRIER),
                     1,
                     click -> true,
@@ -246,7 +241,7 @@ public class KOS_ManualGUI {
 
         return new String[]{
                 " p b s g ",
-                "  o u f  ",
+                " o u f l ",
                 "  w x y  "
         };
     }
